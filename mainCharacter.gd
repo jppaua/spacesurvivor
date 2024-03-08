@@ -1,37 +1,44 @@
 extends CharacterBody2D
 
 
-const LAND_SPEED = 350.0
-const AIR_SPEED = 120.0
+const SPEED = 350.0
 const JUMP_VELOCITY = -850.0
+const GRAVITY_DAMPING = 0.5
+const AIR_SPEED_INCREMENT = 25
+var isLeft = false
+#var gravity = 1000
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var sprite_2d = $Sprite2D
 
 
 func _physics_process(delta):
+	var direction = Input.get_axis("left", "right")
+	
 	if not is_on_floor():
 		velocity.y += gravity * delta
+		if direction * velocity.x < 0:
+			velocity.x += direction * AIR_SPEED_INCREMENT
+		else:
+			if abs(velocity.x) < SPEED:
+				velocity.x += direction * AIR_SPEED_INCREMENT
 
-	# Handle jump.
-	if Input.is_action_just_pressed("jump"):
+	else:
+		velocity.x = move_toward(velocity.x, 0, 100)
+	
+	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction = Input.get_axis("left", "right")
+	
 	if direction and is_on_floor():
-		velocity.x = direction * LAND_SPEED
-	else:
-		if direction and not is_on_floor():
-			if abs(velocity.x) <= AIR_SPEED:
-				velocity.x = direction * AIR_SPEED
-
-	if not is_on_floor():
-		velocity.x=move_toward(velocity.x, 0, 1)
-	else:
-		velocity.x = move_toward(velocity.x, 0, 20)
-
+		velocity.x = direction * SPEED
+		
+	if Input.is_action_just_released("jump") and velocity.y < 0:
+		velocity.y *= GRAVITY_DAMPING
+		
 	move_and_slide()
 	
-	var isLeft = velocity.x < 0
+	if velocity.x < 0:
+		isLeft = true
+	else:
+		if velocity.x > 0:
+			isLeft = false
 	sprite_2d.flip_h = isLeft

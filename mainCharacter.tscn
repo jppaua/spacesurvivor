@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cc5o7ceflf5na" path="res://astro.png" id="1_fkweg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b736i"]
-size = Vector2(40, 72)
+size = Vector2(32, 70)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 
@@ -14,5 +14,5 @@ scale = Vector2(0.625, 0.625)
 texture = ExtResource("1_fkweg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(463, 356)
+position = Vector2(465, 357)
 shape = SubResource("RectangleShape2D_b736i")
