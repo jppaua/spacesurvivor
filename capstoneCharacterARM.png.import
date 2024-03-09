@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cc5o7ceflf5na"
-path="res://.godot/imported/astro.png-d45a9ea18a527d2dd54070500461acb2.ctex"
+uid="uid://c1ecb1e2pnqgt"
+path="res://.godot/imported/capstoneCharacterARM.png-da44c7e51fb1ecfb3d24bca650ecf91e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://astro.png"
-dest_files=["res://.godot/imported/astro.png-d45a9ea18a527d2dd54070500461acb2.ctex"]
+source_file="res://capstoneCharacterARM.png"
+dest_files=["res://.godot/imported/capstoneCharacterARM.png-da44c7e51fb1ecfb3d24bca650ecf91e.ctex"]
 
 [params]
 
