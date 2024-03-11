@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://dh5jf12vmhyg"]
+[gd_scene load_steps=15 format=3 uid="uid://dh5jf12vmhyg"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_h7odw"]
 [ext_resource type="Texture2D" uid="uid://ddrrh172focw6" path="res://assets/blue.png" id="1_kyydu"]
 [ext_resource type="Texture2D" uid="uid://cwxeqc27wijfd" path="res://assets/tilesets/capstonetileset.png" id="2_f1cc3"]
 [ext_resource type="PackedScene" uid="uid://dinb37355x3ql" path="res://scenes/mainCharacter.tscn" id="3_cxs2l"]
+[ext_resource type="Script" path="res://scripts/mainCharacter.gd" id="4_15s02"]
 [ext_resource type="PackedScene" uid="uid://damgtv70ceswa" path="res://scenes/inventory_item.tscn" id="6_jvmlk"]
 [ext_resource type="Texture2D" uid="uid://1sktwj8aqjno" path="res://assets/resources/harvestcrystal.png" id="7_fimo1"]
 [ext_resource type="Texture2D" uid="uid://ceidiq061mw63" path="res://assets/resources/purplestuff.png" id="8_l3hli"]
@@ -98,6 +99,7 @@ layer_0/tile_data = PackedInt32Array(589823, 65537, 0, 524288, 131073, 0, 589824
 
 [node name="Player" parent="." instance=ExtResource("3_cxs2l")]
 position = Vector2(584, 441)
+script = ExtResource("4_15s02")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(0.6, 0.6)
@@ -105,64 +107,50 @@ zoom = Vector2(0.6, 0.6)
 [node name="SpriteCollection" type="Node2D" parent="."]
 position = Vector2(0, 5)
 
-[node name="Pistol" parent="SpriteCollection" instance=ExtResource("6_jvmlk")]
-position = Vector2(753, 56)
-item_type = "WEAPON"
-item_name = "Pistol"
-item_texture = ExtResource("9_tkqn8")
-item_effect = "Fires bullets that deal damage"
-
-[node name="RPG" parent="SpriteCollection" instance=ExtResource("6_jvmlk")]
-position = Vector2(842, 55)
-item_type = "WEAPON"
-item_name = "RPG"
-item_texture = ExtResource("11_xok44")
-item_effect = "Fires explosives that deal damage"
-
-[node name="Sword" parent="SpriteCollection" instance=ExtResource("6_jvmlk")]
-position = Vector2(949, 55)
-item_type = "WEAPON"
-item_name = "Sword"
-item_texture = ExtResource("12_gncef")
-item_effect = "Short range melee attacks that deal damage"
-
-[node name="Iron" parent="SpriteCollection" instance=ExtResource("6_jvmlk")]
-position = Vector2(1045, 56)
-item_type = "MATERIAL"
-item_name = "Iron"
-item_texture = ExtResource("10_jnl7q")
-item_effect = "Used to craft items"
-
 [node name="Crystal" parent="SpriteCollection" instance=ExtResource("6_jvmlk")]
-position = Vector2(1152, 422)
+position = Vector2(1152, 417)
 item_type = "MATERIAL"
 item_name = "Crystal"
 item_texture = ExtResource("7_fimo1")
 item_effect = "Used to craft Items"
 
 [node name="Charoite" parent="SpriteCollection" instance=ExtResource("6_jvmlk")]
-position = Vector2(1245, 418)
+position = Vector2(1245, 414)
 item_type = "MATERIAL"
 item_name = "Charoite"
 item_texture = ExtResource("8_l3hli")
 item_effect = "Used to craft items"
+
+[node name="Pistol" parent="SpriteCollection" instance=ExtResource("6_jvmlk")]
+position = Vector2(963, 418)
+item_type = "WEAPON"
+item_name = "Pistol"
+item_texture = ExtResource("9_tkqn8")
+item_effect = "Fires bullets that deal damage"
+
+[node name="Iron" parent="SpriteCollection" instance=ExtResource("6_jvmlk")]
+position = Vector2(1061, 417)
+item_type = "MATERIAL"
+item_name = "Iron"
+item_texture = ExtResource("10_jnl7q")
+item_effect = "Used to craft items"
+
+[node name="RPG" parent="SpriteCollection" instance=ExtResource("6_jvmlk")]
+position = Vector2(861, 469)
+item_type = "WEAPON"
+item_name = "RPG"
+item_texture = ExtResource("11_xok44")
+item_effect = "Fires explosives that deal damage"
+
+[node name="Sword" parent="SpriteCollection" instance=ExtResource("6_jvmlk")]
+position = Vector2(752, 468)
+item_type = "WEAPON"
+item_name = "Sword"
+item_texture = ExtResource("12_gncef")
+item_effect = "Short range melee attacks that deal damage"
 
 [node name="Charoite2" parent="SpriteCollection" instance=ExtResource("6_jvmlk")]
-position = Vector2(1333, 375)
-item_type = "MATERIAL"
-item_name = "Charoite"
-item_texture = ExtResource("8_l3hli")
-item_effect = "Used to craft items"
-
-[node name="Charoite3" parent="SpriteCollection" instance=ExtResource("6_jvmlk")]
-position = Vector2(1422, 375)
-item_type = "MATERIAL"
-item_name = "Charoite"
-item_texture = ExtResource("8_l3hli")
-item_effect = "Used to craft items"
-
-[node name="Charoite4" parent="SpriteCollection" instance=ExtResource("6_jvmlk")]
-position = Vector2(1511, 373)
+position = Vector2(1509, 373)
 item_type = "MATERIAL"
 item_name = "Charoite"
 item_texture = ExtResource("8_l3hli")
@@ -170,6 +158,20 @@ item_effect = "Used to craft items"
 
 [node name="Charoite5" parent="SpriteCollection" instance=ExtResource("6_jvmlk")]
 position = Vector2(1598, 375)
+item_type = "MATERIAL"
+item_name = "Charoite"
+item_texture = ExtResource("8_l3hli")
+item_effect = "Used to craft items"
+
+[node name="Charoite4" parent="SpriteCollection" instance=ExtResource("6_jvmlk")]
+position = Vector2(1419, 374)
+item_type = "MATERIAL"
+item_name = "Charoite"
+item_texture = ExtResource("8_l3hli")
+item_effect = "Used to craft items"
+
+[node name="Charoite3" parent="SpriteCollection" instance=ExtResource("6_jvmlk")]
+position = Vector2(1331, 374)
 item_type = "MATERIAL"
 item_name = "Charoite"
 item_texture = ExtResource("8_l3hli")

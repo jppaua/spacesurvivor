@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dinb37355x3ql"]
+[gd_scene load_steps=8 format=3 uid="uid://dinb37355x3ql"]
 
+[ext_resource type="Script" path="res://scripts/mainCharacter.gd" id="1_ce8oy"]
 [ext_resource type="Texture2D" uid="uid://c1ecb1e2pnqgt" path="res://assets/character/capstoneCharacterARM.png" id="2_fdgfn"]
 [ext_resource type="Texture2D" uid="uid://bspxdgsmuvsnv" path="res://assets/character/capstoneCharacterALT.png" id="2_qlvv8"]
 [ext_resource type="FontFile" uid="uid://bp8shuqwwyqdy" path="res://assets/fonts/Hardpixel-nn51.otf" id="3_q4e8c"]
@@ -10,6 +11,7 @@
 size = Vector2(30, 77)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
+script = ExtResource("1_ce8oy")
 
 [node name="PlayerParent" type="Node2D" parent="."]
 

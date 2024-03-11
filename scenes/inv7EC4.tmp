@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bulxt058rvmt7" path="res://assets/resources/defaultItem.png" id="2_k0k0r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jk0ro"]
-radius = 69.029
+radius = 222.036
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2gesh"]
 size = Vector2(2, 2)
@@ -14,7 +14,10 @@ radius = 23.0217
 
 [node name="Inventory_Item" type="CharacterBody2D" groups=["Items"]]
 script = ExtResource("1_hk5q0")
+item_type = null
+item_name = null
 item_texture = ExtResource("2_k0k0r")
+item_effect = null
 
 [node name="Vacuum_Zone" type="Area2D" parent="."]
 
@@ -29,13 +32,9 @@ texture = ExtResource("2_k0k0r")
 shape = SubResource("RectangleShape2D_2gesh")
 
 [node name="Pickup_Zone" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pickup_Zone"]
 shape = SubResource("CircleShape2D_fprp6")
 
 [connection signal="body_entered" from="Vacuum_Zone" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_entered" from="Vacuum_Zone" to="." method="_on_vacuum_zone_body_entered"]
 [connection signal="body_exited" from="Vacuum_Zone" to="." method="_on_area_2d_body_exited"]
-[connection signal="body_exited" from="Vacuum_Zone" to="." method="_on_vacuum_zone_body_exited"]
-[connection signal="body_entered" from="Pickup_Zone" to="." method="_on_pickup_zone_body_entered"]
