@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1ecb1e2pnqgt"
-path="res://.godot/imported/capstoneCharacterARM.png-da44c7e51fb1ecfb3d24bca650ecf91e.ctex"
+uid="uid://ceidiq061mw63"
+path="res://.godot/imported/purplestuff.png-4311df55a24bcba990ec46145e17f160.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://capstoneCharacterARM.png"
-dest_files=["res://.godot/imported/capstoneCharacterARM.png-da44c7e51fb1ecfb3d24bca650ecf91e.ctex"]
+source_file="res://assets/resources/purplestuff.png"
+dest_files=["res://.godot/imported/purplestuff.png-4311df55a24bcba990ec46145e17f160.ctex"]
 
 [params]
 

@@ -10,8 +10,13 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var player_parent = $PlayerParent
 @onready var left_arm_parent = $PlayerParent/LeftArmParent
 @onready var right_arm_parent = $PlayerParent/RightArmParent
+@onready var interact_ui = $InteractUI
+@onready var inventory_ui = $InventoryUI
 
 
+func _ready():
+	#hooks up player to inventory
+	Global.set_player_reference(self)
 
 func _physics_process(delta):
 	
@@ -57,5 +62,8 @@ func _physics_process(delta):
 	left_arm_parent.rotation = angle_left
 	right_arm_parent.rotation = angle_right
 	
-	
 	move_and_slide()
+
+func _input(event):
+	if event.is_action_pressed("open_inv"):
+		inventory_ui.visible = !inventory_ui.visible
