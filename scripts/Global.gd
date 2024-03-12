@@ -1,5 +1,6 @@
 extends Node
 
+var hotbar = []
 var inventory = []
 var player_node: Node = null
 
@@ -10,15 +11,18 @@ signal inventory_updated
 
 func _ready():
 	inventory.resize(45)
+	hotbar.resize(9)
 
 func add_item(item):
 	for i in range(inventory.size()):
-		if inventory[i] != null and inventory[i]["type"] == item["type"] and inventory[i]["name"] == item["name"]:
+		if inventory[i] != null and inventory[i]["name"] == item["name"]:
 			inventory[i]["quantity"] += item["quantity"]
+			set_hotbar()
 			inventory_updated.emit()
 			return true
 		elif inventory[i] == null:
 			inventory[i] = item
+			set_hotbar()
 			inventory_updated.emit()
 			return true
 	return false
@@ -29,9 +33,14 @@ func remove_item(item_type, item_name):
 			inventory[i]["quantity"] = 0
 			if inventory[i]["quantity"] <= 0:
 				inventory[i] = null
+			set_hotbar()
 			inventory_updated.emit()
 			return true
 	return false
+
+func set_hotbar():
+	for i in range(hotbar.size()):
+		hotbar[i] = inventory[i]
 
 func increase_inventory_size():
 	inventory_updated.emit()

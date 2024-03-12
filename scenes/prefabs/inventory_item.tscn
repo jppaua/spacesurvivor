@@ -35,8 +35,8 @@ shape = SubResource("RectangleShape2D_2gesh")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pickup_Zone"]
 shape = SubResource("CircleShape2D_fprp6")
 
-[connection signal="body_entered" from="Vacuum_Zone" to="." method="_on_vacuum_zone_body_entered"]
 [connection signal="body_entered" from="Vacuum_Zone" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Vacuum_Zone" to="." method="_on_vacuum_zone_body_exited"]
+[connection signal="body_entered" from="Vacuum_Zone" to="." method="_on_vacuum_zone_body_entered"]
 [connection signal="body_exited" from="Vacuum_Zone" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_exited" from="Vacuum_Zone" to="." method="_on_vacuum_zone_body_exited"]
 [connection signal="body_entered" from="Pickup_Zone" to="." method="_on_pickup_zone_body_entered"]

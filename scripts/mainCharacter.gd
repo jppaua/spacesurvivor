@@ -10,7 +10,6 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var player_parent = $PlayerParent
 @onready var left_arm_parent = $PlayerParent/LeftArmParent
 @onready var right_arm_parent = $PlayerParent/RightArmParent
-@onready var interact_ui = $InteractUI
 @onready var inventory_ui = $InventoryUI
 @onready var label = $FpsUI/Label
 @onready var global_position_label = $GlobalPosUI/GlobalPosition
@@ -69,5 +68,25 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _input(event):
-	if event.is_action_pressed("open_inv"):
-		inventory_ui.visible = !inventory_ui.visible
+	if inventory_ui.visible:
+		if event.is_action_pressed("open_inv") or event.is_action_pressed("ui_cancel"):
+			inventory_ui.visible = false
+	else:
+		if event.is_action_pressed("open_inv"):
+			inventory_ui.visible = true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

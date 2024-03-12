@@ -179,7 +179,7 @@ item_effect = "Used to craft items"
 item_quantity = 1
 
 [node name="Charoite5" parent="SpriteCollection" instance=ExtResource("5_rr24h")]
-position = Vector2(595, 48)
+position = Vector2(127, 38)
 item_type = "MATERIAL"
 item_name = "Charoite"
 item_texture = ExtResource("11_nw0jt")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dinb37355x3ql"]
+[gd_scene load_steps=9 format=3 uid="uid://dinb37355x3ql"]
 
 [ext_resource type="Script" path="res://scripts/mainCharacter.gd" id="1_ce8oy"]
 [ext_resource type="Texture2D" uid="uid://c1ecb1e2pnqgt" path="res://assets/character/capstoneCharacterARM.png" id="2_fdgfn"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://bp8shuqwwyqdy" path="res://assets/fonts/Hardpixel-nn51.otf" id="3_q4e8c"]
 [ext_resource type="Texture2D" uid="uid://dfik1mh1xlhj1" path="res://assets/ui Elements/label.png" id="3_qpkep"]
 [ext_resource type="PackedScene" uid="uid://bb60ci44x5ewr" path="res://scenes/prefabs/inventory_ui.tscn" id="5_ptw2h"]
+[ext_resource type="Script" path="res://scripts/hotbar_ui.gd" id="7_2c4ib"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b736i"]
 size = Vector2(30, 77)
@@ -53,43 +54,10 @@ texture = ExtResource("2_fdgfn")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_b736i")
 
-[node name="InteractUI" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="NinePatchRect" type="NinePatchRect" parent="InteractUI"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -284.0
-offset_bottom = 39.0
-grow_horizontal = 0
-texture = ExtResource("3_qpkep")
-patch_margin_left = 7
-patch_margin_top = 7
-patch_margin_right = 7
-patch_margin_bottom = 7
-
-[node name="Label" type="Label" parent="InteractUI/NinePatchRect"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -133.0
-offset_top = -15.0
-offset_right = 133.0
-offset_bottom = 15.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("3_q4e8c")
-theme_override_font_sizes/font_size = 25
-text = "PRESS \"E\" TO PICKUP"
-
 [node name="InventoryUI" type="CanvasLayer" parent="."]
 visible = false
 
-[node name="NinePatchRect" type="NinePatchRect" parent="InventoryUI"]
+[node name="InventoryRect" type="NinePatchRect" parent="InventoryUI"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -108,7 +76,7 @@ patch_margin_top = 7
 patch_margin_right = 7
 patch_margin_bottom = 7
 
-[node name="Label" type="Label" parent="InventoryUI/NinePatchRect"]
+[node name="Label" type="Label" parent="InventoryUI/InventoryRect"]
 layout_mode = 0
 offset_left = 11.0
 offset_top = 9.5
@@ -118,7 +86,7 @@ theme_override_fonts/font = ExtResource("3_q4e8c")
 theme_override_font_sizes/font_size = 20
 text = "INVENTORY"
 
-[node name="Inventory_UI" parent="InventoryUI/NinePatchRect" instance=ExtResource("5_ptw2h")]
+[node name="Inventory_UI" parent="InventoryUI/InventoryRect" instance=ExtResource("5_ptw2h")]
 layout_mode = 1
 
 [node name="FpsUI" type="CanvasLayer" parent="."]
@@ -154,3 +122,38 @@ theme_override_font_sizes/font_size = 10
 text = "[X,Y]"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="HotbarUI" type="CanvasLayer" parent="."]
+
+[node name="hotbarRect" type="NinePatchRect" parent="HotbarUI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -80.0
+offset_right = 250.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+patch_margin_left = 7
+patch_margin_top = 7
+patch_margin_right = 7
+patch_margin_bottom = 7
+
+[node name="GridContainer" type="GridContainer" parent="HotbarUI/hotbarRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = 5.0
+offset_right = 9.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 9
+script = ExtResource("7_2c4ib")

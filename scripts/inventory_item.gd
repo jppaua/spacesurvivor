@@ -26,9 +26,6 @@ func _physics_process(delta):
 	if Engine.is_editor_hint():
 		icon_sprite.texture = item_texture
 	
-	if player_in_vaccum_range and Input.is_action_just_pressed("interact"):
-		pickup_item()
-	
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	else:
