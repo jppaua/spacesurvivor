@@ -34,6 +34,7 @@ func _physics_process(delta):
 	global_position_label.text = "[ " + str(round(player_parent.global_position.x*10)/10) + " , " + str(round(player_parent.global_position.y*10)/10) + " ]"
 	fps_label.text = str(Engine.get_frames_per_second())
 	
+	
 	orient_player(mouse_position)
 	orient_player_arms(mouse_position)
 	handle_movement(direction, delta)
@@ -55,25 +56,21 @@ func set_hand_sprites():
 		for i in range(48, 58):
 			if Input.is_physical_key_pressed(i):
 				current_hotbar_index = i-49
-				current_item = Global.hotbar[current_hotbar_index]
 				break
-	if Input.is_action_just_pressed("scroll_up_hotbar_slot"):
+	if Input.is_action_just_pressed("scroll_down_hotbar_slot"):
 		if current_hotbar_index + 1 <= 8:
 			current_hotbar_index += 1
-			current_item = Global.hotbar[current_hotbar_index]
 		else:
 			current_hotbar_index = 0
-			current_item = Global.hotbar[current_hotbar_index]
-	if Input.is_action_just_pressed("scroll_down_hotbar_slot"):
+	if Input.is_action_just_pressed("scroll_up_hotbar_slot"):
 		if current_hotbar_index - 1 >= 0:
 			current_hotbar_index -= 1
-			current_item = Global.hotbar[current_hotbar_index]
 		else:
 			current_hotbar_index = 8
-			current_item = Global.hotbar[current_hotbar_index]
 	if Input.is_action_just_pressed("unselect_hotbar_slot"):
 		current_hotbar_index = -1
-		current_item = null;
+		
+	current_item = Global.hotbar[current_hotbar_index]
 	if current_item != null:
 		right_hand_sprite.texture = current_item["texture"]
 	else:
