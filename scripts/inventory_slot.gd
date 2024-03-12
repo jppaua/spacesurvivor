@@ -15,7 +15,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("drop_item") and is_over_item:
 		if item != null:
 			Global.drop_item(item)
-			Global.remove_item(item["type"], item["name"])
+			Global.remove_item(item["name"])
 
 func set_empty():
 	item_icon.texture = null
@@ -27,10 +27,8 @@ func set_item(new_item):
 	item_quantity.text = str(item["quantity"])
 	item_name.text = item["name"]
 	item_type.text = item["type"]
-	if item["effect"] != null:
-		item_effect.text = item["effect"]
-	else:
-		item_effect.text = ""
+	item_effect.text = item["description"]
+
 
 func _on_slot_mouse_entered():
 	if item != null:

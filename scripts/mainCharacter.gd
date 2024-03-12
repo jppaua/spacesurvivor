@@ -72,9 +72,20 @@ func set_hand_sprites():
 		
 	current_item = Global.hotbar[current_hotbar_index]
 	if current_item != null:
-		right_hand_sprite.texture = current_item["texture"]
+		if current_item["is_dual_wield"]:
+			right_hand_sprite.offset.x = current_item["x_offset"]
+			right_hand_sprite.offset.y = current_item["y_offset"]
+			right_hand_sprite.texture = current_item["texture"]
+			left_hand_sprite.offset = right_hand_sprite.offset
+			left_hand_sprite.texture = right_hand_sprite.texture
+		else:
+			right_hand_sprite.offset.x = current_item["x_offset"]
+			right_hand_sprite.offset.y = current_item["y_offset"]
+			right_hand_sprite.texture = current_item["texture"]
+			left_hand_sprite.texture = null
 	else:
 		right_hand_sprite.texture = null
+		left_hand_sprite.texture = null
 
 #if mouse is to the left of the player, turn left and vice versa
 func orient_player(mouse_position):
