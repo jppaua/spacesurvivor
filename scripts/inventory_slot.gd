@@ -8,23 +8,14 @@ extends Control
 @onready var item_type = $Item_Details/Item_Type
 @onready var item_effect = $Item_Details/Item_Effect
 
-@onready var usage_panel = $Usage_Panel
-
 var item = null
+var is_over_item = false
 
-func _on_item_button_pressed():
-	if item != null:
-		usage_panel.visible = !usage_panel.visible
-		item_details.visible = false
-
-func _on_item_button_mouse_entered():
-	if item != null:
-		usage_panel.visible = false
-		item_details.visible = true
-
-func _on_item_button_mouse_exited():
+func _process(delta):
+	if Input.is_action_just_pressed("drop_item") and is_over_item:
 		if item != null:
-			item_details.visible = false
+			Global.drop_item(item)
+			Global.remove_item(item["type"], item["name"])
 
 func set_empty():
 	item_icon.texture = null
@@ -40,3 +31,15 @@ func set_item(new_item):
 		item_effect.text = item["effect"]
 	else:
 		item_effect.text = ""
+
+func _on_slot_mouse_entered():
+	if item != null:
+		is_over_item = true
+		item_details.visible = true
+	else:
+		is_over_item = false
+		item_details.visible = false
+
+func _on_slot_mouse_exited():
+	is_over_item = false
+	item_details.visible = false

@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://b2ih0bwrfg5wn"]
 
-[ext_resource type="Script" path="res://scripts/inventory_slot.gd" id="1_fwesb"]
-[ext_resource type="Texture2D" uid="uid://dfik1mh1xlhj1" path="res://assets/ui Elements/label.png" id="2_db3pj"]
-[ext_resource type="Texture2D" uid="uid://bulxt058rvmt7" path="res://assets/resources/defaultItem.png" id="3_ifaqy"]
-[ext_resource type="FontFile" uid="uid://bp8shuqwwyqdy" path="res://assets/fonts/Hardpixel-nn51.otf" id="4_tlhy5"]
+[ext_resource type="Script" path="res://scripts/inventory_slot.gd" id="1_8ilu4"]
+[ext_resource type="Texture2D" uid="uid://dfik1mh1xlhj1" path="res://assets/ui Elements/label.png" id="2_5txyo"]
+[ext_resource type="Texture2D" uid="uid://bulxt058rvmt7" path="res://assets/resources/defaultItem.png" id="3_drx2d"]
+[ext_resource type="FontFile" uid="uid://bp8shuqwwyqdy" path="res://assets/fonts/Hardpixel-nn51.otf" id="4_30g6a"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s2wy8"]
 
@@ -13,13 +13,13 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 50.0
 offset_bottom = 50.0
-script = ExtResource("1_fwesb")
+script = ExtResource("1_8ilu4")
 
 [node name="Slot" type="NinePatchRect" parent="."]
 layout_mode = 0
 offset_right = 50.0
 offset_bottom = 50.0
-texture = ExtResource("2_db3pj")
+texture = ExtResource("2_5txyo")
 patch_margin_left = 7
 patch_margin_top = 7
 patch_margin_right = 7
@@ -28,7 +28,7 @@ patch_margin_bottom = 7
 [node name="Item_Icon" type="Sprite2D" parent="Slot"]
 position = Vector2(25, 25)
 scale = Vector2(2, 2)
-texture = ExtResource("3_ifaqy")
+texture = ExtResource("3_drx2d")
 
 [node name="Item_Quantity" type="Label" parent="Slot"]
 layout_mode = 1
@@ -43,7 +43,7 @@ offset_right = 2.0
 offset_bottom = 22.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("4_tlhy5")
+theme_override_fonts/font = ExtResource("4_30g6a")
 theme_override_font_sizes/font_size = 10
 text = "1"
 horizontal_alignment = 1
@@ -55,7 +55,7 @@ offset_left = 1.0
 offset_top = -81.0
 offset_right = 193.0
 offset_bottom = -1.0
-texture = ExtResource("2_db3pj")
+texture = ExtResource("2_5txyo")
 patch_margin_left = 7
 patch_margin_top = 7
 patch_margin_right = 7
@@ -67,7 +67,7 @@ offset_left = 10.0
 offset_top = 10.0
 offset_right = 50.0
 offset_bottom = 33.0
-theme_override_fonts/font = ExtResource("4_tlhy5")
+theme_override_fonts/font = ExtResource("4_30g6a")
 theme_override_font_sizes/font_size = 15
 text = "NAME"
 
@@ -77,7 +77,7 @@ offset_left = 10.0
 offset_top = 30.0
 offset_right = 80.0
 offset_bottom = 70.0
-theme_override_fonts/font = ExtResource("4_tlhy5")
+theme_override_fonts/font = ExtResource("4_30g6a")
 theme_override_font_sizes/font_size = 15
 text = "TYPE"
 
@@ -87,7 +87,7 @@ offset_left = 10.0
 offset_top = 50.0
 offset_right = 113.0
 offset_bottom = 86.0
-theme_override_fonts/font = ExtResource("4_tlhy5")
+theme_override_fonts/font = ExtResource("4_30g6a")
 theme_override_font_sizes/font_size = 15
 text = "EFFECT"
 
@@ -98,7 +98,7 @@ offset_left = 1.0
 offset_top = -70.0
 offset_right = 84.0
 offset_bottom = -1.0
-texture = ExtResource("2_db3pj")
+texture = ExtResource("2_5txyo")
 patch_margin_left = 7
 patch_margin_top = 7
 patch_margin_right = 7
@@ -114,7 +114,7 @@ offset_top = 7.0
 offset_right = 36.5
 offset_bottom = 33.0
 grow_horizontal = 2
-theme_override_fonts/font = ExtResource("4_tlhy5")
+theme_override_fonts/font = ExtResource("4_30g6a")
 theme_override_font_sizes/font_size = 15
 text = "USE
 "
@@ -132,7 +132,7 @@ offset_right = 36.5
 offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("4_tlhy5")
+theme_override_fonts/font = ExtResource("4_30g6a")
 theme_override_font_sizes/font_size = 15
 text = "DROP
 "
@@ -146,6 +146,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_s2wy8")
 
+[connection signal="mouse_entered" from="Usage_Panel" to="." method="_on_usage_panel_mouse_entered"]
+[connection signal="mouse_exited" from="Usage_Panel" to="." method="_on_usage_panel_mouse_exited"]
+[connection signal="pressed" from="Usage_Panel/Drop" to="." method="_on_drop_pressed"]
 [connection signal="mouse_entered" from="Item_Button" to="." method="_on_item_button_mouse_entered"]
 [connection signal="mouse_exited" from="Item_Button" to="." method="_on_item_button_mouse_exited"]
 [connection signal="pressed" from="Item_Button" to="." method="_on_item_button_pressed"]
