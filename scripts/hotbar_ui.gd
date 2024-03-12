@@ -9,7 +9,6 @@ func _ready():
 	_on_inventory_updated()
 
 func _on_inventory_updated():
-	print("HOTBAR UI METHOD THING RUN")
 	clear_grid_container()
 	for item in Global.hotbar:
 		var slot = Global.inventory_slot_scene.instantiate()
