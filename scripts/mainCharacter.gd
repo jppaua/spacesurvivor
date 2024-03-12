@@ -10,10 +10,19 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var player_parent = $PlayerParent
 @onready var left_arm_parent = $PlayerParent/LeftArmParent
 @onready var right_arm_parent = $PlayerParent/RightArmParent
+@onready var interact_ui = $InteractUI
+@onready var inventory_ui = $InventoryUI
+@onready var label = $FpsUI/Label
+@onready var global_position_label = $GlobalPosUI/GlobalPosition
 
 
+func _ready():
+	#hooks up player to inventory
+	Global.set_player_reference(self)
 
 func _physics_process(delta):
+	global_position_label.text = "[ " + str(round(player_parent.global_position.x*10)/10) + " , " + str(round(player_parent.global_position.y*10)/10) + " ]"
+	label.text = str(Engine.get_frames_per_second())
 	
 	#-1 if holding left, 0 if no keys are pressed, 1 if holding right
 	var direction = Input.get_axis("left", "right")
@@ -57,5 +66,8 @@ func _physics_process(delta):
 	left_arm_parent.rotation = angle_left
 	right_arm_parent.rotation = angle_right
 	
-	
 	move_and_slide()
+
+func _input(event):
+	if event.is_action_pressed("open_inv"):
+		inventory_ui.visible = !inventory_ui.visible

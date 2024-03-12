@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bspxdgsmuvsnv"
-path="res://.godot/imported/capstoneCharacterALT.png-7fea51a0e3df2ff08426368782f5259f.ctex"
+uid="uid://bulxt058rvmt7"
+path="res://.godot/imported/defaultItem.png-5c4ece714c708bafeff36effa5ee582a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://capstoneCharacterALT.png"
-dest_files=["res://.godot/imported/capstoneCharacterALT.png-7fea51a0e3df2ff08426368782f5259f.ctex"]
+source_file="res://assets/resources/defaultItem.png"
+dest_files=["res://.godot/imported/defaultItem.png-5c4ece714c708bafeff36effa5ee582a.ctex"]
 
 [params]
 

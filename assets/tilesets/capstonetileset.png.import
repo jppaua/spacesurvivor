@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dft27uh44jseb"
-path="res://.godot/imported/capstoneCharacter.png-e81fba1f7269a169578c00a393cf282d.ctex"
+uid="uid://cwxeqc27wijfd"
+path="res://.godot/imported/capstonetileset.png-4813befde97c7163d42e32ce5866e096.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://capstoneCharacter.png"
-dest_files=["res://.godot/imported/capstoneCharacter.png-e81fba1f7269a169578c00a393cf282d.ctex"]
+source_file="res://assets/tilesets/capstonetileset.png"
+dest_files=["res://.godot/imported/capstonetileset.png-4813befde97c7163d42e32ce5866e096.ctex"]
 
 [params]
 

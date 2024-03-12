@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwxeqc27wijfd"
-path="res://.godot/imported/capstonetileset.png-7ff8e0b5df1c8b3dfde41f2bb12819e0.ctex"
+uid="uid://clbuv88x5bvb8"
+path="res://.godot/imported/pistol.png-df7d203cea1aa2f56534a7905cf1599b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://capstonetileset.png"
-dest_files=["res://.godot/imported/capstonetileset.png-7ff8e0b5df1c8b3dfde41f2bb12819e0.ctex"]
+source_file="res://assets/weapons/pistol.png"
+dest_files=["res://.godot/imported/pistol.png-df7d203cea1aa2f56534a7905cf1599b.ctex"]
 
 [params]
 
