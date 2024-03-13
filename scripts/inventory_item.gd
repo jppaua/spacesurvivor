@@ -70,9 +70,10 @@ func _on_vacuum_zone_body_exited(body):
 		#body.interact_ui.visible = false
 
 func _on_pickup_zone_body_entered(body):
+	player_in_pickup_range = true
 	if body.is_in_group("Player") and player_in_pickup_range:
 		pickup_item()
-	player_in_pickup_range = true
+	
 
 func set_item_data(data):
 	item_type = data["type"]

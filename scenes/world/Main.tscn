@@ -111,39 +111,32 @@ position = Vector2(39, 26)
 item_type = "WEAPON"
 item_name = "Dual Pistol"
 item_texture = ExtResource("6_ybr4q")
-item_description = "Dual Semi-auto Pistols"
+item_description = "Dual Pistols, fire bullets"
 item_is_dual_wield = true
-item_damage = 10
-item_rate_of_fire = 1
-item_accuracy = 1
 item_quantity = 1
 item_x_offset = 5
 item_y_offset = -1
-
-[node name="Single Pistol" parent="SpriteCollection" instance=ExtResource("5_rr24h")]
-position = Vector2(-91, 20)
-item_type = "WEAPON"
-item_name = "Single Pistol"
-item_texture = ExtResource("6_ybr4q")
-item_description = "Semi-auto Pistol"
-item_damage = 10
-item_rate_of_fire = 1
-item_accuracy = 1
-item_quantity = 1
 
 [node name="RPG" parent="SpriteCollection" instance=ExtResource("5_rr24h")]
 position = Vector2(757, 49)
 item_type = "WEAPON"
 item_name = "RPG"
 item_texture = ExtResource("7_751cj")
+item_description = "Fires explosive ammo"
+item_is_dual_wield = true
 item_quantity = 1
+item_x_offset = -7
+item_y_offset = -3
 
 [node name="Sword" parent="SpriteCollection" instance=ExtResource("5_rr24h")]
 position = Vector2(863, 47)
 item_type = "WEAPON"
 item_name = "Sword"
 item_texture = ExtResource("8_1hn47")
+item_is_dual_wield = true
 item_quantity = 1
+item_x_offset = 18
+item_y_offset = -1
 
 [node name="Iron" parent="SpriteCollection" instance=ExtResource("5_rr24h")]
 position = Vector2(942, 45)
@@ -160,35 +153,7 @@ item_texture = ExtResource("10_32501")
 item_quantity = 1
 
 [node name="Charoite" parent="SpriteCollection" instance=ExtResource("5_rr24h")]
-position = Vector2(565, 45)
-item_type = "MATERIAL"
-item_name = "Charoite"
-item_texture = ExtResource("11_nw0jt")
-item_quantity = 1
-
-[node name="Charoite2" parent="SpriteCollection" instance=ExtResource("5_rr24h")]
-position = Vector2(575, 14)
-item_type = "MATERIAL"
-item_name = "Charoite"
-item_texture = ExtResource("11_nw0jt")
-item_quantity = 1
-
-[node name="Charoite3" parent="SpriteCollection" instance=ExtResource("5_rr24h")]
-position = Vector2(541, 16)
-item_type = "MATERIAL"
-item_name = "Charoite"
-item_texture = ExtResource("11_nw0jt")
-item_quantity = 1
-
-[node name="Charoite4" parent="SpriteCollection" instance=ExtResource("5_rr24h")]
-position = Vector2(593, 38)
-item_type = "MATERIAL"
-item_name = "Charoite"
-item_texture = ExtResource("11_nw0jt")
-item_quantity = 1
-
-[node name="Charoite5" parent="SpriteCollection" instance=ExtResource("5_rr24h")]
-position = Vector2(530, 45)
+position = Vector2(552, 49)
 item_type = "MATERIAL"
 item_name = "Charoite"
 item_texture = ExtResource("11_nw0jt")
