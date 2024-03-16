@@ -8,8 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://bb60ci44x5ewr" path="res://scenes/prefabs/inventory_ui.tscn" id="5_ptw2h"]
 [ext_resource type="Script" path="res://scripts/hotbar_ui.gd" id="7_2c4ib"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b736i"]
-size = Vector2(30, 77)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_73eia"]
+size = Vector2(36, 56)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_ce8oy")
@@ -54,10 +54,6 @@ z_index = 3
 position = Vector2(14.5, 2.5)
 scale = Vector2(2.428, 2.428)
 texture = ExtResource("2_fdgfn")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-shape = SubResource("RectangleShape2D_b736i")
 
 [node name="InventoryUI" type="CanvasLayer" parent="."]
 visible = false
@@ -162,3 +158,7 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 9
 script = ExtResource("7_2c4ib")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 8)
+shape = SubResource("RectangleShape2D_73eia")
