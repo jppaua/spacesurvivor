@@ -9,6 +9,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var current_item = null
 var current_hotbar_index = -1
 
+
 @onready var player_parent = $PlayerParent
 
 @onready var left_arm_parent = $PlayerParent/LeftArmParent
@@ -49,6 +50,8 @@ func _input(event):
 	else:
 		if event.is_action_pressed("open_inv"):
 			inventory_ui.visible = true
+			
+
 
 #Sets the sprites of whatever the player is holding
 func set_hand_sprites():
