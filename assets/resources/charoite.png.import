@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1sktwj8aqjno"
-path="res://.godot/imported/harvestcrystal.png-ab21ca842f6fb45e7b940dccd4616406.ctex"
+uid="uid://ceidiq061mw63"
+path="res://.godot/imported/charoite.png-9a5642eb5c49761ba5bdbe312dd78e3b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/resources/harvestcrystal.png"
-dest_files=["res://.godot/imported/harvestcrystal.png-ab21ca842f6fb45e7b940dccd4616406.ctex"]
+source_file="res://assets/resources/charoite.png"
+dest_files=["res://.godot/imported/charoite.png-9a5642eb5c49761ba5bdbe312dd78e3b.ctex"]
 
 [params]
 

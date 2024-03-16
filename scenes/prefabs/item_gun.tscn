@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://damgtv70ceswa"]
 
-[ext_resource type="Script" path="res://scripts/inventory_item.gd" id="1_hk5q0"]
+[ext_resource type="Script" path="res://scripts/item_gun.gd" id="1_1f36u"]
 [ext_resource type="Texture2D" uid="uid://bulxt058rvmt7" path="res://assets/resources/defaultItem.png" id="2_k0k0r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jk0ro"]
@@ -12,11 +12,10 @@ size = Vector2(2, 2)
 [sub_resource type="CircleShape2D" id="CircleShape2D_fprp6"]
 radius = 24.0
 
-[node name="Inventory_Item" type="CharacterBody2D" groups=["Items"]]
+[node name="item_gun" type="CharacterBody2D" groups=["Items"]]
 collision_layer = 2
 collision_mask = 2
-script = ExtResource("1_hk5q0")
-item_texture = ExtResource("2_k0k0r")
+script = ExtResource("1_1f36u")
 
 [node name="Vacuum_Zone" type="Area2D" parent="."]
 

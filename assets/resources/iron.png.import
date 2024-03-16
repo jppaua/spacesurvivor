@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ceidiq061mw63"
-path="res://.godot/imported/purplestuff.png-4311df55a24bcba990ec46145e17f160.ctex"
+uid="uid://bcfq7gtjfevqo"
+path="res://.godot/imported/iron.png-b8b9eddc21dbbf1610c32a42ed153f5c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/resources/purplestuff.png"
-dest_files=["res://.godot/imported/purplestuff.png-4311df55a24bcba990ec46145e17f160.ctex"]
+source_file="res://assets/resources/iron.png"
+dest_files=["res://.godot/imported/iron.png-b8b9eddc21dbbf1610c32a42ed153f5c.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcfq7gtjfevqo"
-path="res://.godot/imported/brownStone.png-f8763effc8395ec6d88deaaa86b9dd56.ctex"
+uid="uid://1sktwj8aqjno"
+path="res://.godot/imported/crystal.png-a24e29802fec20411b99879e3b07b790.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/resources/brownStone.png"
-dest_files=["res://.godot/imported/brownStone.png-f8763effc8395ec6d88deaaa86b9dd56.ctex"]
+source_file="res://assets/resources/crystal.png"
+dest_files=["res://.godot/imported/crystal.png-a24e29802fec20411b99879e3b07b790.ctex"]
 
 [params]
 

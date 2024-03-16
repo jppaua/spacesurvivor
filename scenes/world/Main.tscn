@@ -1,16 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://dh5jf12vmhyg"]
+[gd_scene load_steps=10 format=3 uid="uid://dh5jf12vmhyg"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_yg8dp"]
 [ext_resource type="Texture2D" uid="uid://ddrrh172focw6" path="res://assets/blue.png" id="2_ihww7"]
 [ext_resource type="Texture2D" uid="uid://cwxeqc27wijfd" path="res://assets/tilesets/capstonetileset.png" id="3_x6v72"]
 [ext_resource type="PackedScene" uid="uid://dinb37355x3ql" path="res://scenes/prefabs/mainCharacter.tscn" id="4_s1sbj"]
-[ext_resource type="PackedScene" uid="uid://damgtv70ceswa" path="res://scenes/prefabs/inventory_item.tscn" id="5_rr24h"]
-[ext_resource type="Texture2D" uid="uid://clbuv88x5bvb8" path="res://assets/weapons/pistol.png" id="6_ybr4q"]
-[ext_resource type="Texture2D" uid="uid://b0g02vlm5svxp" path="res://assets/weapons/rpg.png" id="7_751cj"]
-[ext_resource type="Texture2D" uid="uid://y0ugk4tuwxrj" path="res://assets/weapons/saber.png" id="8_1hn47"]
-[ext_resource type="Texture2D" uid="uid://bcfq7gtjfevqo" path="res://assets/resources/brownStone.png" id="9_7038g"]
-[ext_resource type="Texture2D" uid="uid://1sktwj8aqjno" path="res://assets/resources/harvestcrystal.png" id="10_32501"]
-[ext_resource type="Texture2D" uid="uid://ceidiq061mw63" path="res://assets/resources/purplestuff.png" id="11_nw0jt"]
+[ext_resource type="PackedScene" uid="uid://damgtv70ceswa" path="res://scenes/prefabs/item_gun.tscn" id="5_rr24h"]
+[ext_resource type="PackedScene" uid="uid://3iy88eiyele" path="res://scenes/prefabs/item_melee.tscn" id="6_q1cwc"]
+[ext_resource type="PackedScene" uid="uid://djgagr37lg8rj" path="res://scenes/prefabs/item_material.tscn" id="7_tdhx0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7sjri"]
 texture = ExtResource("3_x6v72")
@@ -82,10 +78,10 @@ anchor_left = -2.67
 anchor_top = -1.779
 anchor_right = 4.286
 anchor_bottom = 1.176
-offset_left = -0.159912
-offset_top = -0.208008
-offset_right = 0.527832
-offset_bottom = -0.0479736
+offset_left = 0.840088
+offset_top = 1.79199
+offset_right = 1.52832
+offset_bottom = 1.95203
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_ihww7")
@@ -101,60 +97,54 @@ layer_0/tile_data = PackedInt32Array(589823, 65537, 0, 524288, 131073, 0, 589824
 position = Vector2(261, 442)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, -1)
 zoom = Vector2(0.6, 0.6)
 
-[node name="SpriteCollection" type="Node2D" parent="."]
+[node name="item_gun(s)" type="Node2D" parent="."]
 position = Vector2(0, 5)
 
-[node name="Dual Pistol" parent="SpriteCollection" instance=ExtResource("5_rr24h")]
-position = Vector2(39, 26)
-item_type = "WEAPON"
-item_name = "Dual Pistol"
-item_texture = ExtResource("6_ybr4q")
-item_description = "Dual Pistols, fire bullets"
-item_is_dual_wield = true
-item_quantity = 1
-item_x_offset = 5
-item_y_offset = -1
+[node name="pistol" parent="item_gun(s)" instance=ExtResource("5_rr24h")]
+position = Vector2(502, -7)
+item_name = "pistol"
 
-[node name="RPG" parent="SpriteCollection" instance=ExtResource("5_rr24h")]
-position = Vector2(757, 49)
-item_type = "WEAPON"
-item_name = "RPG"
-item_texture = ExtResource("7_751cj")
-item_description = "Fires explosive ammo"
-item_is_dual_wield = true
-item_quantity = 1
-item_x_offset = -7
-item_y_offset = -3
+[node name="rpg" parent="item_gun(s)" instance=ExtResource("5_rr24h")]
+position = Vector2(402, -7)
+item_name = "rpg"
 
-[node name="Sword" parent="SpriteCollection" instance=ExtResource("5_rr24h")]
-position = Vector2(863, 47)
-item_type = "WEAPON"
-item_name = "Sword"
-item_texture = ExtResource("8_1hn47")
-item_is_dual_wield = true
-item_quantity = 1
-item_x_offset = 18
-item_y_offset = -1
+[node name="item_sword(s)" type="Node2D" parent="."]
 
-[node name="Iron" parent="SpriteCollection" instance=ExtResource("5_rr24h")]
-position = Vector2(942, 45)
-item_type = "MATERIAL"
-item_name = "Iron"
-item_texture = ExtResource("9_7038g")
-item_quantity = 1
+[node name="sword" parent="item_sword(s)" instance=ExtResource("6_q1cwc")]
+position = Vector2(620, 0)
+item_name = "saber"
 
-[node name="Crystal" parent="SpriteCollection" instance=ExtResource("5_rr24h")]
-position = Vector2(1000, 43)
-item_type = "MATERIAL"
-item_name = "Crystal"
-item_texture = ExtResource("10_32501")
-item_quantity = 1
+[node name="item_material(s)" type="Node2D" parent="."]
 
-[node name="Charoite" parent="SpriteCollection" instance=ExtResource("5_rr24h")]
-position = Vector2(552, 49)
-item_type = "MATERIAL"
-item_name = "Charoite"
-item_texture = ExtResource("11_nw0jt")
-item_quantity = 1
+[node name="charoite" parent="item_material(s)" instance=ExtResource("7_tdhx0")]
+position = Vector2(783, 1)
+item_name = "charoite"
+
+[node name="crystal" parent="item_material(s)" instance=ExtResource("7_tdhx0")]
+position = Vector2(873, 0)
+item_name = "crystal"
+
+[node name="iron" parent="item_material(s)" instance=ExtResource("7_tdhx0")]
+position = Vector2(966, -1)
+item_name = "iron"
+
+[node name="item_defaults" type="Node2D" parent="."]
+
+[node name="default firearm" parent="item_defaults" instance=ExtResource("5_rr24h")]
+position = Vector2(-246, -1)
+item_name = "wertwetwet"
+
+[node name="default TYPE" parent="item_defaults" instance=ExtResource("5_rr24h")]
+position = Vector2(-340, -3)
+item_type = "efwewerwer"
+item_name = "werwrer"
+
+[node name="default material" parent="item_defaults" instance=ExtResource("7_tdhx0")]
+position = Vector2(-149, -2)
+item_name = "q3eqweqe"
+
+[node name="default melee" parent="item_defaults" instance=ExtResource("6_q1cwc")]
+position = Vector2(-56, 0)
