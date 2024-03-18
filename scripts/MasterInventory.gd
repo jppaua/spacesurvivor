@@ -3,9 +3,10 @@ extends Node
 var master_inventory = {
 	"firearm":{
 		"pistol":{
-			"type": "FIREARM",
+			"type": "firearm",
 			"name": "Pistol",
 			"texture": preload("res://assets/weapons/pistol.png"),
+			"projectile": "res://scenes/prefabs/bullet.tscn",
 			"description": "Dual Pistols fire shots",
 			"is_dual_wield": true,
 			"is_full_auto": true,
@@ -14,12 +15,15 @@ var master_inventory = {
 			"accuracy": 1,
 			"quantity": 1,
 			"x_offset": 5,
-			"y_offset": -1
+			"y_offset": -1,
+			"x_barrel": 25,
+			"y_barrel": -8
 		},
 		"rpg":{
-			"type": "FIREARM",
+			"type": "firearm",
 			"name": "RPG",
 			"texture": preload("res://assets/weapons/rpg.png"),
+			"projectile": "res://scenes/prefabs/grenade.tscn",
 			"description": "Fires explosives",
 			"is_dual_wield": false,
 			"is_full_auto": false,
@@ -29,11 +33,14 @@ var master_inventory = {
 			"quantity": 1,
 			"x_offset": -8,
 			"y_offset": -2,
+			"x_barrel": 15,
+			"y_barrel": -8
 		},
 		"default":{
-			"type": "FIREARM",
+			"type": "firearm",
 			"name": "Default Firearm",
 			"texture": preload("res://assets/resources/defaultItem.png"),
+			"projectile": "res://scenes/prefabs/bullet.tscn",
 			"description": "no TYPE FIREARM with that NAME found",
 			"is_dual_wield": false,
 			"is_full_auto": false,
@@ -43,11 +50,13 @@ var master_inventory = {
 			"quantity": 1,
 			"x_offset": 0,
 			"y_offset": 0,
+			"x_barrel": 0,
+			"y_barrel": 0,
 		}
 	},
 	"melee":{
 		"saber":{
-			"type": "MELEE",
+			"type": "melee",
 			"name": "Saber",
 			"texture": preload("res://assets/weapons/saber.png"),
 			"description": "its a sword",
@@ -60,7 +69,7 @@ var master_inventory = {
 			"y_offset": 0,
 		},
 		"default":{
-			"type": "MELEE",
+			"type": "melee",
 			"name": "Default Melee",
 			"texture": preload("res://assets/resources/defaultItem.png"),
 			"description": "no TYPE MELEE with that NAME found",
@@ -75,7 +84,7 @@ var master_inventory = {
 	},
 	"material":{
 		"iron":{
-			"type": "MATERIAL",
+			"type": "material",
 			"name": "Iron",
 			"texture": preload("res://assets/resources/iron.png"),
 			"description": "Crafting Material",
@@ -85,7 +94,7 @@ var master_inventory = {
 			"y_offset": 0,
 		},
 		"charoite":{
-			"type": "MATERIAL",
+			"type": "material",
 			"name": "Charoite",
 			"texture": preload("res://assets/resources/charoite.png"),
 			"description": "Crafting Material",
@@ -95,7 +104,7 @@ var master_inventory = {
 			"y_offset": 0,
 		},
 		"crystal":{
-			"type": "MATERIAL",
+			"type": "material",
 			"name": "Crystal",
 			"texture": preload("res://assets/resources/crystal.png"),
 			"description": "Crafting Material",
@@ -105,7 +114,7 @@ var master_inventory = {
 			"y_offset": 0,
 		},
 		"default":{
-			"type": "MATERIAL",
+			"type": "material",
 			"name": "Default Material",
 			"texture": preload("res://assets/resources/defaultItem.png"),
 			"description": "no TYPE MATERIAL with that NAME found",
@@ -117,7 +126,7 @@ var master_inventory = {
 	},
 	"default":{
 		"default":{
-			"type": "DEFAULT TYPE",
+			"type": "default",
 			"name": "default",
 			"texture": preload("res://assets/resources/defaultItem.png"),
 			"description": "no TYPE found, check for typos, or recheck MasterInventory.gd",

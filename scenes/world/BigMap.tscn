@@ -320,50 +320,31 @@ rotation_smoothing_enabled = true
 position = Vector2(400, 5)
 
 [node name="pistol" parent="item_gun(s)" instance=ExtResource("5_yqqct")]
-position = Vector2(502, -7)
+position = Vector2(178, 84)
 item_name = "pistol"
 
 [node name="rpg" parent="item_gun(s)" instance=ExtResource("5_yqqct")]
-position = Vector2(402, -7)
+position = Vector2(178, 2)
 item_name = "rpg"
 
 [node name="item_sword(s)" type="Node2D" parent="."]
 position = Vector2(400, 0)
 
 [node name="sword" parent="item_sword(s)" instance=ExtResource("6_cardt")]
-position = Vector2(1100, 0)
+position = Vector2(178, -75)
 item_name = "saber"
 
 [node name="item_material(s)" type="Node2D" parent="."]
 position = Vector2(400, 0)
 
 [node name="charoite" parent="item_material(s)" instance=ExtResource("7_ti60d")]
-position = Vector2(783, 1)
+position = Vector2(179, -318)
 item_name = "charoite"
 
 [node name="crystal" parent="item_material(s)" instance=ExtResource("7_ti60d")]
-position = Vector2(873, 0)
+position = Vector2(178, -236)
 item_name = "crystal"
 
 [node name="iron" parent="item_material(s)" instance=ExtResource("7_ti60d")]
-position = Vector2(966, -1)
+position = Vector2(178, -156)
 item_name = "iron"
-
-[node name="item_defaults" type="Node2D" parent="."]
-position = Vector2(400, 0)
-
-[node name="default firearm" parent="item_defaults" instance=ExtResource("5_yqqct")]
-position = Vector2(-246, -1)
-item_name = "wertwetwet"
-
-[node name="default TYPE" parent="item_defaults" instance=ExtResource("5_yqqct")]
-position = Vector2(-340, -3)
-item_type = "efwewerwer"
-item_name = "werwrer"
-
-[node name="default material" parent="item_defaults" instance=ExtResource("7_ti60d")]
-position = Vector2(-149, -2)
-item_name = "q3eqweqe"
-
-[node name="default melee" parent="item_defaults" instance=ExtResource("6_cardt")]
-position = Vector2(-56, 0)
