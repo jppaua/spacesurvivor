@@ -9,6 +9,7 @@ func primary_action(item):
 		print("material primary action called: " + str(item))
 
 func firearm_primary(item):
+	var deviance = deviance(item["accuracy"])
 	var projectile = load(item["projectile"])
 	var projectile_instance = projectile.instantiate()
 	var right_barrel = Global.player_node.get_node("PlayerParent/RightArmParent/RightHandParent/RightBarrel")
@@ -16,5 +17,11 @@ func firearm_primary(item):
 	var scale = Global.player_node.get_node("PlayerParent").scale
 	projectile_instance.global_position = Vector2(right_barrel.global_position.x, right_barrel.global_position.y)
 	projectile_instance.scale = scale
-	projectile_instance.rotation = (Global.player_node.get_node("PlayerParent/RightArmParent").rotation) * scale.x
+	projectile_instance.rotation = ((Global.player_node.get_node("PlayerParent/RightArmParent").rotation) * scale.x) + deviance
 	get_tree().current_scene.add_child(projectile_instance)
+
+
+
+
+func deviance(range):
+	return randf_range(-range, range)

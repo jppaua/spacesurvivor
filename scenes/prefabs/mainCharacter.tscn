@@ -177,3 +177,7 @@ script = ExtResource("7_2c4ib")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 8)
 shape = SubResource("RectangleShape2D_73eia")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
