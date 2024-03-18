@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dax7rglkalnup"]
+
+[ext_resource type="Texture2D" uid="uid://wo6031ukp704" path="res://assets/resources/crystalresourcenode.png" id="1_kbag8"]
+[ext_resource type="Script" path="res://scenes/HarvestableResourceNodes/HarvestableResourceNode.gd" id="1_vca0w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hwib3"]
+radius = 33.0606
+
+[node name="CrystalResourceNode" type="Area2D" groups=["ResourceCollectionNode"]]
+script = ExtResource("1_vca0w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hwib3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_kbag8")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
