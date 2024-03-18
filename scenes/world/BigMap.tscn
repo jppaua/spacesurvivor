@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dh5jf12vmhyg"]
+[gd_scene load_steps=16 format=3 uid="uid://dh5jf12vmhyg"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_xhrpf"]
 [ext_resource type="Texture2D" uid="uid://3w0cgleylxds" path="res://assets/css-gradient.webp" id="2_0kk8j"]
@@ -8,6 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://damgtv70ceswa" path="res://scenes/prefabs/item_gun.tscn" id="5_yqqct"]
 [ext_resource type="PackedScene" uid="uid://3iy88eiyele" path="res://scenes/prefabs/item_melee.tscn" id="6_cardt"]
 [ext_resource type="PackedScene" uid="uid://djgagr37lg8rj" path="res://scenes/prefabs/item_material.tscn" id="7_ti60d"]
+[ext_resource type="PackedScene" uid="uid://b7cdol4lpyrq1" path="res://scenes/prefabs/resource_node.tscn" id="9_307yl"]
+[ext_resource type="Texture2D" uid="uid://ceidiq061mw63" path="res://assets/resources/charoite.png" id="10_6xwj1"]
+[ext_resource type="Texture2D" uid="uid://1sktwj8aqjno" path="res://assets/resources/crystal.png" id="11_0kca1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_seycf"]
 texture = ExtResource("3_c5aen")
@@ -348,3 +351,19 @@ item_name = "crystal"
 [node name="iron" parent="item_material(s)" instance=ExtResource("7_ti60d")]
 position = Vector2(178, -156)
 item_name = "iron"
+
+[node name="harvest_node(s)" type="Node2D" parent="."]
+
+[node name="harvest_node" parent="harvest_node(s)" instance=ExtResource("9_307yl")]
+position = Vector2(1102, 428)
+item_type = "firearm"
+item_name = "pistol"
+resource_amount = 6
+texture = ExtResource("10_6xwj1")
+
+[node name="harvest_node2" parent="harvest_node(s)" instance=ExtResource("9_307yl")]
+position = Vector2(1650, 559)
+item_type = "material"
+item_name = "charoite"
+resource_amount = 30
+texture = ExtResource("11_0kca1")

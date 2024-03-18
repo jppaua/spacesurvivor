@@ -17,7 +17,8 @@ var master_inventory = {
 			"x_offset": 5,
 			"y_offset": -1,
 			"x_barrel": 25,
-			"y_barrel": -8
+			"y_barrel": -8,
+			"scene_path": "res://scenes/prefabs/item_gun.tscn"
 		},
 		"rpg":{
 			"type": "firearm",
@@ -34,7 +35,8 @@ var master_inventory = {
 			"x_offset": -8,
 			"y_offset": -2,
 			"x_barrel": 15,
-			"y_barrel": -8
+			"y_barrel": -8,
+			"scene_path": "res://scenes/prefabs/item_gun.tscn"
 		},
 		"default":{
 			"type": "firearm",
@@ -52,6 +54,7 @@ var master_inventory = {
 			"y_offset": 0,
 			"x_barrel": 0,
 			"y_barrel": 0,
+			"scene_path": "res://scenes/prefabs/item_gun.tscn"
 		}
 	},
 	"melee":{
@@ -67,6 +70,7 @@ var master_inventory = {
 			"quantity": 1,
 			"x_offset": 18,
 			"y_offset": 0,
+			"scene_path": "res://scenes/prefabs/item_melee.tscn"
 		},
 		"default":{
 			"type": "melee",
@@ -80,6 +84,7 @@ var master_inventory = {
 			"quantity": 1,
 			"x_offset": 0,
 			"y_offset": 0,
+			"scene_path": "res://scenes/prefabs/item_melee.tscn"
 		}
 	},
 	"material":{
@@ -92,6 +97,7 @@ var master_inventory = {
 			"quantity": 1,
 			"x_offset": 0,
 			"y_offset": 0,
+			"scene_path": "res://scenes/prefabs/item_material.tscn"
 		},
 		"charoite":{
 			"type": "material",
@@ -102,6 +108,7 @@ var master_inventory = {
 			"quantity": 1,
 			"x_offset": 0,
 			"y_offset": 0,
+			"scene_path": "res://scenes/prefabs/item_material.tscn"
 		},
 		"crystal":{
 			"type": "material",
@@ -112,6 +119,7 @@ var master_inventory = {
 			"quantity": 1,
 			"x_offset": 0,
 			"y_offset": 0,
+			"scene_path": "res://scenes/prefabs/item_material.tscn"
 		},
 		"default":{
 			"type": "material",
@@ -122,6 +130,7 @@ var master_inventory = {
 			"quantity": 1,
 			"x_offset": 0,
 			"y_offset": 0,
+			"scene_path": "res://scenes/prefabs/item_material.tscn"
 		}
 	},
 	"default":{
@@ -133,6 +142,7 @@ var master_inventory = {
 			"quantity": 1,
 			"x_offset": 0,
 			"y_offset": 0,
+			"scene_path": "res://scenes/prefabs/item_material.tscn"
 		}
 	}
 }
@@ -145,6 +155,23 @@ func get_item_attributes(item_type, item_name):
 	if master_inventory[new_type].has(item_name):
 		new_name = item_name
 	return master_inventory[new_type][new_name]
+
+
+func spawn_item(item_type, item_name, position):
+	var new_type = "default"
+	var new_name = "default"
+	if master_inventory.has(item_type):
+		new_type = item_type
+	if master_inventory[new_type].has(item_name):
+		new_name = item_name
+	var item = master_inventory[new_type][new_name]
+	print(item)
+	var item_scene = load(item["scene_path"])
+	var item_instance = item_scene.instantiate()
+	item_instance.set_item_data(item)
+	item_instance.global_position = position
+	get_tree().current_scene.add_child(item_instance)
+	
 
 
 

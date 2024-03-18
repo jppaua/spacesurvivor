@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 0.0
+const SPEED = 3000.0
 @onready var timer = $Timer
 
 func _ready():
