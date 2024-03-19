@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-
 const SPEED = 350.0
 const JUMP_VELOCITY = -1000.0
 const GRAVITY_DAMPING = 0.5
@@ -50,7 +49,12 @@ func _input(event):
 	else:
 		if event.is_action_pressed("open_inv"):
 			inventory_ui.visible = true
-			
+	#Testing Hijack
+	if event.is_action_pressed("TestingKey"):
+		Global.add_item(MasterInventory.master_inventory["material"]["charoite"])
+		Global.add_item(MasterInventory.master_inventory["material"]["iron"])
+		Global.craft("Saber")
+
 
 
 #Sets the sprites of whatever the player is holding
@@ -129,19 +133,3 @@ func orient_player_arms(mouse_position):
 	var angle_right = ((((mouse_position - right_arm_parent.global_position).normalized()) * player_parent.scale.x).angle()) * player_parent.scale.x
 	left_arm_parent.rotation = angle_left
 	right_arm_parent.rotation = angle_right
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

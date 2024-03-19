@@ -136,18 +136,3 @@ func get_item_attributes(item_type, item_name):
 	if master_inventory[new_type].has(item_name):
 		new_name = item_name
 	return master_inventory[new_type][new_name]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

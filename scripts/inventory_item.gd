@@ -88,16 +88,3 @@ func set_item_data(data):
 	item_quantity = data["quantity"]
 	item_x_offset = data["x_offset"]
 	item_y_offset = data["y_offset"]
-
-
-
-
-
-
-
-
-
-
-
-
-
