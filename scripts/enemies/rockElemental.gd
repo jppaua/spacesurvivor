@@ -3,6 +3,8 @@ extends CharacterBody2D
 @export var speed = 50
 @export var nav_agent: NavigationAgent2D
 
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+
 var target_node = null
 var home_pos = Vector2.ZERO
 
