@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dh5jf12vmhyg"]
+[gd_scene load_steps=8 format=3 uid="uid://dh5jf12vmhyg"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_yg8dp"]
 [ext_resource type="Texture2D" uid="uid://3w0cgleylxds" path="res://assets/css-gradient.webp" id="2_bod78"]
 [ext_resource type="Texture2D" uid="uid://cygg013oixhhr" path="res://assets/tilesets/starttilerockylava-Sheet.png" id="3_uxibu"]
 [ext_resource type="PackedScene" uid="uid://dinb37355x3ql" path="res://scenes/prefabs/mainCharacter.tscn" id="4_s1sbj"]
+[ext_resource type="PackedScene" uid="uid://cmvw7jwmy8bww" path="res://scenes/prefabs/rockElemental.tscn" id="5_hdu7m"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h1eee"]
 texture = ExtResource("3_uxibu")
@@ -102,10 +103,10 @@ anchor_left = -2.67
 anchor_top = -1.779
 anchor_right = 4.286
 anchor_bottom = 1.176
-offset_left = 1625.84
-offset_top = 423.792
-offset_right = 3566.53
-offset_bottom = 423.952
+offset_left = 1623.84
+offset_top = 438.792
+offset_right = 3564.53
+offset_bottom = 438.952
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_bod78")
@@ -128,3 +129,6 @@ position_smoothing_speed = 60.0
 rotation_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
+
+[node name="Enemy" parent="." instance=ExtResource("5_hdu7m")]
+position = Vector2(1007, 435)
