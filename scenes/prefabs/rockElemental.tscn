@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://cmvw7jwmy8bww"]
+
+[ext_resource type="Script" path="res://scripts/enemies/rockElemental.gd" id="1_g7vo3"]
+[ext_resource type="Texture2D" uid="uid://bstjykebufm51" path="res://assets/npc/enemy/Sprite-0001.png" id="1_j3ms0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dr38w"]
+size = Vector2(54, 71)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hjhnn"]
+radius = 288.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_svdmv"]
+radius = 504.016
+
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent")]
+collision_layer = 4
+collision_mask = 7
+wall_min_slide_angle = 0.0
+script = ExtResource("1_g7vo3")
+nav_agent = NodePath("Navigation/NavigationAgent2D")
+
+[node name="RockElementalSprite" type="Sprite2D" parent="."]
+position = Vector2(1.19209e-07, 0)
+scale = Vector2(5.4375, 5.4375)
+texture = ExtResource("1_j3ms0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8.5)
+shape = SubResource("RectangleShape2D_dr38w")
+
+[node name="Navigation" type="Node2D" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Navigation"]
+debug_enabled = true
+
+[node name="RecalculateTimer" type="Timer" parent="Navigation"]
+wait_time = 0.1
+autostart = true
+
+[node name="Aggro" type="Node2D" parent="."]
+
+[node name="AggroRange" type="Area2D" parent="Aggro"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/AggroRange"]
+shape = SubResource("CircleShape2D_hjhnn")
+debug_color = Color(0.984314, 0, 0, 0.556863)
+
+[node name="DeAggroRange" type="Area2D" parent="Aggro"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/DeAggroRange"]
+shape = SubResource("CircleShape2D_svdmv")
+
+[connection signal="timeout" from="Navigation/RecalculateTimer" to="." method="_on_recalculate_timer_timeout"]
+[connection signal="area_entered" from="Aggro/AggroRange" to="." method="_on_aggro_range_area_entered"]
+[connection signal="area_exited" from="Aggro/DeAggroRange" to="." method="_on_de_aggro_range_area_exited"]
