@@ -59,6 +59,7 @@ func drop_item(item_data):
 	item_instance.player_in_vaccum_range = false
 	item_instance.player_in_pickup_range = false
 
+<<<<<<< HEAD
 func craft(item):
 	#It works, I hate it I am going to learn enough Godot to rip it a new one and make it better
 	
@@ -93,3 +94,13 @@ func tally(item_name):
 		return count
 	print("Count is 0")
 	return 0
+=======
+
+
+
+
+
+
+
+
+>>>>>>> 98a231ed8bfefb73d924aeabab6f4afaff825134
