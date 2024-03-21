@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://dh5jf12vmhyg"]
+[gd_scene load_steps=10 format=3 uid="uid://dh5jf12vmhyg"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_yg8dp"]
 [ext_resource type="Texture2D" uid="uid://3w0cgleylxds" path="res://assets/css-gradient.webp" id="2_bod78"]
 [ext_resource type="Texture2D" uid="uid://cygg013oixhhr" path="res://assets/tilesets/starttilerockylava-Sheet.png" id="3_uxibu"]
 [ext_resource type="PackedScene" uid="uid://dinb37355x3ql" path="res://scenes/prefabs/mainCharacter.tscn" id="4_s1sbj"]
 [ext_resource type="PackedScene" uid="uid://cmvw7jwmy8bww" path="res://scenes/prefabs/rockElemental.tscn" id="5_hdu7m"]
+[ext_resource type="PackedScene" uid="uid://df3c6ajefw2bn" path="res://scenes/prefabs/fireElemental.tscn" id="6_05f67"]
+[ext_resource type="PackedScene" uid="uid://bt8863kw4f0od" path="res://scenes/prefabs/spaceDemon.tscn" id="7_fojcd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h1eee"]
 texture = ExtResource("3_uxibu")
@@ -131,4 +133,22 @@ drag_horizontal_enabled = true
 drag_vertical_enabled = true
 
 [node name="Enemy" parent="." instance=ExtResource("5_hdu7m")]
-position = Vector2(1007, 435)
+position = Vector2(864, 439)
+
+[node name="Enemy2" parent="." instance=ExtResource("6_05f67")]
+position = Vector2(47, 387)
+
+[node name="Enemy3" parent="." instance=ExtResource("7_fojcd")]
+position = Vector2(651, 485)
+
+[node name="Enemy4" parent="." instance=ExtResource("7_fojcd")]
+position = Vector2(1373, 340)
+
+[node name="Enemy5" parent="." instance=ExtResource("7_fojcd")]
+position = Vector2(2167, 290)
+
+[node name="Enemy6" parent="." instance=ExtResource("5_hdu7m")]
+position = Vector2(2777, 580)
+
+[node name="Enemy7" parent="." instance=ExtResource("6_05f67")]
+position = Vector2(4095, 624)

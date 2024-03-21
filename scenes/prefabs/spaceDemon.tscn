@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cmvw7jwmy8bww"]
+[gd_scene load_steps=6 format=3 uid="uid://bt8863kw4f0od"]
 
-[ext_resource type="Script" path="res://scripts/enemies/enemy.gd" id="1_g7vo3"]
-[ext_resource type="Texture2D" uid="uid://bstjykebufm51" path="res://assets/npc/enemy/Sprite-0001.png" id="1_j3ms0"]
+[ext_resource type="Script" path="res://scripts/enemies/enemy.gd" id="1_y0tbu"]
+[ext_resource type="Texture2D" uid="uid://dbeg53shtke3c" path="res://assets/npc/enemy/Sprite-0002.png" id="2_vwler"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dr38w"]
 size = Vector2(54, 71)
@@ -16,13 +16,13 @@ radius = 504.016
 collision_layer = 4
 collision_mask = 7
 wall_min_slide_angle = 0.0
-script = ExtResource("1_g7vo3")
+script = ExtResource("1_y0tbu")
 nav_agent = NodePath("Navigation/NavigationAgent2D")
 
-[node name="RockElementalSprite" type="Sprite2D" parent="."]
+[node name="SpaceDemonSprite" type="Sprite2D" parent="."]
 position = Vector2(1.19209e-07, 0)
 scale = Vector2(5.4375, 5.4375)
-texture = ExtResource("1_j3ms0")
+texture = ExtResource("2_vwler")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 8.5)

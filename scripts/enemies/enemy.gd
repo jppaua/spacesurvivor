@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
-@export var speed = 50
+#@export var speed = 800.0
+const SPEED = 800.0
 @export var nav_agent: NavigationAgent2D
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -14,14 +15,19 @@ func _ready():
 	nav_agent.path_desired_distance = 4
 	nav_agent.target_desired_distance = 4
 	
-func _physics_process(_delta):
+func _physics_process(delta):
 	if nav_agent.is_navigation_finished():
 		return
 	
 	var axis = to_local(nav_agent.get_next_path_position()).normalized()
-	velocity = axis * speed
+	velocity = axis * SPEED
 	
+	
+	if not is_on_floor():
+		velocity.y += gravity * delta
+		
 	move_and_slide()
+	
 
 func recalc_path():
 	if target_node:
