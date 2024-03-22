@@ -26,8 +26,6 @@ MasterRecipeBook="*res://scripts/MasterRecipeBook.gd"
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
-<<<<<<< HEAD
-"<<<<<<<HEAD[dotnet]project/assembly_name"="SpaceSurvivor"
 
 [dotnet]
 
