@@ -26,13 +26,10 @@ ItemFunctions="*res://scripts/Item_Functions.gd"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
-<<<<<<< HEAD
 [dotnet]
 
 project/assembly_name="SpaceSurvivor"
 
-=======
->>>>>>> d0f3165ee97ccf638a6e8a8698d5d371991d3682
 [editor]
 
 version_control/plugin_name="GitPlugin"
