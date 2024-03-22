@@ -20,6 +20,7 @@ rotation = 1.5708
 shape = SubResource("RectangleShape2D_kmo7r")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(20, 0)
 scale = Vector2(3, 3)
 texture = ExtResource("1_d8lcg")
 
@@ -30,6 +31,7 @@ one_shot = true
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(20, 0)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_8n06x")
 

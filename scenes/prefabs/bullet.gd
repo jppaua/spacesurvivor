@@ -1,10 +1,11 @@
 extends CharacterBody2D
 
-const SPEED = 3000.0
-@onready var timer = $Timer
+const SPEED = 2000.0
+#@onready var timer = $Timer
 
 func _ready():
-	timer.start()
+	#timer.start()
+	pass
 
 func _physics_process(delta):
 	var direction = Vector2(cos(rotation), sin(rotation))
