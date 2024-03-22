@@ -31,10 +31,6 @@ window/stretch/aspect="expand"
 
 project/assembly_name="SpaceSurvivor"
 
-[dotnet]
-
-project/assembly_name="SpaceSurvivor"
-
 [editor]
 
 version_control/plugin_name="GitPlugin"

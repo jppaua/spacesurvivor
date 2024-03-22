@@ -54,12 +54,9 @@ func _physics_process(delta):
 		
 	move_and_slide()
 
-<<<<<<< HEAD
 #Variables for Crafting Testing
 var rotate = ["Saber","Pistol","RPG"]
 var choice = 0
-=======
->>>>>>> 98a231ed8bfefb73d924aeabab6f4afaff825134
 
 func _input(event):
 	set_hand_sprites()
@@ -73,7 +70,6 @@ func _input(event):
 	else:
 		if event.is_action_pressed("open_inv"):
 			inventory_ui.visible = true
-<<<<<<< HEAD
 	#Temp Crafting inputs
 	if event.is_action_pressed("Debug_Key"):
 		choice = choice + 1
@@ -82,10 +78,6 @@ func _input(event):
 		print("Current recipe is ",rotate[choice])
 	if event.is_action_pressed("Craft"):
 		Global.craft(rotate[choice])
-=======
-			
->>>>>>> 98a231ed8bfefb73d924aeabab6f4afaff825134
-
 
 #Sets the sprites of whatever the player is holding
 func set_hand_sprites():
