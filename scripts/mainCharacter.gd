@@ -9,14 +9,16 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var current_item = null
 var current_hotbar_index = -1
 
-
 @onready var player_parent = $PlayerParent
+@onready var timer = $Timer
 
 @onready var left_arm_parent = $PlayerParent/LeftArmParent
 @onready var left_hand_sprite = $PlayerParent/LeftArmParent/LeftHandParent/LeftHandSprite
+@onready var left_barrel = $PlayerParent/LeftArmParent/LeftHandParent/LeftBarrel
 
 @onready var right_arm_parent = $PlayerParent/RightArmParent
 @onready var right_hand_sprite = $PlayerParent/RightArmParent/RightHandParent/RightHandSprite
+@onready var right_barrel = $PlayerParent/RightArmParent/RightHandParent/RightBarrel
 
 @onready var inventory_ui = $InventoryUI
 @onready var fps_label = $FpsUI/Label
@@ -35,15 +37,30 @@ func _physics_process(delta):
 	global_position_label.text = "[ " + str(round(player_parent.global_position.x*10)/10) + " , " + str(round(player_parent.global_position.y*10)/10) + " ]"
 	fps_label.text = str(Engine.get_frames_per_second())
 	
-	
 	orient_player(mouse_position)
 	orient_player_arms(mouse_position)
 	handle_movement(direction, delta)
-	set_hand_sprites()
+	if current_item != null and current_item["type"] == "firearm":
+		if current_item["is_full_auto"]:
+			if Input.is_action_pressed("primary_action") and current_item != null and timer.time_left == 0:
+				ItemFunctions.primary_action(current_item)
+				timer.wait_time = current_item["rate_of_fire"]
+				timer.start()
+		else:
+			if Input.is_action_just_pressed("primary_action") and current_item != null and timer.time_left == 0:
+				ItemFunctions.primary_action(current_item)
+				timer.wait_time = current_item["rate_of_fire"]
+				timer.start()
+		
 	move_and_slide()
 
 
 func _input(event):
+	set_hand_sprites()
+	
+	if current_item != null and event.is_action_pressed("primary_action") and false:
+		ItemFunctions.primary_action(current_item)
+	
 	if inventory_ui.visible:
 		if event.is_action_pressed("open_inv") or event.is_action_pressed("ui_cancel"):
 			inventory_ui.visible = false
@@ -76,19 +93,27 @@ func set_hand_sprites():
 	current_item = Global.hotbar[current_hotbar_index]
 	if current_item != null:
 		if current_item["is_dual_wield"]:
-			right_hand_sprite.offset.x = current_item["x_offset"]
-			right_hand_sprite.offset.y = current_item["y_offset"]
+			right_hand_sprite.offset = Vector2(current_item["x_offset"], current_item["y_offset"])
 			right_hand_sprite.texture = current_item["texture"]
+			right_barrel.transform.origin = Vector2(current_item["x_barrel"], current_item["y_barrel"])
 			left_hand_sprite.offset = right_hand_sprite.offset
 			left_hand_sprite.texture = right_hand_sprite.texture
+			left_barrel.transform.origin = Vector2(current_item["x_barrel"], current_item["y_barrel"])
+			
 		else:
-			right_hand_sprite.offset.x = current_item["x_offset"]
-			right_hand_sprite.offset.y = current_item["y_offset"]
+			right_hand_sprite.offset = Vector2(current_item["x_offset"], current_item["y_offset"])
 			right_hand_sprite.texture = current_item["texture"]
+			if current_item.has("x_barrel"):
+				right_barrel.transform.origin = Vector2(current_item["x_barrel"], current_item["y_barrel"])
+			else:
+				right_barrel.transform.origin = Vector2(0, 0)
+				left_barrel.transform.origin = Vector2(0, 0)
 			left_hand_sprite.texture = null
 	else:
 		right_hand_sprite.texture = null
 		left_hand_sprite.texture = null
+		right_barrel.transform.origin = Vector2(0,0)
+		left_barrel.transform.origin = Vector2(0,0)
 
 #if mouse is to the left of the player, turn left and vice versa
 func orient_player(mouse_position):

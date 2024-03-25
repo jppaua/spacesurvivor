@@ -3,6 +3,7 @@ extends CharacterBody2D
 @export var item_type = "firearm"
 @export var item_name = ""
 var item_texture: Texture
+var item_projectile = ""
 var item_description = ""
 var item_is_dual_wield = false
 var item_is_full_auto = false
@@ -12,6 +13,8 @@ var item_accuracy = 0
 var item_quantity = 0
 var item_x_offset = 0
 var item_y_offset = 0
+var item_x_barrel = 0
+var item_y_barrel = 0
 var scene_path = "res://scenes/prefabs/item_gun.tscn"
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 const SPEED = 800.0
@@ -45,6 +48,7 @@ func pickup_item():
 		"name": item_name,
 		"texture": item_texture,
 		"description": item_description,
+		"projectile": item_projectile,
 		"is_dual_wield": item_is_dual_wield,
 		"is_full_auto": item_is_full_auto,
 		"damage": item_damage,
@@ -53,6 +57,8 @@ func pickup_item():
 		"quantity": item_quantity,
 		"x_offset": item_x_offset,
 		"y_offset": item_y_offset,
+		"x_barrel": item_x_barrel,
+		"y_barrel": item_y_barrel,
 		"scene_path": scene_path
 	}
 	if Global.player_node:
@@ -83,6 +89,12 @@ func set_item_data(data):
 	item_quantity = data["quantity"]
 	item_x_offset = data["x_offset"]
 	item_y_offset = data["y_offset"]
+	if data.has("x_barrel"):
+		item_x_barrel = data["x_barrel"]
+	if data.has("y_barrel"):
+		item_y_barrel = data["y_barrel"]
+	if data.has("projectile"):
+		item_projectile = data["projectile"]
 	if data.has("is_dual_wield"):
 		item_is_dual_wield = data["is_dual_wield"]
 	if data.has("is_full_auto"):

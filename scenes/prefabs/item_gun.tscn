@@ -10,7 +10,7 @@ radius = 105.0
 size = Vector2(2, 2)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fprp6"]
-radius = 24.0
+radius = 18.0278
 
 [node name="item_gun" type="CharacterBody2D" groups=["Items"]]
 collision_layer = 8

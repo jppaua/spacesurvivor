@@ -1,23 +1,17 @@
-[gd_scene load_steps=10 format=3 uid="uid://dinb37355x3ql"]
+[gd_scene load_steps=9 format=3 uid="uid://dinb37355x3ql"]
 
 [ext_resource type="Script" path="res://scripts/mainCharacter.gd" id="1_ce8oy"]
 [ext_resource type="Texture2D" uid="uid://c1ecb1e2pnqgt" path="res://assets/character/capstoneCharacterARM.png" id="2_fdgfn"]
 [ext_resource type="Texture2D" uid="uid://bspxdgsmuvsnv" path="res://assets/character/capstoneCharacterALT.png" id="2_qlvv8"]
 [ext_resource type="FontFile" uid="uid://bp8shuqwwyqdy" path="res://assets/fonts/Hardpixel-nn51.otf" id="3_q4e8c"]
 [ext_resource type="Texture2D" uid="uid://dfik1mh1xlhj1" path="res://assets/ui Elements/label.png" id="3_qpkep"]
-[ext_resource type="Texture2D" uid="uid://bulxt058rvmt7" path="res://assets/resources/defaultItem.png" id="4_8x0fq"]
 [ext_resource type="PackedScene" uid="uid://bb60ci44x5ewr" path="res://scenes/prefabs/inventory_ui.tscn" id="5_ptw2h"]
 [ext_resource type="Script" path="res://scripts/hotbar_ui.gd" id="7_2c4ib"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_73eia"]
 size = Vector2(36, 56)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_2hyiv"]
-radius = 51.5218
-
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
-collision_layer = 2
-collision_mask = 7
 script = ExtResource("1_ce8oy")
 
 [node name="PlayerParent" type="Node2D" parent="."]
@@ -32,13 +26,6 @@ position = Vector2(28, 1)
 [node name="LeftHandSprite" type="Sprite2D" parent="PlayerParent/LeftArmParent/LeftHandParent"]
 z_index = 1
 scale = Vector2(2.428, 2.428)
-
-[node name="LeftBarrel" type="Node2D" parent="PlayerParent/LeftArmParent/LeftHandParent"]
-
-[node name="barrel_view" type="Sprite2D" parent="PlayerParent/LeftArmParent/LeftHandParent/LeftBarrel"]
-z_index = 4096
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("4_8x0fq")
 
 [node name="LeftArmSprite" type="Sprite2D" parent="PlayerParent/LeftArmParent"]
 position = Vector2(14.5, 1)
@@ -61,13 +48,6 @@ position = Vector2(29, 2)
 [node name="RightHandSprite" type="Sprite2D" parent="PlayerParent/RightArmParent/RightHandParent"]
 z_index = 2
 scale = Vector2(2.428, 2.428)
-
-[node name="RightBarrel" type="Node2D" parent="PlayerParent/RightArmParent/RightHandParent"]
-
-[node name="barrel_view" type="Sprite2D" parent="PlayerParent/RightArmParent/RightHandParent/RightBarrel"]
-z_index = 4096
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("4_8x0fq")
 
 [node name="RightArmSprite" type="Sprite2D" parent="PlayerParent/RightArmParent"]
 z_index = 3
@@ -180,13 +160,5 @@ columns = 9
 script = ExtResource("7_2c4ib")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 8)
+position = Vector2(-1, 8)
 shape = SubResource("RectangleShape2D_73eia")
-
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-1.5, 8.5)
-shape = SubResource("CircleShape2D_2hyiv")
