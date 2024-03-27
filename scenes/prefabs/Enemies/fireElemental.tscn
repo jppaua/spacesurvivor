@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://24p1mx4csup3"]
+
+[ext_resource type="Script" path="res://scripts/Enemies/enemy.gd" id="1_huwm2"]
+[ext_resource type="Texture2D" uid="uid://cvkqueyifpewo" path="res://assets/enemy/Sprite-0003.png" id="2_idvj3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dr38w"]
+size = Vector2(54, 70)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hb4u3"]
+size = Vector2(54, 70)
+
+[sub_resource type="Animation" id="Animation_imnc1"]
+resource_name = "Run"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_to5a0"]
+_data = {
+"Run": SubResource("Animation_imnc1")
+}
+
+[node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 4
+collision_mask = 7
+wall_min_slide_angle = 0.0
+script = ExtResource("1_huwm2")
+
+[node name="FireElementalSprite" type="Sprite2D" parent="."]
+position = Vector2(1.19209e-07, 0)
+scale = Vector2(5.4375, 5.4375)
+texture = ExtResource("2_idvj3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_dr38w")
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(0, 8.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_hb4u3")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(27, 0)
+target_position = Vector2(0, 47)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_to5a0")
+}
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
