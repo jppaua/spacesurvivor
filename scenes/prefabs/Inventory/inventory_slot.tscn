@@ -1,0 +1,94 @@
+[gd_scene load_steps=5 format=3 uid="uid://b2ih0bwrfg5wn"]
+
+[ext_resource type="Script" path="res://scripts/Inventory&Crafting/inventory_slot.gd" id="1_d4mbt"]
+[ext_resource type="Texture2D" uid="uid://dfik1mh1xlhj1" path="res://assets/ui Elements/label.png" id="2_ronur"]
+[ext_resource type="Texture2D" uid="uid://bulxt058rvmt7" path="res://assets/resources/defaultItem.png" id="3_0l558"]
+[ext_resource type="FontFile" uid="uid://bp8shuqwwyqdy" path="res://assets/fonts/Hardpixel-nn51.otf" id="4_atdx5"]
+
+[node name="Inventory_Slot" type="Control"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 50.0
+offset_bottom = 50.0
+script = ExtResource("1_d4mbt")
+
+[node name="Slot" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 0
+texture = ExtResource("2_ronur")
+patch_margin_left = 7
+patch_margin_top = 7
+patch_margin_right = 7
+patch_margin_bottom = 7
+
+[node name="Item_Icon" type="Sprite2D" parent="Slot"]
+position = Vector2(25, 25)
+scale = Vector2(2, 2)
+texture = ExtResource("3_0l558")
+
+[node name="Item_Quantity" type="Label" parent="Slot"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = 10.0
+offset_right = 2.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_atdx5")
+theme_override_font_sizes/font_size = 10
+text = "1"
+horizontal_alignment = 1
+
+[node name="Item_Details" type="NinePatchRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1.0
+offset_top = -81.0
+offset_right = 193.0
+offset_bottom = -1.0
+texture = ExtResource("2_ronur")
+patch_margin_left = 7
+patch_margin_top = 7
+patch_margin_right = 7
+patch_margin_bottom = 7
+
+[node name="Item_Name" type="Label" parent="Item_Details"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 50.0
+offset_bottom = 33.0
+theme_override_fonts/font = ExtResource("4_atdx5")
+theme_override_font_sizes/font_size = 15
+text = "NAME"
+
+[node name="Item_Type" type="Label" parent="Item_Details"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 30.0
+offset_right = 80.0
+offset_bottom = 70.0
+theme_override_fonts/font = ExtResource("4_atdx5")
+theme_override_font_sizes/font_size = 15
+text = "TYPE"
+
+[node name="Item_Effect" type="Label" parent="Item_Details"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 50.0
+offset_right = 113.0
+offset_bottom = 86.0
+theme_override_fonts/font = ExtResource("4_atdx5")
+theme_override_font_sizes/font_size = 15
+text = "EFFECT"
+
+[connection signal="mouse_entered" from="Slot" to="." method="_on_slot_mouse_entered"]
+[connection signal="mouse_exited" from="Slot" to="." method="_on_slot_mouse_exited"]

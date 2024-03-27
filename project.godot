@@ -11,20 +11,25 @@ config_version=5
 [application]
 
 config/name="SpaceSurvivor"
-run/main_scene="res://scenes/world/BigMap.tscn"
+run/main_scene="res://scenes/world/Test/BigMap.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*res://scripts/Global.gd"
-MasterInventory="*res://scripts/MasterInventory.gd"
-ItemFunctions="*res://scripts/Item_Functions.gd"
+MasterInventory="*res://scripts/Inventory&Crafting/MasterInventory.gd"
+ItemFunctions="*res://scripts/Items/Item_Functions.gd"
+MasterRecipeBook="*res://scripts/Inventory&Crafting/MasterRecipeBook.gd"
 
 [display]
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[dotnet]
+
+project/assembly_name="SpaceSurvivor"
 
 [editor]
 
@@ -105,6 +110,16 @@ scroll_down_hotbar_slot={
 primary_action={
 "deadzone": 0.5,
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(140, 11),"global_position":Vector2(144, 52),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
+Debug_Key={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":88,"key_label":0,"unicode":120,"echo":false,"script":null)
+]
+}
+Craft={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":67,"key_label":0,"unicode":99,"echo":false,"script":null)
 ]
 }
 

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7cdol4lpyrq1"]
+
+[ext_resource type="Script" path="res://scripts/Items/resource_node.gd" id="1_7icct"]
+[ext_resource type="Texture2D" uid="uid://bulxt058rvmt7" path="res://assets/resources/defaultItem.png" id="1_xq1u5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rlrr4"]
+radius = 170.188
+
+[node name="harvest_node" type="Node2D"]
+script = ExtResource("1_7icct")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2.428, 2.428)
+texture = ExtResource("1_xq1u5")
+
+[node name="harvest_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="harvest_area" groups=["resource"]]
+shape = SubResource("CircleShape2D_rlrr4")
+
+[connection signal="body_entered" from="harvest_area" to="." method="_on_harvest_area_body_entered"]
+[connection signal="body_exited" from="harvest_area" to="." method="_on_harvest_area_body_exited"]
