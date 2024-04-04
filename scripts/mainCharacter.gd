@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+class_name Player
 
 const SPEED = 350.0
 const JUMP_VELOCITY = -1000.0
@@ -23,8 +23,19 @@ var current_hotbar_index = -1
 @onready var inventory_ui = $InventoryUI
 @onready var fps_label = $FpsUI/Label
 @onready var global_position_label = $GlobalPosUI/GlobalPosition
+@onready var health_label = $HealthUI/Label
+
+var max_health = 10
+var health = 0
+var can_take_damage = true
+
+var dead = false
+
+
 
 func _ready():
+	#set health
+	health = max_health
 	#hooks up player to inventory
 	Global.set_player_reference(self)
 
@@ -36,6 +47,10 @@ func _physics_process(delta):
 	#Sets Position and FPS labels for debuging purposes
 	global_position_label.text = "[ " + str(round(player_parent.global_position.x*10)/10) + " , " + str(round(player_parent.global_position.y*10)/10) + " ]"
 	fps_label.text = str(Engine.get_frames_per_second())
+	if dead:
+		health_label.text = "DEAD"
+	else:
+		health_label.text = "Health: " + str(health)
 	
 	orient_player(mouse_position)
 	orient_player_arms(mouse_position)
@@ -155,7 +170,22 @@ func orient_player_arms(mouse_position):
 	left_arm_parent.rotation = angle_left
 	right_arm_parent.rotation = angle_right
 
-
+func take_damage(damage_amount : int):
+	if can_take_damage:
+		iframes()
+		
+		health -= damage_amount
+		
+		if health <= 0:
+			die()
+			
+func iframes():
+	can_take_damage = false
+	await get_tree().create_timer(1).timeout
+	can_take_damage = true
+	
+func die():
+	dead = true
 
 
 
