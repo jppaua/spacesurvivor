@@ -1,13 +1,15 @@
 [gd_scene load_steps=7 format=3 uid="uid://byxkk20rtij2e"]
 
-[ext_resource type="Script" path="res://scripts/enemies/enemy.gd" id="1_avyxe"]
+[ext_resource type="Script" path="res://scripts/enemies/rockElemental.gd" id="1_aa3o8"]
 [ext_resource type="Texture2D" uid="uid://bstjykebufm51" path="res://assets/npc/enemy/Sprite-0001.png" id="2_mxkvo"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dr38w"]
-size = Vector2(54, 70)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eyqag"]
+radius = 26.0
+height = 70.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hb4u3"]
-size = Vector2(54, 70)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1lcbq"]
+radius = 32.0
+height = 92.0
 
 [sub_resource type="Animation" id="Animation_imnc1"]
 resource_name = "Run"
@@ -18,10 +20,10 @@ _data = {
 }
 
 [node name="Enemy" type="CharacterBody2D"]
+position = Vector2(-1, 0)
 collision_layer = 4
-collision_mask = 7
 wall_min_slide_angle = 0.0
-script = ExtResource("1_avyxe")
+script = ExtResource("1_aa3o8")
 
 [node name="RockElementalSprite" type="Sprite2D" parent="."]
 position = Vector2(1.19209e-07, 0)
@@ -30,14 +32,15 @@ texture = ExtResource("2_mxkvo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 8)
-shape = SubResource("RectangleShape2D_dr38w")
+shape = SubResource("CapsuleShape2D_eyqag")
 
 [node name="Hitbox" type="Area2D" parent="."]
 position = Vector2(0, 8.5)
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0, -0.5)
-shape = SubResource("RectangleShape2D_hb4u3")
+position = Vector2(0, -11.5)
+shape = SubResource("CapsuleShape2D_1lcbq")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2(27, 0)
@@ -47,3 +50,5 @@ target_position = Vector2(0, 47)
 libraries = {
 "": SubResource("AnimationLibrary_to5a0")
 }
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

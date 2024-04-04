@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dinb37355x3ql"]
+[gd_scene load_steps=12 format=3 uid="uid://dinb37355x3ql"]
 
 [ext_resource type="Script" path="res://scripts/mainCharacter.gd" id="1_ce8oy"]
 [ext_resource type="Texture2D" uid="uid://c1ecb1e2pnqgt" path="res://assets/character/capstoneCharacterARM.png" id="2_fdgfn"]
@@ -15,9 +15,12 @@ size = Vector2(36, 56)
 [sub_resource type="CircleShape2D" id="CircleShape2D_2hyiv"]
 radius = 51.5218
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ye32q"]
+radius = 27.0
+height = 93.0
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 2
-collision_mask = 7
 script = ExtResource("1_ce8oy")
 
 [node name="PlayerParent" type="Node2D" parent="."]
@@ -179,17 +182,37 @@ grow_vertical = 2
 columns = 9
 script = ExtResource("7_2c4ib")
 
+[node name="HealthUI" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="HealthUI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -818.0
+offset_top = 517.0
+offset_right = -518.0
+offset_bottom = 572.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 40
+text = "Health"
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_73eia")
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 2
+collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-1.5, 8.5)
 shape = SubResource("CircleShape2D_2hyiv")
+
+[node name="PlayerHitBoxArea2D" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitBoxArea2D"]
+shape = SubResource("CapsuleShape2D_ye32q")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
