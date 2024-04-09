@@ -59,11 +59,35 @@ func drop_item(item_data):
 	item_instance.player_in_vaccum_range = false
 	item_instance.player_in_pickup_range = false
 
+func craft(item):
+	#It works, I hate it I am going to learn enough Godot to rip it a new one and make it better
+	
+	#verify if the item exists in the recipe book
+	if MasterRecipeBook.verify(item)==false:
+		return false
+	
+	#Copys data from MasterRecipeBook.GD
+	var materials = MasterRecipeBook.master_recipe_book[item.to_lower()]["materials"]
+	var split = materials.size()/2
+	
+	#Runs For loop to see if the player has the materials
+	for i in range(split):
+		if tally(materials[i])<materials[i+split]:
+			return false
+	#Uses remove_item and a For loop to remove items, one at a time
+	for i in range(split):
+		for x in range(materials[i+split]):
+			remove_item(materials[i])
+	
+	#Adds item to the player inventory
+	add_item(MasterInventory.get_item_attributes(MasterRecipeBook.master_recipe_book[item.to_lower()]["type"],item.to_lower()))
+	return true
 
-
-
-
-
-
-
-
+func tally(item_name):
+	var count = 0
+	for i in range(inventory.size()):
+		if inventory[i] != null and inventory[i]["name"] == item_name:
+			count += inventory[i]["quantity"]
+	if(count>0):
+		return count
+	return 0
