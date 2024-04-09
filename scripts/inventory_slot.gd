@@ -10,9 +10,10 @@ extends Control
 
 var item = null
 var is_over_item = false
+var interactable = true
 
 func _process(delta):
-	if Input.is_action_just_pressed("drop_item") and is_over_item:
+	if Input.is_action_just_pressed("drop_item") and is_over_item and interactable:
 		if item != null:
 			Global.drop_item(item)
 			Global.remove_item(item["name"])
@@ -29,6 +30,8 @@ func set_item(new_item):
 	item_type.text = item["type"]
 	item_effect.text = item["description"]
 
+func flip_interactable():
+	interactable = false
 
 func _on_slot_mouse_entered():
 	if item != null:

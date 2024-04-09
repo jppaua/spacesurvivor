@@ -24,6 +24,8 @@ var current_hotbar_index = -1
 @onready var fps_label = $FpsUI/Label
 @onready var global_position_label = $GlobalPosUI/GlobalPosition
 
+@onready var crafting_ui = $CraftingUI
+
 func _ready():
 	#hooks up player to inventory
 	Global.set_player_reference(self)
@@ -71,13 +73,16 @@ func _input(event):
 		if event.is_action_pressed("open_inv"):
 			inventory_ui.visible = true
 	#Temp Crafting inputs
-	if event.is_action_pressed("Debug_Key"):
-		choice = choice + 1
-		if choice >= rotate.size():
-			choice=0
-		print("Current recipe is ",rotate[choice])
+	#if event.is_action_pressed("Debug_Key"):
+	#	choice = choice + 1
+	#	if choice >= rotate.size():
+	#		choice=0
+	#	print("Current recipe is ",rotate[choice])
 	if event.is_action_pressed("Craft"):
-		Global.craft(rotate[choice])
+		if crafting_ui.visible:
+			crafting_ui.visible = false
+		else:
+			crafting_ui.visible = true
 
 #Sets the sprites of whatever the player is holding
 func set_hand_sprites():

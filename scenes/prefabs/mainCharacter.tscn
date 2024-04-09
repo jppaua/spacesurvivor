@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dinb37355x3ql"]
+[gd_scene load_steps=11 format=3 uid="uid://dinb37355x3ql"]
 
 [ext_resource type="Script" path="res://scripts/mainCharacter.gd" id="1_ce8oy"]
 [ext_resource type="Texture2D" uid="uid://c1ecb1e2pnqgt" path="res://assets/character/capstoneCharacterARM.png" id="2_fdgfn"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bulxt058rvmt7" path="res://assets/resources/defaultItem.png" id="4_8x0fq"]
 [ext_resource type="PackedScene" uid="uid://bb60ci44x5ewr" path="res://scenes/prefabs/inventory_ui.tscn" id="5_ptw2h"]
 [ext_resource type="Script" path="res://scripts/hotbar_ui.gd" id="7_2c4ib"]
+[ext_resource type="PackedScene" uid="uid://h3k4xi18hfw5" path="res://scenes/prefabs/crafting_ui.tscn" id="9_7wg6j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_73eia"]
 size = Vector2(34, 56)
@@ -173,6 +174,15 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 9
 script = ExtResource("7_2c4ib")
+
+[node name="CraftingUI" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CraftingUI"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Crafting_UI" parent="CraftingUI/NinePatchRect" instance=ExtResource("9_7wg6j")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 8)
