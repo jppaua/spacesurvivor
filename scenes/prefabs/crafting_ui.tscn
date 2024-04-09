@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://h3k4xi18hfw5"]
+[gd_scene load_steps=2 format=3 uid="uid://crpdl0hc4lmvd"]
 
 [ext_resource type="Script" path="res://scripts/crafting_ui.gd" id="1_6kltq"]
 
@@ -6,6 +6,13 @@
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_6kltq")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(0.0784314, 0.470588, 0.882353, 0.392157)
+show_behind_parent = true
+layout_mode = 0
+offset_right = 161.0
+offset_bottom = 120.0
 
 [node name="GridContainer" type="GridContainer" parent="."]
 layout_mode = 0
@@ -35,13 +42,6 @@ offset_top = 89.0
 offset_right = 103.0
 offset_bottom = 120.0
 text = "Craft"
-
-[node name="ColorRect" type="ColorRect" parent="."]
-modulate = Color(0.0784314, 0.470588, 0.882353, 0.392157)
-show_behind_parent = true
-layout_mode = 0
-offset_right = 161.0
-offset_bottom = 120.0
 
 [connection signal="pressed" from="buttonLeft" to="." method="_on_button_left_pressed"]
 [connection signal="pressed" from="buttonRight" to="." method="_on_button_right_pressed"]
