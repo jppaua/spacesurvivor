@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dh5jf12vmhyg"]
+[gd_scene load_steps=19 format=3 uid="uid://dh5jf12vmhyg"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_xhrpf"]
 [ext_resource type="Texture2D" uid="uid://3w0cgleylxds" path="res://assets/css-gradient.webp" id="2_0kk8j"]
@@ -11,7 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://b7cdol4lpyrq1" path="res://scenes/prefabs/resource_node.tscn" id="9_307yl"]
 [ext_resource type="Texture2D" uid="uid://ceidiq061mw63" path="res://assets/resources/charoite.png" id="10_6xwj1"]
 [ext_resource type="Texture2D" uid="uid://1sktwj8aqjno" path="res://assets/resources/crystal.png" id="11_0kca1"]
-[ext_resource type="PackedScene" uid="uid://vpe1px4tmmx6" path="res://scenes/prefabs/rock_elemental.tscn" id="12_db3px"]
+[ext_resource type="PackedScene" uid="uid://cta3dpq7exvbx" path="res://scenes/prefabs/rock_elemental.tscn" id="12_db3px"]
+[ext_resource type="PackedScene" uid="uid://skkogwjnfwi8" path="res://scenes/prefabs/fire_elemental.tscn" id="13_kjjuo"]
+[ext_resource type="PackedScene" uid="uid://br0qrx1yo1fgk" path="res://scenes/prefabs/void_elemental.tscn" id="14_aeby6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_seycf"]
 texture = ExtResource("3_c5aen")
@@ -390,3 +392,21 @@ position = Vector2(113, 141)
 
 [node name="rock_elemental6" parent="Node2enemiesD" instance=ExtResource("12_db3px")]
 position = Vector2(108, 13)
+
+[node name="fire_elemental" parent="." instance=ExtResource("13_kjjuo")]
+position = Vector2(-497, 304)
+
+[node name="fire_elemental2" parent="." instance=ExtResource("13_kjjuo")]
+position = Vector2(-449, 349)
+
+[node name="fire_elemental3" parent="." instance=ExtResource("13_kjjuo")]
+position = Vector2(-540, 347)
+
+[node name="void_elemental" parent="." instance=ExtResource("14_aeby6")]
+position = Vector2(1331, 279)
+
+[node name="void_elemental2" parent="." instance=ExtResource("14_aeby6")]
+position = Vector2(1408, 330)
+
+[node name="void_elemental3" parent="." instance=ExtResource("14_aeby6")]
+position = Vector2(1323, 349)

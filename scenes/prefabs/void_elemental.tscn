@@ -1,8 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://cta3dpq7exvbx"]
+[gd_scene load_steps=8 format=3 uid="uid://br0qrx1yo1fgk"]
 
-[ext_resource type="Texture2D" uid="uid://vmj7bfs5d10t" path="res://assets/enemies/rock_elemental.png" id="1_tkl0b"]
-[ext_resource type="Script" path="res://scripts/rock_elemental.gd" id="1_v7ts5"]
-[ext_resource type="FontFile" uid="uid://bp8shuqwwyqdy" path="res://assets/fonts/Hardpixel-nn51.otf" id="3_6hrik"]
+[ext_resource type="Script" path="res://scripts/void_elemental.gd" id="1_yhdhv"]
+[ext_resource type="Texture2D" uid="uid://wshdactkavyy" path="res://assets/enemies/void_elemental.png" id="2_sqyhw"]
+[ext_resource type="FontFile" uid="uid://bp8shuqwwyqdy" path="res://assets/fonts/Hardpixel-nn51.otf" id="3_7522p"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ytnl7"]
 radius = 19.2354
@@ -26,29 +26,30 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 anti_aliasing_size = 0.1
 
-[node name="rock_elemental" type="CharacterBody2D" groups=["enemy"]]
+[node name="void_elemental" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 4
 collision_mask = 4
-script = ExtResource("1_v7ts5")
+script = ExtResource("1_yhdhv")
 
-[node name="rock_elemental_parent" type="Node2D" parent="."]
+[node name="void_elemental_parent" type="Node2D" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="rock_elemental_parent"]
-scale = Vector2(2.428, 2.428)
-texture = ExtResource("1_tkl0b")
+[node name="Sprite2D" type="Sprite2D" parent="void_elemental_parent"]
+position = Vector2(2.98023e-08, 0)
+scale = Vector2(2.4375, 2.4375)
+texture = ExtResource("2_sqyhw")
 
-[node name="Timer" type="Timer" parent="rock_elemental_parent"]
+[node name="Timer" type="Timer" parent="void_elemental_parent"]
 wait_time = 2.0
 one_shot = true
 autostart = true
 
-[node name="hitbox" type="Area2D" parent="rock_elemental_parent"]
+[node name="hitbox" type="Area2D" parent="void_elemental_parent"]
 light_mask = 0
 visibility_layer = 0
 collision_layer = 4
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="rock_elemental_parent/hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="void_elemental_parent/hitbox"]
 shape = SubResource("CircleShape2D_ytnl7")
 
 [node name="collisionbox" type="CollisionShape2D" parent="."]
@@ -62,7 +63,7 @@ offset_left = -35.0
 offset_top = -74.0
 offset_right = 36.0
 offset_bottom = -50.0
-theme_override_fonts/font = ExtResource("3_6hrik")
+theme_override_fonts/font = ExtResource("3_7522p")
 theme_override_font_sizes/font_size = 20
 text = "STATUS
 "
@@ -73,7 +74,7 @@ offset_left = -42.0
 offset_top = -94.0
 offset_right = 43.0
 offset_bottom = -70.0
-theme_override_fonts/font = ExtResource("3_6hrik")
+theme_override_fonts/font = ExtResource("3_7522p")
 theme_override_font_sizes/font_size = 20
 text = "[ X , Y ]
 "
