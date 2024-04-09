@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://vpe1px4tmmx6"]
+
+[ext_resource type="Texture2D" uid="uid://vmj7bfs5d10t" path="res://assets/enemies/rock_elemental.png" id="1_tkl0b"]
+[ext_resource type="Script" path="res://scripts/rock_elemental.gd" id="1_v7ts5"]
+[ext_resource type="FontFile" uid="uid://bp8shuqwwyqdy" path="res://assets/fonts/Hardpixel-nn51.otf" id="3_6hrik"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ldwte"]
+size = Vector2(32, 33)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ytnl7"]
+radius = 19.2354
+
+[node name="rock_elemental" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_v7ts5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2.428, 2.428)
+texture = ExtResource("1_tkl0b")
+
+[node name="collisionbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_ldwte")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="hitbox" type="Area2D" parent="."]
+light_mask = 0
+visibility_layer = 0
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("CircleShape2D_ytnl7")
+
+[node name="HP" type="CanvasGroup" parent="."]
+
+[node name="hp_text" type="Label" parent="HP"]
+offset_left = -23.0
+offset_top = -48.0
+offset_right = 23.0
+offset_bottom = -24.0
+theme_override_fonts/font = ExtResource("3_6hrik")
+theme_override_font_sizes/font_size = 20
+text = "15/15
+"
