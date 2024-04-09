@@ -10,6 +10,7 @@ extends Control
 
 var item = null
 var is_over_item = false
+#Is here currently only to prevent dropping items from Crafting UI
 var interactable = true
 
 func _process(delta):

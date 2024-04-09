@@ -89,7 +89,5 @@ func tally(item_name):
 		if inventory[i] != null and inventory[i]["name"] == item_name:
 			count += inventory[i]["quantity"]
 	if(count>0):
-		print("Count is ",count)
 		return count
-	print("Count is 0")
 	return 0
