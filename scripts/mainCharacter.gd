@@ -35,6 +35,8 @@ var num_killed = 0
 
 @onready var hurt_box = $HurtBox
 
+@onready var crafting_ui = $CraftingUI
+
 func _ready():
 	#hooks up player to inventory
 	Global.set_player_reference(self)
@@ -68,7 +70,6 @@ func _physics_process(delta):
 		get_tree().paused = true
 	move_and_slide()
 
-
 func _input(event):
 	set_hand_sprites()
 	if current_item != null and event.is_action_pressed("primary_action") and false:
@@ -80,8 +81,12 @@ func _input(event):
 	else:
 		if event.is_action_pressed("open_inv"):
 			inventory_ui.visible = true
-			
-
+	#Call for Crafting UI
+	if event.is_action_pressed("Craft"):
+		if crafting_ui.visible:
+			crafting_ui.visible = false
+		else:
+			crafting_ui.visible = true
 
 #Sets the sprites of whatever the player is holding
 func set_hand_sprites():
