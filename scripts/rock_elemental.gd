@@ -3,6 +3,8 @@ extends CharacterBody2D
 
 const SPEED = 260.0
 const JUMP_VELOCITY = -700.0
+const MIN_DISTANCE = 300
+const MAX_DISTANCE = 450
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var max_health = 15
 var health = max_health
@@ -27,9 +29,9 @@ func _physics_process(delta):
 		rock_elemental_parent.scale.x = -1
 	
 	distance = global_position.distance_to(player.global_position)
-	if distance >= 450:
+	if distance >= MAX_DISTANCE:
 		status = "CHASING"
-	elif distance < 300: 
+	elif distance < MIN_DISTANCE: 
 		status = "RETREATING"
 	else: 
 		status = "ATTACKING"
@@ -72,7 +74,8 @@ func attack():
 	get_tree().current_scene.add_child(projectile_instance)
 
 func take_damage():
-	health -= 1
+	health -= 10
 	hp.value = health
 	if health <= 0:
+		player.num_killed += 1
 		queue_free()

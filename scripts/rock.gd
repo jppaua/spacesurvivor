@@ -24,7 +24,7 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _on_timer_timeout():
-	pass
+	queue_free()
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("solid_tile") or body.is_in_group("Player"):

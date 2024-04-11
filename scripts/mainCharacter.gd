@@ -12,6 +12,7 @@ var health = max_health
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var current_item = null
 var current_hotbar_index = -1
+var num_killed = 0
 
 @onready var player_parent = $PlayerParent
 @onready var timer = $Timer
@@ -19,6 +20,7 @@ var current_hotbar_index = -1
 @onready var left_arm_parent = $PlayerParent/LeftArmParent
 @onready var left_hand_sprite = $PlayerParent/LeftArmParent/LeftHandParent/LeftHandSprite
 @onready var left_barrel = $PlayerParent/LeftArmParent/LeftHandParent/LeftBarrel
+@onready var body_sprite = $PlayerParent/BodySprite
 
 @onready var right_arm_parent = $PlayerParent/RightArmParent
 @onready var right_hand_sprite = $PlayerParent/RightArmParent/RightHandParent/RightHandSprite
@@ -28,6 +30,8 @@ var current_hotbar_index = -1
 @onready var fps_label = $FpsUI/Label
 @onready var global_position_label = $GlobalPosUI/GlobalPosition
 @onready var progress_bar = $PlayerInfo/ProgressBar
+@onready var game_over = $GameOver
+@onready var game_won = $GameWon
 
 @onready var hurt_box = $HurtBox
 
@@ -58,13 +62,15 @@ func _physics_process(delta):
 				ItemFunctions.primary_action(current_item)
 				timer.wait_time = current_item["rate_of_fire"]
 				timer.start()
-		
+	
+	if num_killed >= 12:
+		game_won.visible = true
+		get_tree().paused = true
 	move_and_slide()
 
 
 func _input(event):
 	set_hand_sprites()
-	
 	if current_item != null and event.is_action_pressed("primary_action") and false:
 		ItemFunctions.primary_action(current_item)
 	
@@ -132,7 +138,13 @@ func orient_player(mouse_position):
 func handle_movement(direction, delta):
 	#Controls air movement
 	#Applies gravity, increases speed while in air in steps (up to maximum speed) for smoother movement
+	if abs(velocity.x) > 1:
+		body_sprite.animation = "running"
+	else:
+		body_sprite.animation = "default"
+	
 	if not is_on_floor():
+		body_sprite.animation = "jumping"
 		velocity.y += gravity * delta
 		if direction * velocity.x < 0:
 			velocity.x += direction * AIR_SPEED_INCREMENT
@@ -169,17 +181,18 @@ func take_damage():
 		health_depleted.emit()
 
 
+func _on_health_depleted():
+	game_over.visible = true
+	get_tree().paused = true
 
 
+func _on_reset_pressed():
+	game_over.visible = false
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://scenes/world/BigMap.tscn")
+	
 
-
-
-
-
-
-
-
-
-
-
-
+func _on_replay_pressed():
+	game_won.visible = false
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://scenes/world/BigMap.tscn")
