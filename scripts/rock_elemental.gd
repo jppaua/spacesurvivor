@@ -6,21 +6,26 @@ const JUMP_VELOCITY = -700.0
 const MIN_DISTANCE = 300
 const MAX_DISTANCE = 450
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var max_health = 15
+var max_health = 999
 var health = max_health
 var previous_x_position
 var distance
 var status = "CHASING"
 var player
+var HitParticles = preload("res://scenes/prefabs/hit_particle.tscn")
+
 @onready var timer = $rock_elemental_parent/Timer
 @onready var hp = $EnemyInfo/HP
 @onready var status_label = $EnemyInfo/status
 @onready var enemy_position = $EnemyInfo/position
 @onready var rock_elemental_parent = $rock_elemental_parent
+@onready var damage_numbers_origin = $DamageNumbersOrigin
 
 
 func _ready():
 	player = Global.player_node
+	hp.max_value = max_health
+	hp.value = max_health
 
 func _physics_process(delta):
 	if player.global_position.x > global_position.x:
@@ -74,8 +79,31 @@ func attack():
 	get_tree().current_scene.add_child(projectile_instance)
 
 func take_damage():
-	health -= 10
+	health -= 1
 	hp.value = health
+	DamageNumbers.display_number(1, damage_numbers_origin.global_position)
+	print(position)
+	summonParticle()
+	
 	if health <= 0:
 		player.num_killed += 1
 		queue_free()
+
+func summonParticle():
+	var new_hit_particles = HitParticles.instantiate()
+	add_child(new_hit_particles)
+	var particles = new_hit_particles.get_node("hitParticles")
+	particles.emitting = true
+	await get_tree().create_timer(particles.lifetime).timeout
+	new_hit_particles.queue_free()
+
+
+
+
+
+
+
+
+
+
+

@@ -74,7 +74,7 @@ func attack():
 	get_tree().current_scene.add_child(projectile_instance)
 
 func take_damage():
-	health -= 10
+	health -= 15
 	hp.value = health
 	if health <= 0:
 		player.num_killed += 1
