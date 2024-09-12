@@ -7,7 +7,7 @@ const SPEED = 350.0
 const JUMP_VELOCITY = -1000.0
 const GRAVITY_DAMPING = 0.5
 const AIR_SPEED_INCREMENT = 25
-var max_health = 100
+var max_health = 999
 var health = max_health
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var current_item = null
@@ -40,6 +40,8 @@ var num_killed = 0
 func _ready():
 	#hooks up player to inventory
 	Global.set_player_reference(self)
+	progress_bar.max_value = max_health
+	progress_bar.value = health  
 
 func _physics_process(delta):
 	#-1 if holding left, 0 if no keys are pressed, 1 if holding right

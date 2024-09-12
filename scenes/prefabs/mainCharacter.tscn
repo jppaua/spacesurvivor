@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dinb37355x3ql"]
+[gd_scene load_steps=30 format=3 uid="uid://dinb37355x3ql"]
 
 [ext_resource type="Script" path="res://scripts/mainCharacter.gd" id="1_ce8oy"]
 [ext_resource type="Texture2D" uid="uid://fae4g2ifakxt" path="res://assets/character/astrospritesheet-Sheet (1).png" id="3_kp3y3"]
