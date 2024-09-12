@@ -22,6 +22,7 @@ MasterInventory="*res://scripts/MasterInventory.gd"
 ItemFunctions="*res://scripts/Item_Functions.gd"
 MasterRecipeBook="*res://scripts/MasterRecipeBook.gd"
 DamageNumbers="*res://scripts/DamageNumbers.gd"
+PlayerStats="*res://scripts/player_stats.gd"
 
 [display]
 

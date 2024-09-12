@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 const SPEED = 2000.0
+const DAMAGE = 1
 
 func _physics_process(delta):
 	var direction = Vector2(cos(rotation), sin(rotation))

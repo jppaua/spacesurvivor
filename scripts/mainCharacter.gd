@@ -3,13 +3,13 @@ extends CharacterBody2D
 signal health_depleted
 
 
-const SPEED = 350.0
-const JUMP_VELOCITY = -1000.0
-const GRAVITY_DAMPING = 0.5
-const AIR_SPEED_INCREMENT = 25
-var max_health = 999
-var health = max_health
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var speed = PlayerStats.speed
+var jump_velocity = PlayerStats.jump_velocity
+var gravity_damping = PlayerStats.gravity_damping
+var air_speed_increment = PlayerStats.air_speed_increment
+var max_health = PlayerStats.max_health
+var health = PlayerStats.health
+var gravity = PlayerStats.gravity
 var current_item = null
 var current_hotbar_index = -1
 var num_killed = 0
@@ -154,25 +154,25 @@ func handle_movement(direction, delta):
 		body_sprite.animation = "jumping"
 		velocity.y += gravity * delta
 		if direction * velocity.x < 0:
-			velocity.x += direction * AIR_SPEED_INCREMENT
+			velocity.x += direction * air_speed_increment
 		else:
-			if abs(velocity.x) < SPEED:
-				velocity.x += direction * AIR_SPEED_INCREMENT
+			if abs(velocity.x) < speed:
+				velocity.x += direction * air_speed_increment
 	#decreases speed rapidly when not holding direction
 	else:
 		velocity.x = move_toward(velocity.x, 0, 100)
 	
 	#Allows user to jump only while on the ground
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		velocity.y = jump_velocity
 	
 	#Applies maximum speed to user if they move while on the ground (unlike air movement)
 	if direction and is_on_floor():
-		velocity.x = direction * SPEED
+		velocity.x = direction * speed
 		
 	#Allows for variable jump height, letting go of jump causes you to decelerate based on GRAVITY_DAMPING
 	if Input.is_action_just_released("jump") and velocity.y < 0:
-		velocity.y *= GRAVITY_DAMPING
+		velocity.y *= gravity_damping
 
 func orient_player_arms(mouse_position):
 	#makes the arms point towards the mouse, I barely understand this code am Im the guy who wrote it, whatever, it works.

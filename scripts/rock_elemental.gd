@@ -6,7 +6,7 @@ const JUMP_VELOCITY = -700.0
 const MIN_DISTANCE = 300
 const MAX_DISTANCE = 450
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var max_health = 999
+var max_health = 10
 var health = max_health
 var previous_x_position
 var distance
@@ -82,13 +82,22 @@ func take_damage():
 	health -= 1
 	hp.value = health
 	DamageNumbers.display_number(1, damage_numbers_origin.global_position)
-	print(position)
-	summonParticle()
+	
 	
 	if health <= 0:
+		deathParticle()
 		player.num_killed += 1
+		get_node("rock_elemental_parent").visible = false
+		get_node("EnemyInfo").visible = false
+		await get_tree().create_timer(0.5).timeout
 		queue_free()
 
+
+func deathParticle():
+	get_node("deathParticle").emitting = true
+
+
+#For later use probably
 func summonParticle():
 	var new_hit_particles = HitParticles.instantiate()
 	add_child(new_hit_particles)
