@@ -1,11 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://cta3dpq7exvbx"]
+[gd_scene load_steps=9 format=3 uid="uid://cta3dpq7exvbx"]
 
 [ext_resource type="Texture2D" uid="uid://vmj7bfs5d10t" path="res://assets/enemies/rock_elemental.png" id="1_tkl0b"]
 [ext_resource type="Script" path="res://scripts/rock_elemental.gd" id="1_v7ts5"]
 [ext_resource type="FontFile" uid="uid://bp8shuqwwyqdy" path="res://assets/fonts/Hardpixel-nn51.otf" id="3_6hrik"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_ytnl7"]
-radius = 19.2354
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ldwte"]
 size = Vector2(32, 33)
@@ -50,15 +47,6 @@ texture = ExtResource("1_tkl0b")
 wait_time = 2.0
 one_shot = true
 autostart = true
-
-[node name="hitbox" type="Area2D" parent="rock_elemental_parent"]
-light_mask = 0
-visibility_layer = 0
-collision_layer = 4
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="rock_elemental_parent/hitbox"]
-shape = SubResource("CircleShape2D_ytnl7")
 
 [node name="collisionbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)

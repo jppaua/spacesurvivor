@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://irhvl3bfkyqf"]
+[gd_scene load_steps=7 format=3 uid="uid://irhvl3bfkyqf"]
 
 [ext_resource type="Texture2D" uid="uid://kw8rttqca26f" path="res://assets/weapons/grenade.png" id="1_d8lcg"]
 [ext_resource type="Script" path="res://scripts/grenade.gd" id="1_hn0ny"]
+[ext_resource type="Texture2D" uid="uid://bulxt058rvmt7" path="res://assets/resources/defaultItem.png" id="3_t6xau"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kmo7r"]
 size = Vector2(8, 20)
@@ -9,6 +10,9 @@ size = Vector2(8, 20)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8n06x"]
 radius = 8.0
 height = 34.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lvfyd"]
+radius = 126.036
 
 [node name="grenade" type="CharacterBody2D"]
 collision_layer = 0
@@ -28,14 +32,28 @@ texture = ExtResource("1_d8lcg")
 wait_time = 3.0
 one_shot = true
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="bulletHitBox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bulletHitBox"]
 position = Vector2(20, 0)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_8n06x")
 
+[node name="explosionHitBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="explosionHitBox"]
+visible = false
+scale = Vector2(18, 18)
+texture = ExtResource("3_t6xau")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="explosionHitBox"]
+shape = SubResource("CircleShape2D_lvfyd")
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="bulletHitBox" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="explosionHitBox" to="." method="_on_explosion_hit_box_body_entered"]
+[connection signal="body_exited" from="explosionHitBox" to="." method="_on_explosion_hit_box_body_exited"]

@@ -1,12 +1,11 @@
 extends CharacterBody2D
 
-
-const SPEED = 260.0
-const JUMP_VELOCITY = -700.0
+const SPEED = 0#260.0
+const JUMP_VELOCITY = 0#-700.0
 const MIN_DISTANCE = 300
 const MAX_DISTANCE = 450
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var max_health = 10
+var max_health = 100
 var health = max_health
 var previous_x_position
 var distance
@@ -78,10 +77,17 @@ func attack():
 	projectile_instance.scale = scale
 	get_tree().current_scene.add_child(projectile_instance)
 
+<<<<<<< HEAD
 func take_damage():
 	health -= 1
 	hp.value = health
 	DamageNumbers.display_number(1, damage_numbers_origin.global_position)
+=======
+func take_damage(damage):
+	health -= damage
+	hp.value = health
+	DamageNumbers.display_number(damage, damage_numbers_origin.global_position)
+>>>>>>> f414d89a05b999c8ff6a5d7465f360ed099edb53
 	
 	
 	if health <= 0:
@@ -89,6 +95,10 @@ func take_damage():
 		player.num_killed += 1
 		get_node("rock_elemental_parent").visible = false
 		get_node("EnemyInfo").visible = false
+<<<<<<< HEAD
+=======
+		self.collision_layer &= ~4
+>>>>>>> f414d89a05b999c8ff6a5d7465f360ed099edb53
 		await get_tree().create_timer(0.5).timeout
 		queue_free()
 

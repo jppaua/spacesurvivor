@@ -18,10 +18,8 @@ func firearm_primary(item):
 	projectile_instance.global_position = Vector2(right_barrel.global_position.x, right_barrel.global_position.y)
 	projectile_instance.scale = scale
 	projectile_instance.rotation = ((Global.player_node.get_node("PlayerParent/RightArmParent").rotation) * scale.x) + deviance
+	projectile_instance.damage = item["damage"]
 	get_tree().current_scene.add_child(projectile_instance)
-
-
-
 
 func deviance(range):
 	return randf_range(-range, range)

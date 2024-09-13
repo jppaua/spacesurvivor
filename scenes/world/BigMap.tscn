@@ -375,3 +375,30 @@ texture = ExtResource("11_0kca1")
 
 [node name="rock_elemental" parent="Node2enemiesD" instance=ExtResource("12_db3px")]
 position = Vector2(71, 65)
+
+[node name="rock_elemental2" parent="Node2enemiesD" instance=ExtResource("12_db3px")]
+position = Vector2(173, 65)
+
+[node name="rock_elemental3" parent="Node2enemiesD" instance=ExtResource("12_db3px")]
+position = Vector2(139, 65)
+
+[node name="rock_elemental4" parent="Node2enemiesD" instance=ExtResource("12_db3px")]
+position = Vector2(37, 65)
+
+[node name="rock_elemental5" parent="Node2enemiesD" instance=ExtResource("12_db3px")]
+position = Vector2(105, 65)
+
+[node name="rock_elemental6" parent="Node2enemiesD" instance=ExtResource("12_db3px")]
+position = Vector2(-127, 36)
+
+[node name="rock_elemental7" parent="Node2enemiesD" instance=ExtResource("12_db3px")]
+position = Vector2(-128, 150)
+
+[node name="rock_elemental8" parent="Node2enemiesD" instance=ExtResource("12_db3px")]
+position = Vector2(-127, 110)
+
+[node name="rock_elemental9" parent="Node2enemiesD" instance=ExtResource("12_db3px")]
+position = Vector2(-128, 73)
+
+[node name="rock_elemental10" parent="Node2enemiesD" instance=ExtResource("12_db3px")]
+position = Vector2(-127, -3)
