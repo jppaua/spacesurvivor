@@ -66,10 +66,6 @@ func _physics_process(delta):
 				ItemFunctions.primary_action(current_item)
 				timer.wait_time = current_item["rate_of_fire"]
 				timer.start()
-	
-	if num_killed >= 12:
-		game_won.visible = true
-		get_tree().paused = true
 	move_and_slide()
 
 func _input(event):
