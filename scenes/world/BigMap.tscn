@@ -375,6 +375,7 @@ texture = ExtResource("11_0kca1")
 
 [node name="rock_elemental" parent="Node2enemiesD" instance=ExtResource("12_db3px")]
 position = Vector2(71, 65)
+<<<<<<< HEAD
 
 [node name="rock_elemental2" parent="Node2enemiesD" instance=ExtResource("12_db3px")]
 position = Vector2(173, 65)
@@ -402,3 +403,5 @@ position = Vector2(-128, 73)
 
 [node name="rock_elemental10" parent="Node2enemiesD" instance=ExtResource("12_db3px")]
 position = Vector2(-127, -3)
+=======
+>>>>>>> 9477db447deb1bcd48b6f4670c8468cd8c03d500

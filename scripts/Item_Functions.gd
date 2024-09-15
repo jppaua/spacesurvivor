@@ -21,5 +21,11 @@ func firearm_primary(item):
 	projectile_instance.damage = item["damage"]
 	get_tree().current_scene.add_child(projectile_instance)
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 9477db447deb1bcd48b6f4670c8468cd8c03d500
 func deviance(range):
 	return randf_range(-range, range)

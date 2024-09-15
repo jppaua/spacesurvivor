@@ -66,7 +66,10 @@ func _physics_process(delta):
 				ItemFunctions.primary_action(current_item)
 				timer.wait_time = current_item["rate_of_fire"]
 				timer.start()
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9477db447deb1bcd48b6f4670c8468cd8c03d500
 	move_and_slide()
 
 func _input(event):

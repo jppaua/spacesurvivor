@@ -48,6 +48,15 @@ wait_time = 2.0
 one_shot = true
 autostart = true
 
+<<<<<<< HEAD
+=======
+[node name="knockbackTimer" type="Timer" parent="rock_elemental_parent"]
+wait_time = 0.3
+one_shot = true
+
+[node name="stunTimer" type="Timer" parent="rock_elemental_parent"]
+
+>>>>>>> 9477db447deb1bcd48b6f4670c8468cd8c03d500
 [node name="collisionbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_ldwte")
@@ -81,7 +90,11 @@ text = "[ X , Y ]
 
 [node name="HP" type="ProgressBar" parent="EnemyInfo"]
 offset_left = -27.0
+<<<<<<< HEAD
 offset_top = -30.0
+=======
+offset_top = -28.0
+>>>>>>> 9477db447deb1bcd48b6f4670c8468cd8c03d500
 offset_right = 27.0
 offset_bottom = -24.0
 theme_override_styles/background = SubResource("StyleBoxFlat_rl5bx")
