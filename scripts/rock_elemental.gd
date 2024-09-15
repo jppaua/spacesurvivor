@@ -1,12 +1,14 @@
 extends CharacterBody2D
 
 
-const SPEED = 0#260.0
-const JUMP_VELOCITY = 0#-700.0
+const SPEED = 260.0
+const JUMP_VELOCITY = -700.0
 const MIN_DISTANCE = 300
 const MAX_DISTANCE = 450
+var air_speed_increment = 25
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var max_health = 100
+var max_health = 999
+var knockbackable = true
 var health = max_health
 var previous_x_position
 var distance
@@ -14,12 +16,13 @@ var status = "CHASING"
 var player
 var HitParticles = preload("res://scenes/prefabs/hit_particle.tscn")
 
-@onready var timer = $rock_elemental_parent/Timer
+@onready var attack_timer = $rock_elemental_parent/Timer
 @onready var hp = $EnemyInfo/HP
 @onready var status_label = $EnemyInfo/status
 @onready var enemy_position = $EnemyInfo/position
 @onready var rock_elemental_parent = $rock_elemental_parent
 @onready var damage_numbers_origin = $DamageNumbersOrigin
+@onready var knockback_timer = $rock_elemental_parent/knockbackTimer
 
 
 func _ready():
@@ -55,15 +58,23 @@ func _physics_process(delta):
 		if previous_x_position == global_position.x and is_on_floor():
 			velocity.y = JUMP_VELOCITY
 	
-	if status == "ATTACKING" and timer.time_left == 0:
+	if status == "ATTACKING" and attack_timer.time_left == 0:
 		velocity.x = 0;
 		attack()
-		timer.wait_time = 2
-		timer.start()
+		attack_timer.wait_time = 2
+		attack_timer.start()
 	
 	
 	if not is_on_floor():
 		velocity.y += gravity * delta
+		if direction * velocity.x < 0:
+			velocity.x += direction * air_speed_increment
+		else:
+			if abs(velocity.x) < SPEED:
+				velocity.x += direction * air_speed_increment
+	#decreases speed rapidly when not holding direction
+	else:
+		velocity.x = move_toward(velocity.x, 0, 100)
 	
 	enemy_position.text = str(global_position)
 	status_label.text = status
@@ -77,6 +88,17 @@ func attack():
 	projectile_instance.global_position = global_position
 	projectile_instance.scale = scale
 	get_tree().current_scene.add_child(projectile_instance)
+
+func take_knockback(projectile, knockback):
+	if(knockbackable):
+		velocity.y = knockback.y
+		if projectile.position.x > position.x:
+			velocity.x = knockback.x * -1
+		knockback_timer.wait_time = 0.3
+		knockback_timer.start()
+		knockbackable = false
+		await knockback_timer.timeout
+		knockbackable = true
 
 func take_damage(damage):
 	health -= damage
