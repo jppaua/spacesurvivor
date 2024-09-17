@@ -9,10 +9,20 @@ var gravity_damping = PlayerStats.gravity_damping
 var air_speed_increment = PlayerStats.air_speed_increment
 var max_health = PlayerStats.max_health
 var health = PlayerStats.health
+var max_jumps = PlayerStats.max_jumps
+var max_flight = PlayerStats.max_flight
+var jumps = max_jumps
+var flight_time = max_flight
 var gravity = PlayerStats.gravity
 var current_item = null
 var current_hotbar_index = -1
 var num_killed = 0
+
+var dash_cooldown = 0
+var dash_delay = 3
+var dash_timer = 0
+var dash_window = 0.25
+var previous_movement = 0
 
 @onready var player_parent = $PlayerParent
 @onready var timer = $Timer
@@ -66,7 +76,7 @@ func _physics_process(delta):
 				ItemFunctions.primary_action(current_item)
 				timer.wait_time = current_item["rate_of_fire"]
 				timer.start()
-
+	
 	move_and_slide()
 
 func _input(event):
@@ -159,14 +169,40 @@ func handle_movement(direction, delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, 100)
 	
-	#Allows user to jump only while on the ground
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	#Allows the player to dash
+	if(Input.is_action_just_pressed("left") or Input.is_action_just_pressed("right")):
+		if(previous_movement == direction and dash_cooldown>dash_delay and dash_timer<dash_window):
+			#Temp Replace with final formula soon
+			velocity.x = direction*speed*3
+			previous_movement = 0
+			dash_cooldown = 0
+		else:
+			previous_movement = direction
+			dash_timer = 0
+	#Handles the timers related to dashing
+	dash_cooldown += delta
+	dash_timer += delta
+	
+	#Resets Jumps and slowly recharges flight_time when on floor
+	if is_on_floor():
+		jumps = max_jumps
+		if flight_time<max_flight:
+			flight_time+=2
+	
+	#Allows user to jump and decrease the Jump counter
+	if Input.is_action_just_pressed("jump") and jumps>0:
 		velocity.y = jump_velocity
+		jumps-=1
+	
+	#Allows player to Hover for a set amount of time
+	if Input.is_action_pressed("jump") and velocity.y > 0 and flight_time>0:
+		velocity.y = 0
+		flight_time-=1
 	
 	#Applies maximum speed to user if they move while on the ground (unlike air movement)
 	if direction and is_on_floor():
 		velocity.x = direction * speed
-		
+	
 	#Allows for variable jump height, letting go of jump causes you to decelerate based on GRAVITY_DAMPING
 	if Input.is_action_just_released("jump") and velocity.y < 0:
 		velocity.y *= gravity_damping
@@ -178,23 +214,20 @@ func orient_player_arms(mouse_position):
 	left_arm_parent.rotation = angle_left
 	right_arm_parent.rotation = angle_right
 
-func take_damage():
-	health -= 1
+func take_damage(damage=1):
+	health -= damage
 	progress_bar.value = health
 	if health <= 0:
 		health_depleted.emit()
-
 
 func _on_health_depleted():
 	game_over.visible = true
 	get_tree().paused = true
 
-
 func _on_reset_pressed():
 	game_over.visible = false
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/world/BigMap.tscn")
-	
 
 func _on_replay_pressed():
 	game_won.visible = false
