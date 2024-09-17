@@ -11,6 +11,7 @@ var max_health = PlayerStats.max_health
 var health = PlayerStats.health
 var max_jumps = PlayerStats.max_jumps
 var max_flight = PlayerStats.max_flight
+var dash_delay = PlayerStats.dash_delay
 var jumps = max_jumps
 var flight_time = max_flight
 var gravity = PlayerStats.gravity
@@ -19,10 +20,11 @@ var current_hotbar_index = -1
 var num_killed = 0
 
 var dash_cooldown = 0
-var dash_delay = 3
 var dash_timer = 0
-var dash_window = 0.25
+var dash_window = 0.3
 var previous_movement = 0
+#Simple editor switch for warp or dash. Dash = true Warp = False
+var dash_mode = true
 
 @onready var player_parent = $PlayerParent
 @onready var timer = $Timer
@@ -167,27 +169,13 @@ func handle_movement(direction, delta):
 				velocity.x += direction * air_speed_increment
 	#decreases speed rapidly when not holding direction
 	else:
-		velocity.x = move_toward(velocity.x, 0, 100)
-	
-	#Allows the player to dash
-	if(Input.is_action_just_pressed("left") or Input.is_action_just_pressed("right")):
-		if(previous_movement == direction and dash_cooldown>dash_delay and dash_timer<dash_window):
-			#Temp Replace with final formula soon
-			velocity.x = direction*speed*3
-			previous_movement = 0
-			dash_cooldown = 0
-		else:
-			previous_movement = direction
-			dash_timer = 0
-	#Handles the timers related to dashing
-	dash_cooldown += delta
-	dash_timer += delta
+		velocity.x = move_toward(velocity.x, 0, 80)
 	
 	#Resets Jumps and slowly recharges flight_time when on floor
 	if is_on_floor():
 		jumps = max_jumps
 		if flight_time<max_flight:
-			flight_time+=2
+			flight_time+=delta*2
 	
 	#Allows user to jump and decrease the Jump counter
 	if Input.is_action_just_pressed("jump") and jumps>0:
@@ -197,15 +185,34 @@ func handle_movement(direction, delta):
 	#Allows player to Hover for a set amount of time
 	if Input.is_action_pressed("jump") and velocity.y > 0 and flight_time>0:
 		velocity.y = 0
-		flight_time-=1
+		flight_time-=delta
 	
 	#Applies maximum speed to user if they move while on the ground (unlike air movement)
-	if direction and is_on_floor():
+	if direction and is_on_floor() and abs(velocity.x)<speed:
 		velocity.x = direction * speed
 	
 	#Allows for variable jump height, letting go of jump causes you to decelerate based on GRAVITY_DAMPING
 	if Input.is_action_just_released("jump") and velocity.y < 0:
 		velocity.y *= gravity_damping
+	
+	#Allows the player to dash
+	if(Input.is_action_just_pressed("left") or Input.is_action_just_pressed("right")):
+		if(previous_movement == direction and dash_cooldown>dash_delay and dash_timer<dash_window):
+			#Temp Replace with final formula soon
+			if dash_mode== true:
+				velocity.x = direction*speed*4
+			else:
+				#Only Displaces the player model
+				player_parent.global_position.x += 400*direction
+			print("Dash")
+			previous_movement = 0
+			dash_cooldown = 0
+		else:
+			previous_movement = direction
+			dash_timer = 0
+	#Handles the timers related to dashing
+	dash_cooldown += delta
+	dash_timer += delta
 
 func orient_player_arms(mouse_position):
 	#makes the arms point towards the mouse, I barely understand this code am Im the guy who wrote it, whatever, it works.
