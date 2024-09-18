@@ -1,8 +1,21 @@
-[gd_scene load_steps=7 format=3 uid="uid://irhvl3bfkyqf"]
+[gd_scene load_steps=10 format=3 uid="uid://irhvl3bfkyqf"]
 
 [ext_resource type="Texture2D" uid="uid://kw8rttqca26f" path="res://assets/weapons/grenade.png" id="1_d8lcg"]
 [ext_resource type="Script" path="res://scripts/grenade.gd" id="1_hn0ny"]
 [ext_resource type="Texture2D" uid="uid://bulxt058rvmt7" path="res://assets/resources/defaultItem.png" id="3_t6xau"]
+
+[sub_resource type="Curve" id="Curve_4m434"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, 360), 0.0, 0.0, 0, 0, Vector2(0.992754, -360), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_udcbe"]
+offsets = PackedFloat32Array(0.295337, 1)
+colors = PackedColorArray(0.974044, 0.974044, 0.974044, 1, 0.972549, 0.972549, 0.972549, 0)
+
+[sub_resource type="Gradient" id="Gradient_i6k5w"]
+colors = PackedColorArray(0.65834, 0.65834, 0.65834, 1, 0.903598, 0.903598, 0.903598, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kmo7r"]
 size = Vector2(8, 20)
@@ -19,6 +32,26 @@ collision_layer = 0
 collision_mask = 4
 script = ExtResource("1_hn0ny")
 
+[node name="trail" type="CPUParticles2D" parent="."]
+position = Vector2(7, 0)
+amount = 500
+lifetime = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(10, 4)
+direction = Vector2(-1, 0)
+spread = 90.0
+gravity = Vector2(0, -10)
+initial_velocity_min = 10.0
+initial_velocity_max = 60.0
+damping_min = 10.0
+damping_max = 10.0
+angle_min = -720.0
+angle_max = 720.0
+angle_curve = SubResource("Curve_4m434")
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_udcbe")
+color_initial_ramp = SubResource("Gradient_i6k5w")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_kmo7r")
@@ -33,7 +66,7 @@ wait_time = 3.0
 one_shot = true
 
 [node name="bulletHitBox" type="Area2D" parent="."]
-collision_layer = 0
+collision_layer = 4
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bulletHitBox"]
@@ -42,10 +75,10 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_8n06x")
 
 [node name="explosionHitBox" type="Area2D" parent="."]
-collision_layer = 4
+collision_layer = 0
 collision_mask = 4
 
-[node name="Sprite2D" type="Sprite2D" parent="explosionHitBox"]
+[node name="raduisSize" type="Sprite2D" parent="explosionHitBox"]
 visible = false
 scale = Vector2(18, 18)
 texture = ExtResource("3_t6xau")

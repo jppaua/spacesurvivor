@@ -276,7 +276,6 @@ text = "FPS
 "
 
 [node name="GlobalPosUI" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="GlobalPosition" type="Label" parent="GlobalPosUI"]
 anchors_preset = 8

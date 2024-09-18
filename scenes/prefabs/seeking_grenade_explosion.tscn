@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://bv64ucwidy140"]
+
+[ext_resource type="Texture2D" uid="uid://bhuv1pddkii5h" path="res://assets/particles/Explosion_Sheet.png" id="1_02pit"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_w344h"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_rfwsk"]
+_data = [Vector2(0.898551, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.802849), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_lam5j"]
+offsets = PackedFloat32Array(0.175879, 0.183417, 0.39196, 0.396985, 0.608808, 0.611399, 0.816062, 0.873057, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 0, 1, 1, 0.942633, 0, 1, 1, 0.498039, 0, 1, 1, 0.511934, 0.0276816, 1, 1, 0, 0, 1, 1, 0.090909, 0.090909, 1, 0, 0, 0, 1, 0, 0, 0, 0)
+
+[node name="SeekingGrenadeExplosion" type="Node2D"]
+
+[node name="explosion" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_w344h")
+emitting = false
+amount = 25
+one_shot = true
+explosiveness = 0.75
+lifetime_randomness = 1.0
+texture = ExtResource("1_02pit")
+emission_shape = 1
+emission_sphere_radius = 60.0
+gravity = Vector2(0, -100)
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.5
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_rfwsk")
+color_ramp = SubResource("Gradient_lam5j")
+anim_speed_min = 2.0
+anim_speed_max = 4.0
