@@ -260,8 +260,8 @@ texture = ExtResource("3_c5aen")
 1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSet" id="TileSet_m3gdt"]
-physics_layer_0/collision_layer = 4294967295
-physics_layer_0/collision_mask = 4294967295
+physics_layer_0/collision_layer = 4278190081
+physics_layer_0/collision_mask = 4278190081
 sources/1 = SubResource("TileSetAtlasSource_fsbpv")
 
 [node name="Main" type="Node"]
@@ -358,4 +358,4 @@ texture = ExtResource("11_0kca1")
 [node name="Node2enemiesD" type="Node2D" parent="." groups=["enemy"]]
 
 [node name="rock_elemental" parent="Node2enemiesD" instance=ExtResource("12_db3px")]
-position = Vector2(71, 65)
+position = Vector2(206, -3)

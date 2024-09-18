@@ -10,7 +10,7 @@ radius = 4.0
 radius = 12.0
 
 [node name="rock" type="CharacterBody2D"]
-collision_layer = 2
+collision_layer = 8
 script = ExtResource("1_xju4t")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -21,6 +21,8 @@ texture = ExtResource("1_b2qs2")
 shape = SubResource("CircleShape2D_cvuvi")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_sep0i")

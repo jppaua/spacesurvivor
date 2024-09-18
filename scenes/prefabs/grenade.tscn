@@ -28,8 +28,8 @@ height = 34.0
 radius = 126.036
 
 [node name="grenade" type="CharacterBody2D"]
-collision_layer = 0
-collision_mask = 4
+collision_layer = 32
+collision_mask = 5
 script = ExtResource("1_hn0ny")
 
 [node name="trail" type="CPUParticles2D" parent="."]
@@ -66,8 +66,8 @@ wait_time = 3.0
 one_shot = true
 
 [node name="bulletHitBox" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 4
+collision_layer = 32
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bulletHitBox"]
 position = Vector2(20, 0)

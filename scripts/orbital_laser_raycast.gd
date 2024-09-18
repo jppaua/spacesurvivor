@@ -7,7 +7,8 @@ var printed = false
 
 
 func _ready():
-	global_position = get_global_mouse_position() 
+	global_position = get_global_mouse_position()
+	rotation_degrees = 0
 
 func _draw():
 	if ray_cast.is_colliding():
