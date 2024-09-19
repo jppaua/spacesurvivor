@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://ceidiq061mw63" path="res://assets/resources/charoite.png" id="10_6xwj1"]
 [ext_resource type="Texture2D" uid="uid://1sktwj8aqjno" path="res://assets/resources/crystal.png" id="11_0kca1"]
 [ext_resource type="PackedScene" uid="uid://cta3dpq7exvbx" path="res://scenes/prefabs/rock_elemental.tscn" id="12_db3px"]
-[ext_resource type="Script" path="res://scripts/flying_geode.gd" id="13_vwgpm"]
+[ext_resource type="PackedScene" uid="uid://dunyeuocviw0h" path="res://scenes/prefabs/flying_geode.tscn" id="13_5do6m"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_seycf"]
 texture = ExtResource("3_c5aen")
@@ -377,6 +377,5 @@ texture = ExtResource("11_0kca1")
 [node name="rock_elemental" parent="Node2enemiesD" instance=ExtResource("12_db3px")]
 position = Vector2(71, 65)
 
-[node name="flying_geode" parent="Node2enemiesD" instance=ExtResource("12_db3px")]
-position = Vector2(205, 82)
-script = ExtResource("13_vwgpm")
+[node name="flying geode" parent="Node2enemiesD" instance=ExtResource("13_5do6m")]
+position = Vector2(279, 266)

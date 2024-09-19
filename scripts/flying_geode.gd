@@ -16,16 +16,17 @@ var status = "CHASING"
 var player
 var HitParticles = preload("res://scenes/prefabs/hit_particle.tscn")
 var flying_mob = true
-var flying_height = 400
+var flying_height = 200
 var altitude_speed = 20
 
-@onready var attack_timer = $rock_elemental_parent/Timer
+@onready var attack_timer = $flying_geode_parent/Timer
 @onready var hp = $EnemyInfo/HP
 @onready var status_label = $EnemyInfo/status
 @onready var enemy_position = $EnemyInfo/position
-@onready var rock_elemental_parent = $rock_elemental_parent
+@onready var flying_geode_parent = $flying_geode_parent
 @onready var damage_numbers_origin = $DamageNumbersOrigin
-@onready var knockback_timer = $rock_elemental_parent/knockbackTimer
+@onready var knockback_timer = $flying_geode_parent/knockbackTimer
+@onready var platform_raycast = $flying_geode_parent/PlatformRayCast
 
 
 func _ready():
@@ -35,9 +36,9 @@ func _ready():
 
 func _physics_process(delta):
 	if player.global_position.x > global_position.x:
-		rock_elemental_parent.scale.x = 1
+		flying_geode_parent.scale.x = 1
 	else:
-		rock_elemental_parent.scale.x = -1
+		flying_geode_parent.scale.x = -1
 	
 	distance = global_position.distance_to(player.global_position)
 	if distance >= MAX_DISTANCE:
@@ -67,13 +68,17 @@ func _physics_process(delta):
 		attack_timer.wait_time = 2
 		attack_timer.start()
 	
+	# Calculate flying height relative to platform
 	if flying_mob:
-		if global_position.y < flying_height:
-			velocity.y += altitude_speed * delta #move downwards
-		elif global_position.y > flying_height:
-			velocity.y -= altitude_speed * delta #move upwards
+		var platform_height = get_platform_height()
+		var target_height = platform_height - flying_height
+
+		if global_position.y < target_height:
+			velocity.y += altitude_speed * delta  # Move downwards
+		elif global_position.y > target_height:
+			velocity.y -= altitude_speed * delta  # Move upwards
 		else:
-			velocity.y = 0  # Stop vertical movement if at flying height
+			velocity.y = 0  # Stop vertical movement if at target height
 	
 	if not is_on_floor() && !flying_mob:
 		velocity.y += gravity * delta
@@ -138,6 +143,13 @@ func summonParticle():
 	particles.emitting = true
 	await get_tree().create_timer(particles.lifetime).timeout
 	new_hit_particles.queue_free()
+
+# Function to get platform height using RayCast2D
+func get_platform_height() -> float:
+	if platform_raycast.is_colliding():
+		return platform_raycast.get_collision_point().y
+	else:
+		return 0  # Default or base height if no platform is detected
 
 
 
