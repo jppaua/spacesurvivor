@@ -52,6 +52,7 @@ func set_player_reference(player):
 func drop_item(item_data):
 	var item_scene = load(item_data["scene_path"])
 	var item_instance = item_scene.instantiate()
+	#print("FROM DROP ITEM: " + str(item_data) + "\n\n")
 	item_instance.set_item_data(item_data)
 	item_instance.global_position = Vector2(player_node.global_position.x + (118 * player_node.get_node("PlayerParent").scale.x),player_node.global_position.y - 30)
 	item_instance.velocity = Vector2(200 * player_node.get_node("PlayerParent").scale.x, -400)

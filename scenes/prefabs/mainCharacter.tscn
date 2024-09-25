@@ -165,6 +165,7 @@ corner_radius_bottom_left = 6
 anti_aliasing_size = 0.161
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_layer = 2
 script = ExtResource("1_ce8oy")
 
 [node name="PlayerParent" type="Node2D" parent="."]
@@ -276,7 +277,6 @@ text = "FPS
 "
 
 [node name="GlobalPosUI" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="GlobalPosition" type="Label" parent="GlobalPosUI"]
 anchors_preset = 8
@@ -349,6 +349,8 @@ one_shot = true
 
 [node name="HurtBox" type="Area2D" parent="."]
 visible = false
+collision_layer = 2
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("CapsuleShape2D_0c2lh")

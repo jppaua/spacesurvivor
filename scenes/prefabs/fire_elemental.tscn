@@ -28,7 +28,7 @@ anti_aliasing_size = 0.1
 
 [node name="fire_elemental" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 4
-collision_mask = 4
+collision_mask = 5
 script = ExtResource("1_pynpl")
 
 [node name="fire_elemental_parent" type="Node2D" parent="."]

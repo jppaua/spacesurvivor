@@ -82,6 +82,7 @@ func _on_pickup_zone_body_entered(body):
 	
 
 func set_item_data(data):
+	#print(data)
 	item_type = data["type"]
 	item_name = data["name"]
 	item_texture = data["texture"]

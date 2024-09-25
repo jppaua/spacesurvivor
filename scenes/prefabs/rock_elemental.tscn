@@ -34,7 +34,7 @@ colors = PackedColorArray(0.666887, 0.528274, 0.303317, 1, 1, 1, 1, 1)
 [node name="rock_elemental" type="CharacterBody2D" groups=["enemy"]]
 z_index = 1
 collision_layer = 4
-collision_mask = 4
+collision_mask = 5
 script = ExtResource("1_v7ts5")
 
 [node name="rock_elemental_parent" type="Node2D" parent="."]

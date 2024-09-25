@@ -38,6 +38,42 @@ var master_inventory = {
 			"y_barrel": -8,
 			"scene_path": "res://scenes/prefabs/item_gun.tscn"
 		},
+		"tracking rpg":{
+			"type": "firearm",
+			"name": "Tracking RPG",
+			"texture": preload("res://assets/weapons/trackingLauncher.png"),
+			"projectile": "res://scenes/prefabs/tracking_rpg.tscn",
+			"description": "Fires a tracking explosive missile",
+			"is_dual_wield": false,
+			"is_full_auto": false,
+			"damage": 10,
+			"rate_of_fire": 1.0,
+			"accuracy": 0.00,
+			"quantity": 1,
+			"x_offset": 1,
+			"y_offset": -2,
+			"x_barrel": 15,
+			"y_barrel": -8,
+			"scene_path": "res://scenes/prefabs/item_gun.tscn"
+		},
+		"orbital laser device":{
+			"type": "firearm",
+			"name": "Orbital Laser Device",
+			"texture": preload("res://assets/weapons/orbitalLaserRadio.png"),
+			"projectile": "res://scenes/prefabs/orbital_laser_raycast.tscn",
+			"description": "summons a massive celestial laser",
+			"is_dual_wield": false,
+			"is_full_auto": true,
+			"damage": 0.0,
+			"rate_of_fire": 0.1,
+			"accuracy": 0.00,
+			"quantity": 1,
+			"x_offset": 2,
+			"y_offset": -4,
+			"x_barrel": 0,
+			"y_barrel": 0,
+			"scene_path": "res://scenes/prefabs/item_gun.tscn"
+		},
 		"default":{
 			"type": "firearm",
 			"name": "Default Firearm",
@@ -165,7 +201,7 @@ func spawn_item(item_type, item_name, position):
 	if master_inventory[new_type].has(item_name):
 		new_name = item_name
 	var item = master_inventory[new_type][new_name]
-	print(item)
+	#print(item)
 	var item_scene = load(item["scene_path"])
 	var item_instance = item_scene.instantiate()
 	item_instance.set_item_data(item)
