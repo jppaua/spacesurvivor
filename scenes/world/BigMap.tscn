@@ -379,3 +379,12 @@ position = Vector2(71, 65)
 
 [node name="flying geode" parent="Node2enemiesD" instance=ExtResource("13_5do6m")]
 position = Vector2(279, 266)
+
+[node name="flying geode2" parent="Node2enemiesD" instance=ExtResource("13_5do6m")]
+position = Vector2(190, 132)
+
+[node name="flying geode3" parent="Node2enemiesD" instance=ExtResource("13_5do6m")]
+position = Vector2(330, 142)
+
+[node name="flying geode4" parent="Node2enemiesD" instance=ExtResource("13_5do6m")]
+position = Vector2(892, 108)

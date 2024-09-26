@@ -1,7 +1,8 @@
 extends CharacterBody2D
 
 
-const SPEED = 260.0
+const BASE_SPEED = 260.0
+const SPEED_VARIATION = 100.0
 const JUMP_VELOCITY = -700.0
 const MIN_DISTANCE = 300
 const MAX_DISTANCE = 450
@@ -18,6 +19,8 @@ var HitParticles = preload("res://scenes/prefabs/hit_particle.tscn")
 var flying_mob = true
 var flying_height = 200
 var altitude_speed = 20
+var current_speed = BASE_SPEED
+var speed_change_direction = 1
 
 @onready var attack_timer = $flying_geode_parent/Timer
 @onready var hp = $EnemyInfo/HP
@@ -52,13 +55,15 @@ func _physics_process(delta):
 	if player.global_position.x > global_position.x:
 		direction = 1
 	
-	if status == "CHASING":
-		velocity.x = direction * SPEED
+	if status == "CHASING" or status == "RETREATING":
+		update_speed(delta)
+		velocity.x = direction * current_speed
 		if previous_x_position == global_position.x and is_on_floor():
 			velocity.y = JUMP_VELOCITY
+
 	
 	if status == "RETREATING":
-		velocity.x = (direction * SPEED * 0.7 * -1)
+		velocity.x = (direction * BASE_SPEED * 0.7 * -1)
 		if previous_x_position == global_position.x and is_on_floor():
 			velocity.y = JUMP_VELOCITY
 	
@@ -85,7 +90,7 @@ func _physics_process(delta):
 		if direction * velocity.x < 0:
 			velocity.x += direction * air_speed_increment
 		else:
-			if abs(velocity.x) < SPEED:
+			if abs(velocity.x) < BASE_SPEED:
 				velocity.x += direction * air_speed_increment
 	#decreases speed rapidly when not holding direction
 	else:
@@ -95,6 +100,18 @@ func _physics_process(delta):
 	status_label.text = status
 	previous_x_position = global_position.x
 	move_and_slide()
+	
+func update_speed(delta):
+	if speed_change_direction == 1:
+		current_speed += SPEED_VARIATION * delta
+		if current_speed >= BASE_SPEED + SPEED_VARIATION:
+			current_speed = BASE_SPEED + SPEED_VARIATION
+			speed_change_direction = -1
+	else:
+		current_speed -= SPEED_VARIATION * delta
+		if current_speed <= BASE_SPEED - SPEED_VARIATION:
+			current_speed = BASE_SPEED - SPEED_VARIATION
+			speed_change_direction = 1
 
 func attack():
 	var projectile = load("res://scenes/prefabs/rock.tscn")
