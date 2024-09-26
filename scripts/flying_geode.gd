@@ -17,8 +17,9 @@ var status = "CHASING"
 var player
 var HitParticles = preload("res://scenes/prefabs/hit_particle.tscn")
 var flying_mob = true
-var flying_height = 200
-var altitude_speed = 20
+var min_flying_height = 300  # Minimum height above the platform
+var max_flying_height = 400  # Maximum height above the platform
+var altitude_speed = 50
 var current_speed = BASE_SPEED
 var speed_change_direction = 1
 
@@ -58,14 +59,10 @@ func _physics_process(delta):
 	if status == "CHASING" or status == "RETREATING":
 		update_speed(delta)
 		velocity.x = direction * current_speed
-		if previous_x_position == global_position.x and is_on_floor():
-			velocity.y = JUMP_VELOCITY
 
 	
 	if status == "RETREATING":
 		velocity.x = (direction * BASE_SPEED * 0.7 * -1)
-		if previous_x_position == global_position.x and is_on_floor():
-			velocity.y = JUMP_VELOCITY
 	
 	if status == "ATTACKING" and attack_timer.time_left == 0:
 		velocity.x = 0;
@@ -76,15 +73,16 @@ func _physics_process(delta):
 	# Calculate flying height relative to platform
 	if flying_mob:
 		var platform_height = get_platform_height()
-		var target_height = platform_height - flying_height
+		var min_target_height = platform_height - min_flying_height
+		var max_target_height = platform_height - max_flying_height
 
-		if global_position.y < target_height:
+		if global_position.y < max_target_height:
 			velocity.y += altitude_speed * delta  # Move downwards
-		elif global_position.y > target_height:
+		elif global_position.y > min_target_height:
 			velocity.y -= altitude_speed * delta  # Move upwards
-		else:
-			velocity.y = 0  # Stop vertical movement if at target height
-	
+		#else:
+			#velocity.y = 0  # Stop vertical movement if within target height range
+			
 	if not is_on_floor() && !flying_mob:
 		velocity.y += gravity * delta
 		if direction * velocity.x < 0:
@@ -141,7 +139,7 @@ func take_damage(damage):
 	if health <= 0:
 		deathParticle()
 		player.num_killed += 1
-		get_node("rock_elemental_parent").visible = false
+		get_node("flying_geode_parent").visible = false
 		get_node("EnemyInfo").visible = false
 		self.collision_layer &= ~4
 		await get_tree().create_timer(0.5).timeout
