@@ -9,6 +9,7 @@ var air_speed_increment = 25
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var max_health = 999
 var knockbackable = true
+var can_move = true
 var health = max_health
 var previous_x_position
 var distance
@@ -23,6 +24,7 @@ var HitParticles = preload("res://scenes/prefabs/hit_particle.tscn")
 @onready var rock_elemental_parent = $rock_elemental_parent
 @onready var damage_numbers_origin = $DamageNumbersOrigin
 @onready var knockback_timer = $rock_elemental_parent/knockbackTimer
+@onready var _stun_timer = $rock_elemental_parent/stunTimer
 
 
 func _ready():
@@ -48,12 +50,12 @@ func _physics_process(delta):
 	if player.global_position.x > global_position.x:
 		direction = 1
 	
-	if status == "CHASING":
+	if status == "CHASING" and can_move:
 		velocity.x = direction * SPEED
 		if previous_x_position == global_position.x and is_on_floor():
 			velocity.y = JUMP_VELOCITY
 	
-	if status == "RETREATING":
+	if status == "RETREATING" and can_move:
 		velocity.x = (direction * SPEED * 0.7 * -1)
 		if previous_x_position == global_position.x and is_on_floor():
 			velocity.y = JUMP_VELOCITY
@@ -91,14 +93,17 @@ func attack():
 
 func take_knockback(projectile, knockback):
 	if(knockbackable):
-		velocity.y = knockback.y
 		if projectile.position.x > position.x:
-			velocity.x = knockback.x * -1
+			knockback.x *= -1
+		
+		velocity = knockback
 		knockback_timer.wait_time = 0.3
 		knockback_timer.start()
 		knockbackable = false
+		can_move = false
 		await knockback_timer.timeout
 		knockbackable = true
+		can_move = true
 
 func take_damage(damage):
 	health -= damage

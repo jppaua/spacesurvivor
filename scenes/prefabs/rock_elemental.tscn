@@ -53,6 +53,7 @@ wait_time = 0.3
 one_shot = true
 
 [node name="stunTimer" type="Timer" parent="rock_elemental_parent"]
+wait_time = 0.3
 
 [node name="collisionbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)

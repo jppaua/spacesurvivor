@@ -1,20 +1,52 @@
-[gd_scene load_steps=4 format=3 uid="uid://dc2qw6mok2pp2"]
+[gd_scene load_steps=6 format=3 uid="uid://dc2qw6mok2pp2"]
 
 [ext_resource type="Script" path="res://scripts/orbital_laser_raycast.gd" id="1_ad7ca"]
-[ext_resource type="Texture2D" uid="uid://bulxt058rvmt7" path="res://assets/resources/defaultItem.png" id="2_430mx"]
-[ext_resource type="Texture2D" uid="uid://d28yq3buvdd3l" path="res://assets/weapons/laserBody.png" id="2_a02gf"]
+[ext_resource type="Texture2D" uid="uid://crj83ukic8608" path="res://assets/weapons/laserImpactRed.png" id="2_2xef4"]
+[ext_resource type="Texture2D" uid="uid://bvh8h3fcnqrf4" path="res://assets/weapons/laserBodyRed.png" id="3_fp4m6"]
+[ext_resource type="Texture2D" uid="uid://bulxt058rvmt7" path="res://assets/resources/defaultItem.png" id="4_1sd2s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hfymu"]
+size = Vector2(70, 8541)
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_ad7ca")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_430mx")
+[node name="impact" type="Sprite2D" parent="."]
+z_index = 1
+scale = Vector2(3.5, 3.5)
+texture = ExtResource("2_2xef4")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 z_index = 999
-target_position = Vector2(0, 999)
+target_position = Vector2(0, 99999)
 collide_with_areas = true
 
 [node name="Line2D" type="Line2D" parent="."]
-texture = ExtResource("2_a02gf")
+texture_repeat = 2
+width = 70.0
+texture = ExtResource("3_fp4m6")
 texture_mode = 1
+
+[node name="lifetime" type="Timer" parent="."]
+wait_time = 4.5
+one_shot = true
+autostart = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+z_index = 4096
+position = Vector2(0, 5000)
+scale = Vector2(5, 5)
+texture = ExtResource("4_1sd2s")
+
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(0, 4248.5)
+shape = SubResource("RectangleShape2D_hfymu")
+
+[connection signal="timeout" from="lifetime" to="." method="_on_lifetime_timeout"]
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_exited" from="hitbox" to="." method="_on_hitbox_body_exited"]
