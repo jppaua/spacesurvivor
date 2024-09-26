@@ -209,19 +209,18 @@ func handle_movement(direction, delta):
 	#Allows the player to dash
 	if(Input.is_action_just_pressed("left") or Input.is_action_just_pressed("right")):
 		if(previous_movement == direction and dash_cooldown>dash_delay and dash_timer<dash_window):
-			#Temp Replace with final formula soon
 			if dash_mode == true:
+				#Temp Replace with final formula later
 				velocity.x = direction*speed*4
 			else:
-				var warp_vector = direction * 400
+				#Warp Code, Replace const 400 with variable later
+				var warp_vector = Vector2(direction,0) * 400
 				var warp_pos = player_pos.global_position + warp_vector
 				var collide = move_and_collide(warp_vector)
 				if collide:
-					warp_pos = collide.position
+					#Temp fix to prevent wall clipping
+					warp_pos = collide.get_position() - Vector2(direction,0)*20
 				player_pos.global_position = warp_pos
-				#Teleports the Player, need to add a check for warping into walls
-				#player_pos.global_position = Vector2(player_pos.global_position.x+400*direction,player_pos.global_position.y)
-			print("Dash")
 			previous_movement = 0
 			dash_cooldown = 0
 		else:
