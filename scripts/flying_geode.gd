@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
 
-const BASE_SPEED = 260.0
-const SPEED_VARIATION = 100.0
+const BASE_SPEED = 300.0
+const SPEED_VARIATION = 200.0
 const JUMP_VELOCITY = -700.0
 const MIN_DISTANCE = 300
 const MAX_DISTANCE = 450
