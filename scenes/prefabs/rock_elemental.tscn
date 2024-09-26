@@ -117,3 +117,5 @@ scale_amount_max = 8.0
 scale_amount_curve = SubResource("Curve_k1pqn")
 color = Color(0.536499, 0.39643, 0.316404, 1)
 color_initial_ramp = SubResource("Gradient_na45h")
+
+[connection signal="died" from="." to="." method="_on_died"]

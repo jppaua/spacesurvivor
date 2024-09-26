@@ -268,6 +268,7 @@ sources/1 = SubResource("TileSetAtlasSource_fsbpv")
 
 [node name="Main" type="Node"]
 script = ExtResource("1_xhrpf")
+rock_elemental_scene = ExtResource("12_db3px")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 texture_filter = 1
@@ -373,5 +374,8 @@ texture = ExtResource("11_0kca1")
 
 [node name="Node2enemiesD" type="Node2D" parent="." groups=["enemy"]]
 
-[node name="rock_elemental" parent="Node2enemiesD" instance=ExtResource("12_db3px")]
-position = Vector2(71, 65)
+[node name="rock_elemental_spawn1" type="Marker2D" parent="Node2enemiesD"]
+position = Vector2(-342, 413)
+
+[node name="rock_elemental_spawn2" type="Marker2D" parent="Node2enemiesD"]
+position = Vector2(868, 350)

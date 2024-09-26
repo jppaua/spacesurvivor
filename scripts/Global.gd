@@ -4,6 +4,10 @@ var hotbar = []
 var inventory = []
 var player_node: Node = null
 
+#WaveBasedStuff-AK
+var current_wave: int
+var moving_to_next_wave: bool
+
 
 signal inventory_updated
 
