@@ -19,12 +19,16 @@ var current_item = null
 var current_hotbar_index = -1
 var num_killed = 0
 
+var fast_fall_modifier = PlayerStats.fast_fall_modifier
+var fall_speed = PlayerStats.fall_speed
 var dash_cooldown = 0
 var dash_timer = 0
 var dash_window = 0.3
 var previous_movement = 0
 #Simple editor switch for warp or dash. Dash = true Warp = False
-var dash_mode = true
+var dash_mode = false
+
+@onready var player_pos = get_node("/root/Main/Player")
 
 @onready var player_parent = $PlayerParent
 @onready var timer = $Timer
@@ -167,7 +171,7 @@ func handle_movement(direction, delta):
 		else:
 			if abs(velocity.x) < speed:
 				velocity.x += direction * air_speed_increment
-	#decreases speed rapidly when not holding direction
+	#decreases speed rapidly when not holding direction	
 	else:
 		velocity.x = move_toward(velocity.x, 0, 80)
 	
@@ -195,22 +199,35 @@ func handle_movement(direction, delta):
 	if Input.is_action_just_released("jump") and velocity.y < 0:
 		velocity.y *= gravity_damping
 	
+	#Caps Max Falling Speed
+	if velocity.y > fall_speed:
+		velocity.y = move_toward(velocity.y, fall_speed, 1000)
+	#Handles Fast Falls
+	if Input.is_action_pressed("down") and not is_on_floor():
+		velocity.y = fall_speed * fast_fall_modifier
+	
 	#Allows the player to dash
 	if(Input.is_action_just_pressed("left") or Input.is_action_just_pressed("right")):
 		if(previous_movement == direction and dash_cooldown>dash_delay and dash_timer<dash_window):
 			#Temp Replace with final formula soon
-			if dash_mode== true:
+			if dash_mode == true:
 				velocity.x = direction*speed*4
 			else:
-				#Only Displaces the player model
-				player_parent.global_position.x += 400*direction
+				var warp_vector = direction * 400
+				var warp_pos = player_pos.global_position + warp_vector
+				var collide = move_and_collide(warp_vector)
+				if collide:
+					warp_pos = collide.position
+				player_pos.global_position = warp_pos
+				#Teleports the Player, need to add a check for warping into walls
+				#player_pos.global_position = Vector2(player_pos.global_position.x+400*direction,player_pos.global_position.y)
 			print("Dash")
 			previous_movement = 0
 			dash_cooldown = 0
 		else:
 			previous_movement = direction
 			dash_timer = 0
-	#Handles the timers related to dashing
+	#Handles the timers related to dashing. Move Elsewhere later
 	dash_cooldown += delta
 	dash_timer += delta
 
