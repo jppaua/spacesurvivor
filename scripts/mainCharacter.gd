@@ -26,7 +26,7 @@ var dash_timer = 0
 var dash_window = 0.3
 var previous_movement = 0
 #Simple editor switch for warp or dash. Dash = true Warp = False
-var dash_mode = false
+var dash_mode = true
 
 @onready var player_pos = get_node("/root/Main/Player")
 
@@ -171,15 +171,15 @@ func handle_movement(direction, delta):
 		else:
 			if abs(velocity.x) < speed:
 				velocity.x += direction * air_speed_increment
-	#decreases speed rapidly when not holding direction	
+	#decreases speed rapidly when not holding direction
 	else:
 		velocity.x = move_toward(velocity.x, 0, 80)
 	
 	#Resets Jumps and slowly recharges flight_time when on floor
 	if is_on_floor():
 		jumps = max_jumps
-		if flight_time<max_flight:
-			flight_time+=delta*2
+		if flight_time < max_flight:
+			flight_time += delta * 2
 	
 	#Allows user to jump and decrease the Jump counter
 	if Input.is_action_just_pressed("jump") and jumps>0:
@@ -187,7 +187,7 @@ func handle_movement(direction, delta):
 		jumps-=1
 	
 	#Allows player to Hover for a set amount of time
-	if Input.is_action_pressed("jump") and velocity.y > 0 and flight_time>0:
+	if Input.is_action_pressed("jump") and velocity.y > 0 and flight_time > 0:
 		velocity.y = 0
 		flight_time-=delta
 	
@@ -208,10 +208,10 @@ func handle_movement(direction, delta):
 	
 	#Allows the player to dash
 	if(Input.is_action_just_pressed("left") or Input.is_action_just_pressed("right")):
-		if(previous_movement == direction and dash_cooldown>dash_delay and dash_timer<dash_window):
-			if dash_mode == true:
+		if(previous_movement == direction and dash_cooldown > dash_delay and dash_timer < dash_window):
+			if dash_mode:
 				#Temp Replace with final formula later
-				velocity.x = direction*speed*4
+				velocity.x = direction * speed * 4
 			else:
 				#Warp Code, Replace const 400 with variable later
 				var warp_vector = Vector2(direction,0) * 400
