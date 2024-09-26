@@ -133,14 +133,3 @@ func summonParticle():
 	particles.emitting = true
 	await get_tree().create_timer(particles.lifetime).timeout
 	new_hit_particles.queue_free()
-
-
-
-
-
-
-
-
-
-
-
