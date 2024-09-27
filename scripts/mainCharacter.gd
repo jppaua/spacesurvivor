@@ -1,10 +1,14 @@
 extends CharacterBody2D
 
+signal health_depleted
+
 
 const SPEED = 350.0
 const JUMP_VELOCITY = -1000.0
 const GRAVITY_DAMPING = 0.5
 const AIR_SPEED_INCREMENT = 25
+var max_health = 100
+var health = max_health
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var current_item = null
 var current_hotbar_index = -1
@@ -23,6 +27,9 @@ var current_hotbar_index = -1
 @onready var inventory_ui = $InventoryUI
 @onready var fps_label = $FpsUI/Label
 @onready var global_position_label = $GlobalPosUI/GlobalPosition
+@onready var progress_bar = $PlayerInfo/ProgressBar
+
+@onready var hurt_box = $HurtBox
 
 @onready var crafting_ui = $CraftingUI
 
@@ -44,7 +51,7 @@ func _physics_process(delta):
 	handle_movement(direction, delta)
 	if current_item != null and current_item["type"] == "firearm":
 		if current_item["is_full_auto"]:
-			if Input.is_action_pressed("primary_action") and current_item != null and timer.time_left == 0:
+			if Input.is_action_pressed("primary_action") and timer.time_left == 0:
 				ItemFunctions.primary_action(current_item)
 				timer.wait_time = current_item["rate_of_fire"]
 				timer.start()
@@ -55,10 +62,6 @@ func _physics_process(delta):
 				timer.start()
 		
 	move_and_slide()
-
-#Variables for Crafting Testing
-var rotate = ["Saber","Pistol","RPG"]
-var choice = 0
 
 func _input(event):
 	set_hand_sprites()
@@ -72,12 +75,7 @@ func _input(event):
 	else:
 		if event.is_action_pressed("open_inv"):
 			inventory_ui.visible = true
-	#Temp Crafting inputs
-	#if event.is_action_pressed("Debug_Key"):
-	#	choice = choice + 1
-	#	if choice >= rotate.size():
-	#		choice=0
-	#	print("Current recipe is ",rotate[choice])
+	#Call for Crafting UI
 	if event.is_action_pressed("Craft"):
 		if crafting_ui.visible:
 			crafting_ui.visible = false
@@ -168,6 +166,12 @@ func orient_player_arms(mouse_position):
 	var angle_right = ((((mouse_position - right_arm_parent.global_position).normalized()) * player_parent.scale.x).angle()) * player_parent.scale.x
 	left_arm_parent.rotation = angle_left
 	right_arm_parent.rotation = angle_right
+
+func take_damage():
+	health -= 1
+	progress_bar.value = health
+	if health <= 0:
+		health_depleted.emit()
 
 
 

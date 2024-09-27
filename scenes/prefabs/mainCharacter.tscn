@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dinb37355x3ql"]
+[gd_scene load_steps=14 format=3 uid="uid://dinb37355x3ql"]
 
 [ext_resource type="Script" path="res://scripts/mainCharacter.gd" id="1_ce8oy"]
 [ext_resource type="Texture2D" uid="uid://c1ecb1e2pnqgt" path="res://assets/character/capstoneCharacterARM.png" id="2_fdgfn"]
@@ -8,10 +8,30 @@
 [ext_resource type="Texture2D" uid="uid://bulxt058rvmt7" path="res://assets/resources/defaultItem.png" id="4_8x0fq"]
 [ext_resource type="PackedScene" uid="uid://bb60ci44x5ewr" path="res://scenes/prefabs/inventory_ui.tscn" id="5_ptw2h"]
 [ext_resource type="Script" path="res://scripts/hotbar_ui.gd" id="7_2c4ib"]
-[ext_resource type="PackedScene" uid="uid://h3k4xi18hfw5" path="res://scenes/prefabs/crafting_ui.tscn" id="9_7wg6j"]
+[ext_resource type="PackedScene" uid="uid://crpdl0hc4lmvd" path="res://scenes/prefabs/crafting_ui.tscn" id="9_7wg6j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_73eia"]
 size = Vector2(34, 56)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0c2lh"]
+radius = 16.0
+height = 78.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ui620"]
+bg_color = Color(0.156863, 0.156863, 0.156863, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+anti_aliasing_size = 0.2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yceka"]
+bg_color = Color(0.145098, 0.709804, 0, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+anti_aliasing_size = 0.161
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_ce8oy")
@@ -122,6 +142,7 @@ text = "FPS
 "
 
 [node name="GlobalPosUI" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="GlobalPosition" type="Label" parent="GlobalPosUI"]
 anchors_preset = 8
@@ -191,3 +212,32 @@ shape = SubResource("RectangleShape2D_73eia")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="HurtBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CapsuleShape2D_0c2lh")
+debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="PlayerInfo" type="CanvasLayer" parent="."]
+
+[node name="ProgressBar" type="ProgressBar" parent="PlayerInfo"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -215.0
+offset_top = 220.0
+offset_right = 217.0
+offset_bottom = 237.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0)
+theme_override_font_sizes/font_size = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_ui620")
+theme_override_styles/fill = SubResource("StyleBoxFlat_yceka")
+step = 1.0
+value = 100.0
+show_percentage = false

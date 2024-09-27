@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://irhvl3bfkyqf"]
 
 [ext_resource type="Texture2D" uid="uid://kw8rttqca26f" path="res://assets/weapons/grenade.png" id="1_d8lcg"]
-[ext_resource type="Script" path="res://scenes/prefabs/grenade.gd" id="1_hn0ny"]
+[ext_resource type="Script" path="res://scripts/grenade.gd" id="1_hn0ny"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kmo7r"]
 size = Vector2(8, 20)
