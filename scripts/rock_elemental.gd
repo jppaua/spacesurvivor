@@ -87,9 +87,9 @@ func _physics_process(delta):
 func attack():
 	var projectile = load("res://scenes/prefabs/rock.tscn")
 	var projectile_instance = projectile.instantiate()
-	var scale = Global.player_node.get_node("PlayerParent").scale
+	var m_scale = Global.player_node.get_node("PlayerParent").scale
 	projectile_instance.global_position = global_position
-	projectile_instance.scale = scale
+	projectile_instance.scale = m_scale
 	get_tree().current_scene.add_child(projectile_instance)
 
 func take_knockback(projectile, knockback):
@@ -104,18 +104,21 @@ func take_knockback(projectile, knockback):
 		knockbackable = true
 
 func take_damage(damage):
-	
+	if is_dead:
+		return
 	health -= damage
 	hp.value = health
 	DamageNumbers.display_number(damage, damage_numbers_origin.global_position)
 	
-	if health <= 0:		
+	if health <= 0:
+		is_dead = true
 		deathParticle()
 		player.num_killed += 1
 		get_node("rock_elemental_parent").visible = false
 		get_node("EnemyInfo").visible = false
 		self.collision_layer &= ~4
-		_on_died()
+		#_on_died()
+		emit_signal("died",self)
 		queue_free()
 
 
@@ -133,6 +136,4 @@ func summonParticle():
 	new_hit_particles.queue_free()
 
 
-func _on_died():
-	emit_signal("died",self)
 

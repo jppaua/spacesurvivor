@@ -24,5 +24,5 @@ func firearm_primary(item):
 
 
 
-func deviance(range):
-	return randf_range(-range, range)
+func deviance(m_range):
+	return randf_range(-m_range, m_range)

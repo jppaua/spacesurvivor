@@ -79,3 +79,4 @@ func _on_enemy_died(enemy):
 		enemies.erase(enemy)  # Remove the enemy reference from the array
 		print("Enemy removed, remaining enemies:", enemies.size())
 	enemy.queue_free()
+
