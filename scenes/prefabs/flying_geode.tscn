@@ -1,8 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cta3dpq7exvbx"]
+[gd_scene load_steps=9 format=3 uid="uid://dunyeuocviw0h"]
 
-[ext_resource type="Texture2D" uid="uid://vmj7bfs5d10t" path="res://assets/enemies/rock_elemental.png" id="1_tkl0b"]
-[ext_resource type="Script" path="res://scripts/rock_elemental.gd" id="1_v7ts5"]
-[ext_resource type="FontFile" uid="uid://bp8shuqwwyqdy" path="res://assets/fonts/Hardpixel-nn51.otf" id="3_6hrik"]
+[ext_resource type="Script" path="res://scripts/flying_geode.gd" id="1_g3anc"]
+[ext_resource type="Texture2D" uid="uid://vmj7bfs5d10t" path="res://assets/enemies/rock_elemental.png" id="2_ctg5b"]
+[ext_resource type="FontFile" uid="uid://bp8shuqwwyqdy" path="res://assets/fonts/Hardpixel-nn51.otf" id="3_a6qde"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ldwte"]
 size = Vector2(32, 33)
@@ -31,29 +31,31 @@ point_count = 3
 offsets = PackedFloat32Array(0.26943, 0.722798)
 colors = PackedColorArray(0.666887, 0.528274, 0.303317, 1, 1, 1, 1, 1)
 
-[node name="rock_elemental" type="CharacterBody2D" groups=["enemy"]]
+[node name="flying geode" type="CharacterBody2D" groups=["enemy"]]
 z_index = 1
 collision_layer = 4
-collision_mask = 5
-script = ExtResource("1_v7ts5")
+collision_mask = 4
+script = ExtResource("1_g3anc")
 
-[node name="rock_elemental_parent" type="Node2D" parent="."]
+[node name="flying_geode_parent" type="Node2D" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="rock_elemental_parent"]
+[node name="Sprite2D" type="Sprite2D" parent="flying_geode_parent"]
 scale = Vector2(2.428, 2.428)
-texture = ExtResource("1_tkl0b")
+texture = ExtResource("2_ctg5b")
 
-[node name="Timer" type="Timer" parent="rock_elemental_parent"]
+[node name="Timer" type="Timer" parent="flying_geode_parent"]
 wait_time = 2.0
 one_shot = true
 autostart = true
 
-[node name="knockbackTimer" type="Timer" parent="rock_elemental_parent"]
+[node name="knockbackTimer" type="Timer" parent="flying_geode_parent"]
 wait_time = 0.3
 one_shot = true
 
-[node name="stunTimer" type="Timer" parent="rock_elemental_parent"]
-wait_time = 0.3
+[node name="stunTimer" type="Timer" parent="flying_geode_parent"]
+
+[node name="PlatformRayCast" type="RayCast2D" parent="flying_geode_parent"]
+target_position = Vector2(0, 1000)
 
 [node name="collisionbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
@@ -70,7 +72,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_constants/shadow_outline_size = 1
-theme_override_fonts/font = ExtResource("3_6hrik")
+theme_override_fonts/font = ExtResource("3_a6qde")
 theme_override_font_sizes/font_size = 20
 text = "STATUS
 "
@@ -81,7 +83,7 @@ offset_left = -42.0
 offset_top = -94.0
 offset_right = 43.0
 offset_bottom = -70.0
-theme_override_fonts/font = ExtResource("3_6hrik")
+theme_override_fonts/font = ExtResource("3_a6qde")
 theme_override_font_sizes/font_size = 20
 text = "[ X , Y ]
 "

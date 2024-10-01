@@ -1,30 +1,36 @@
 extends CharacterBody2D
 
 
-const SPEED = 260.0
+const BASE_SPEED = 300.0
+const SPEED_VARIATION = 200.0
 const JUMP_VELOCITY = -700.0
 const MIN_DISTANCE = 300
 const MAX_DISTANCE = 450
 var air_speed_increment = 25
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var max_health = 999
-var knockbackable = true
-var can_move = true
+var knockbackable = false
 var health = max_health
 var previous_x_position
 var distance
 var status = "CHASING"
 var player
 var HitParticles = preload("res://scenes/prefabs/hit_particle.tscn")
+var flying_mob = true
+var min_flying_height = 300  # Minimum height above the platform
+var max_flying_height = 400  # Maximum height above the platform
+var altitude_speed = 50
+var current_speed = BASE_SPEED
+var speed_change_direction = 1
 
-@onready var attack_timer = $rock_elemental_parent/Timer
+@onready var attack_timer = $flying_geode_parent/Timer
 @onready var hp = $EnemyInfo/HP
 @onready var status_label = $EnemyInfo/status
 @onready var enemy_position = $EnemyInfo/position
-@onready var rock_elemental_parent = $rock_elemental_parent
+@onready var flying_geode_parent = $flying_geode_parent
 @onready var damage_numbers_origin = $DamageNumbersOrigin
-@onready var knockback_timer = $rock_elemental_parent/knockbackTimer
-@onready var _stun_timer = $rock_elemental_parent/stunTimer
+@onready var knockback_timer = $flying_geode_parent/knockbackTimer
+@onready var platform_raycast = $flying_geode_parent/PlatformRayCast
 
 
 func _ready():
@@ -34,9 +40,9 @@ func _ready():
 
 func _physics_process(delta):
 	if player.global_position.x > global_position.x:
-		rock_elemental_parent.scale.x = 1
+		flying_geode_parent.scale.x = 1
 	else:
-		rock_elemental_parent.scale.x = -1
+		flying_geode_parent.scale.x = -1
 	
 	distance = global_position.distance_to(player.global_position)
 	if distance >= MAX_DISTANCE:
@@ -50,15 +56,13 @@ func _physics_process(delta):
 	if player.global_position.x > global_position.x:
 		direction = 1
 	
-	if status == "CHASING" and can_move:
-		velocity.x = direction * SPEED
-		if previous_x_position == global_position.x and is_on_floor():
-			velocity.y = JUMP_VELOCITY
+	if status == "CHASING" or status == "RETREATING":
+		update_speed(delta)
+		velocity.x = direction * current_speed
+
 	
-	if status == "RETREATING" and can_move:
-		velocity.x = (direction * SPEED * 0.7 * -1)
-		if previous_x_position == global_position.x and is_on_floor():
-			velocity.y = JUMP_VELOCITY
+	if status == "RETREATING":
+		velocity.x = (direction * BASE_SPEED * 0.7 * -1)
 	
 	if status == "ATTACKING" and attack_timer.time_left == 0:
 		velocity.x = 0;
@@ -66,13 +70,25 @@ func _physics_process(delta):
 		attack_timer.wait_time = 2
 		attack_timer.start()
 	
-	
-	if not is_on_floor():
+	# Calculate flying height relative to platform
+	if flying_mob:
+		var platform_height = get_platform_height()
+		var min_target_height = platform_height - min_flying_height
+		var max_target_height = platform_height - max_flying_height
+
+		if global_position.y < max_target_height:
+			velocity.y += altitude_speed * delta  # Move downwards
+		elif global_position.y > min_target_height:
+			velocity.y -= altitude_speed * delta  # Move upwards
+		#else:
+			#velocity.y = 0  # Stop vertical movement if within target height range
+			
+	if not is_on_floor() && !flying_mob:
 		velocity.y += gravity * delta
 		if direction * velocity.x < 0:
 			velocity.x += direction * air_speed_increment
 		else:
-			if abs(velocity.x) < SPEED:
+			if abs(velocity.x) < BASE_SPEED:
 				velocity.x += direction * air_speed_increment
 	#decreases speed rapidly when not holding direction
 	else:
@@ -82,6 +98,18 @@ func _physics_process(delta):
 	status_label.text = status
 	previous_x_position = global_position.x
 	move_and_slide()
+	
+func update_speed(delta):
+	if speed_change_direction == 1:
+		current_speed += SPEED_VARIATION * delta
+		if current_speed >= BASE_SPEED + SPEED_VARIATION:
+			current_speed = BASE_SPEED + SPEED_VARIATION
+			speed_change_direction = -1
+	else:
+		current_speed -= SPEED_VARIATION * delta
+		if current_speed <= BASE_SPEED - SPEED_VARIATION:
+			current_speed = BASE_SPEED - SPEED_VARIATION
+			speed_change_direction = 1
 
 func attack():
 	var projectile = load("res://scenes/prefabs/rock.tscn")
@@ -93,17 +121,14 @@ func attack():
 
 func take_knockback(projectile, knockback):
 	if(knockbackable):
+		velocity.y = knockback.y
 		if projectile.position.x > position.x:
-			knockback.x *= -1
-		
-		velocity = knockback
+			velocity.x = knockback.x * -1
 		knockback_timer.wait_time = 0.3
 		knockback_timer.start()
 		knockbackable = false
-		can_move = false
 		await knockback_timer.timeout
 		knockbackable = true
-		can_move = true
 
 func take_damage(damage):
 	health -= damage
@@ -114,7 +139,7 @@ func take_damage(damage):
 	if health <= 0:
 		deathParticle()
 		player.num_killed += 1
-		get_node("rock_elemental_parent").visible = false
+		get_node("flying_geode_parent").visible = false
 		get_node("EnemyInfo").visible = false
 		self.collision_layer &= ~4
 		await get_tree().create_timer(0.5).timeout
@@ -133,3 +158,21 @@ func summonParticle():
 	particles.emitting = true
 	await get_tree().create_timer(particles.lifetime).timeout
 	new_hit_particles.queue_free()
+
+# Function to get platform height using RayCast2D
+func get_platform_height() -> float:
+	if platform_raycast.is_colliding():
+		return platform_raycast.get_collision_point().y
+	else:
+		return 0  # Default or base height if no platform is detected
+
+
+
+
+
+
+
+
+
+
+
