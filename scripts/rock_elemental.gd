@@ -7,7 +7,7 @@ const MIN_DISTANCE = 300
 const MAX_DISTANCE = 450
 var air_speed_increment = 25
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var max_health = 999
+var max_health = 10
 var knockbackable = true
 var can_move = true
 var health = max_health
@@ -16,6 +16,9 @@ var distance
 var status = "CHASING"
 var player
 var HitParticles = preload("res://scenes/prefabs/hit_particle.tscn")
+signal died
+var is_dead: bool = false
+
 
 @onready var attack_timer = $rock_elemental_parent/Timer
 @onready var hp = $EnemyInfo/HP
@@ -106,18 +109,22 @@ func take_knockback(projectile, knockback):
 		can_move = true
 
 func take_damage(damage):
+	if is_dead:
+		return
 	health -= damage
 	hp.value = health
 	DamageNumbers.display_number(damage, damage_numbers_origin.global_position)
 	
 	
 	if health <= 0:
+		is_dead = true
 		deathParticle()
 		player.num_killed += 1
 		get_node("rock_elemental_parent").visible = false
 		get_node("EnemyInfo").visible = false
 		self.collision_layer &= ~4
 		await get_tree().create_timer(0.5).timeout
+		emit_signal("died",self)
 		queue_free()
 
 
