@@ -4,7 +4,7 @@ const SPEED = 2000.0
 var damage = 0
 var knockback = Vector2(300, -200)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var direction = Vector2(cos(rotation), sin(rotation))
 	velocity = direction * SPEED
 	move_and_slide()

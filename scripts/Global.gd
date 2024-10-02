@@ -8,6 +8,7 @@ var player_node: Node = null
 var current_wave: int
 var moving_to_next_wave: bool
 
+
 signal inventory_updated
 
 @onready var inventory_slot_scene = preload("res://scenes/prefabs/inventory_slot.tscn")

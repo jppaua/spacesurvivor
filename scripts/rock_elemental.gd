@@ -20,6 +20,7 @@ signal died
 var is_dead: bool = false
 
 
+
 @onready var attack_timer = $rock_elemental_parent/Timer
 @onready var hp = $EnemyInfo/HP
 @onready var status_label = $EnemyInfo/status
@@ -89,9 +90,9 @@ func _physics_process(delta):
 func attack():
 	var projectile = load("res://scenes/prefabs/rock.tscn")
 	var projectile_instance = projectile.instantiate()
-	var scale = Global.player_node.get_node("PlayerParent").scale
+	var m_scale = Global.player_node.get_node("PlayerParent").scale
 	projectile_instance.global_position = global_position
-	projectile_instance.scale = scale
+	projectile_instance.scale = m_scale
 	get_tree().current_scene.add_child(projectile_instance)
 
 func take_knockback(projectile, knockback):
@@ -114,7 +115,6 @@ func take_damage(damage):
 	health -= damage
 	hp.value = health
 	DamageNumbers.display_number(damage, damage_numbers_origin.global_position)
-	
 	
 	if health <= 0:
 		is_dead = true

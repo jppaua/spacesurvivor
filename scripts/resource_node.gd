@@ -14,7 +14,7 @@ func _ready():
 	sprite_2d.scale = Vector2(10,10)
 
 
-func _process(delta):
+func _process(_delta):
 	if is_harvestable and Input.is_action_just_pressed("interact") and resource_amount > 0:
 		MasterInventory.spawn_item(item_type, item_name, transform.origin)
 		resource_amount -= 1
