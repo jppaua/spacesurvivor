@@ -7,7 +7,7 @@ var knockback = Vector2(600, -600)
 var has_exploded = false
 var grenade_explosion = preload("res://scenes/prefabs/grenade_explosion.tscn")
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var direction = Vector2(cos(rotation), sin(rotation))
 	velocity = direction * speed
 	move_and_slide()

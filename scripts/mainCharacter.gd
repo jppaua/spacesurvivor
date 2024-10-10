@@ -250,9 +250,9 @@ func _on_health_depleted():
 func _on_reset_pressed():
 	game_over.visible = false
 	get_tree().paused = false
-	get_tree().change_scene_to_file("res://scenes/world/BigMap.tscn")
+	get_tree().change_scene_to_file("res://scenes/world/level_1.tscn")
 
 func _on_replay_pressed():
 	game_won.visible = false
 	get_tree().paused = false
-	get_tree().change_scene_to_file("res://scenes/world/BigMap.tscn")
+	get_tree().change_scene_to_file("res://scenes/world/level_1.tscn")

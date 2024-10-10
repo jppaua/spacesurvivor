@@ -13,7 +13,7 @@ var is_over_item = false
 #Is here currently only to prevent dropping items from Crafting UI
 var interactable = true
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("drop_item") and is_over_item and interactable:
 		if item != null:
 			Global.drop_item(item)
