@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bfaoydglmopsw"]
+[gd_scene load_steps=5 format=3 uid="uid://bfaoydglmopsw"]
 
 [ext_resource type="Texture2D" uid="uid://dfik1mh1xlhj1" path="res://assets/ui Elements/label.png" id="1_hl8fj"]
+[ext_resource type="Script" path="res://scripts/skill_tree.gd" id="1_ldr7k"]
 [ext_resource type="PackedScene" uid="uid://7egw8q2qsd65" path="res://scenes/prefabs/skill_button.tscn" id="1_mfty2"]
+[ext_resource type="FontFile" uid="uid://bp8shuqwwyqdy" path="res://assets/fonts/Hardpixel-nn51.otf" id="3_2xq52"]
 
 [node name="skillTree" type="Control"]
 layout_mode = 3
@@ -10,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_ldr7k")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 layout_mode = 1
@@ -31,7 +34,7 @@ patch_margin_top = 7
 patch_margin_right = 7
 patch_margin_bottom = 7
 
-[node name="Root" parent="NinePatchRect" instance=ExtResource("1_mfty2")]
+[node name="Speed" parent="NinePatchRect" instance=ExtResource("1_mfty2")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -44,8 +47,10 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+skill_name = "speed"
+values = Array[float]([1.2])
 
-[node name="Mutli Jump" parent="NinePatchRect/Root" instance=ExtResource("1_mfty2")]
+[node name="Mutli Jump" parent="NinePatchRect/Speed" instance=ExtResource("1_mfty2")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -59,8 +64,10 @@ offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 2
 disabled = true
+skill_name = "jump"
+values = Array[float]([1.0])
 
-[node name="Mutli Jump" parent="NinePatchRect/Root/Mutli Jump" instance=ExtResource("1_mfty2")]
+[node name="Mutli Jump" parent="NinePatchRect/Speed/Mutli Jump" instance=ExtResource("1_mfty2")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -74,8 +81,10 @@ offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 2
 disabled = true
+skill_name = "jump"
+values = Array[float]([1.0])
 
-[node name="Dash" parent="NinePatchRect/Root" instance=ExtResource("1_mfty2")]
+[node name="Dash" parent="NinePatchRect/Speed" instance=ExtResource("1_mfty2")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -89,8 +98,10 @@ offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 2
 disabled = true
+skill_name = "dash"
+values = Array[float]([1.2])
 
-[node name="Dash" parent="NinePatchRect/Root/Dash" instance=ExtResource("1_mfty2")]
+[node name="Dash" parent="NinePatchRect/Speed/Dash" instance=ExtResource("1_mfty2")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -104,8 +115,10 @@ offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 2
 disabled = true
+skill_name = "dash"
+values = Array[float]([1.1])
 
-[node name="Hover" parent="NinePatchRect/Root" instance=ExtResource("1_mfty2")]
+[node name="Hover" parent="NinePatchRect/Speed" instance=ExtResource("1_mfty2")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -119,8 +132,10 @@ offset_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
 disabled = true
+skill_name = "hover"
+values = Array[float]([1.1])
 
-[node name="Hover" parent="NinePatchRect/Root/Hover" instance=ExtResource("1_mfty2")]
+[node name="Hover" parent="NinePatchRect/Speed/Hover" instance=ExtResource("1_mfty2")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -134,3 +149,15 @@ offset_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
 disabled = true
+skill_name = "hover"
+values = Array[float]([1.1])
+
+[node name="Num of Points" type="Label" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 11.5
+offset_top = 12.5
+offset_right = 51.5
+offset_bottom = 35.5
+theme_override_fonts/font = ExtResource("3_2xq52")
+theme_override_font_sizes/font_size = 20
+text = "Points"

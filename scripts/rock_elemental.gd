@@ -125,6 +125,7 @@ func take_damage(damage):
 		self.collision_layer &= ~4
 		await get_tree().create_timer(0.5).timeout
 		emit_signal("died",self)
+		SignalBus.give_exp.emit()
 		queue_free()
 
 

@@ -472,6 +472,7 @@ theme_override_font_sizes/font_size = 30
 text = "PLAY AGAIN?"
 
 [node name="skillTree" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="skillTree2" parent="skillTree" instance=ExtResource("9_ioeng")]
 anchors_preset = 8

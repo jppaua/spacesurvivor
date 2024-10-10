@@ -12,6 +12,7 @@ var health = PlayerStats.health
 var max_jumps = PlayerStats.max_jumps
 var max_flight = PlayerStats.max_flight
 var dash_delay = PlayerStats.dash_delay
+var dash_speed = PlayerStats.dash_speed
 var jumps = max_jumps
 var flight_time = max_flight
 var gravity = PlayerStats.gravity
@@ -26,9 +27,10 @@ var dash_timer = 0
 var dash_window = 0.3
 var previous_movement = 0
 #Simple editor switch for warp or dash. Dash = true Warp = False
-var dash_mode = true
+var dash_mode = false
 
-@onready var player_pos = get_node("/root/Main/Player")
+@onready var player_pos = self
+#@onready var player_pos = get_node("/root/Main/Player")
 
 @onready var player_parent = $PlayerParent
 @onready var timer = $Timer
@@ -48,6 +50,7 @@ var dash_mode = true
 @onready var progress_bar = $PlayerInfo/ProgressBar
 @onready var game_over = $GameOver
 @onready var game_won = $GameWon
+@onready var skill_tree = $skillTree
 
 @onready var hurt_box = $HurtBox
 
@@ -57,7 +60,9 @@ func _ready():
 	#hooks up player to inventory
 	Global.set_player_reference(self)
 	progress_bar.max_value = max_health
-	progress_bar.value = health  
+	progress_bar.value = health
+	
+	SignalBus.reread_stats.connect(_on_reread_stats)
 
 func _physics_process(delta):
 	#-1 if holding left, 0 if no keys are pressed, 1 if holding right
@@ -102,6 +107,12 @@ func _input(event):
 			crafting_ui.visible = false
 		else:
 			crafting_ui.visible = true
+	if skill_tree.visible:
+		if event.is_action_pressed("skill_tree") or event.is_action_pressed("ui_cancel"):
+			skill_tree.visible = false
+	else:
+		if event.is_action_pressed("skill_tree"):
+			skill_tree.visible = true
 
 #Sets the sprites of whatever the player is holding
 func set_hand_sprites():
@@ -211,16 +222,16 @@ func handle_movement(direction, delta):
 		if(previous_movement == direction and dash_cooldown > dash_delay and dash_timer < dash_window):
 			if dash_mode:
 				#Temp Replace with final formula later
-				velocity.x = direction * speed * 4
+				velocity.x = direction * dash_speed
 			else:
 				#Warp Code, Replace const 400 with variable later
 				var warp_vector = Vector2(direction,0) * 400
-				var warp_pos = player_pos.global_position + warp_vector
+				var warp_pos = global_position + warp_vector
 				var collide = move_and_collide(warp_vector)
 				if collide:
 					#Temp fix to prevent wall clipping
 					warp_pos = collide.get_position() - Vector2(direction,0)*20
-				player_pos.global_position = warp_pos
+				global_position = warp_pos
 			previous_movement = 0
 			dash_cooldown = 0
 		else:
@@ -256,3 +267,15 @@ func _on_replay_pressed():
 	game_won.visible = false
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/world/level_1.tscn")
+
+func _on_reread_stats():
+	speed = PlayerStats.speed
+	jump_velocity = PlayerStats.jump_velocity
+	gravity_damping = PlayerStats.gravity_damping
+	air_speed_increment = PlayerStats.air_speed_increment
+	max_health = PlayerStats.max_health
+	health = PlayerStats.health
+	max_jumps = PlayerStats.max_jumps
+	max_flight = PlayerStats.max_flight
+	dash_delay = PlayerStats.dash_delay
+	gravity = PlayerStats.gravity
