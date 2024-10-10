@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://cowsbdt3gu6ng"]
+
+[ext_resource type="Script" path="res://scripts/aoe_attack.gd" id="1_8cokv"]
+[ext_resource type="Texture2D" uid="uid://crj83ukic8608" path="res://assets/weapons/laserImpactRed.png" id="1_11piq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o26y1"]
+size = Vector2(126, 48.5)
+
+[sub_resource type="Curve" id="Curve_r88n8"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, 360), 0.0, 0.0, 0, 0, Vector2(0.992754, -360), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_gplh2"]
+offsets = PackedFloat32Array(0, 0.108808, 0.310881, 0.313471, 0.437824, 0.510363, 1)
+colors = PackedColorArray(0.972549, 0.972549, 0, 1, 0.972549, 0.501961, 0, 1, 0.972549, 0, 0, 1, 0.972549, 0.501961, 0, 1, 0.972549, 0, 0, 1, 0.309651, 0.00910121, 0.0110115, 0.880184, 0.972549, 0.972549, 0.972549, 0)
+
+[sub_resource type="Gradient" id="Gradient_mjjc5"]
+colors = PackedColorArray(1, 1, 1, 1, 0.988235, 0.988235, 0.639216, 1)
+
+[node name="AOEAttack" type="Area2D"]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_8cokv")
+
+[node name="LaserImpactRed" type="Sprite2D" parent="."]
+scale = Vector2(3.71154, 3.71154)
+texture = ExtResource("1_11piq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.25)
+shape = SubResource("RectangleShape2D_o26y1")
+
+[node name="trail2" type="CPUParticles2D" parent="."]
+amount = 871
+lifetime = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(61.295, 20.87)
+direction = Vector2(0, -40)
+gravity = Vector2(0, -10)
+initial_velocity_min = 10.0
+initial_velocity_max = 70.0
+damping_min = 10.0
+damping_max = 10.0
+angle_min = -720.0
+angle_max = 720.0
+angle_curve = SubResource("Curve_r88n8")
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_gplh2")
+color_initial_ramp = SubResource("Gradient_mjjc5")

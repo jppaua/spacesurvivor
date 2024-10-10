@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dh5jf12vmhyg"]
+[gd_scene load_steps=16 format=3 uid="uid://dh5jf12vmhyg"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_xhrpf"]
 [ext_resource type="Texture2D" uid="uid://3w0cgleylxds" path="res://assets/css-gradient.webp" id="2_0kk8j"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b7cdol4lpyrq1" path="res://scenes/prefabs/resource_node.tscn" id="9_307yl"]
 [ext_resource type="Texture2D" uid="uid://ceidiq061mw63" path="res://assets/resources/charoite.png" id="10_6xwj1"]
 [ext_resource type="Texture2D" uid="uid://1sktwj8aqjno" path="res://assets/resources/crystal.png" id="11_0kca1"]
+[ext_resource type="PackedScene" uid="uid://c77wotaj1gt01" path="res://scenes/prefabs/fire_golem.tscn" id="11_s1po7"]
 [ext_resource type="PackedScene" uid="uid://cta3dpq7exvbx" path="res://scenes/prefabs/rock_elemental.tscn" id="12_db3px"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_seycf"]
@@ -363,3 +364,15 @@ position = Vector2(-342, 413)
 
 [node name="rock_elemental_spawn2" type="Marker2D" parent="Node2enemiesD"]
 position = Vector2(868, 350)
+
+[node name="granite_golem" parent="." instance=ExtResource("11_s1po7")]
+position = Vector2(321, 446)
+
+[node name="granite_golem2" parent="." instance=ExtResource("11_s1po7")]
+position = Vector2(-1018, 663)
+
+[node name="granite_golem3" parent="." instance=ExtResource("11_s1po7")]
+position = Vector2(-1538, 754)
+
+[node name="granite_golem4" parent="." instance=ExtResource("11_s1po7")]
+position = Vector2(-746, 471)
