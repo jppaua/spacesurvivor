@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dinb37355x3ql"]
+[gd_scene load_steps=31 format=3 uid="uid://dinb37355x3ql"]
 
 [ext_resource type="Script" path="res://scripts/mainCharacter.gd" id="1_ce8oy"]
 [ext_resource type="Texture2D" uid="uid://fae4g2ifakxt" path="res://assets/character/astrospritesheet-Sheet (1).png" id="3_kp3y3"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bb60ci44x5ewr" path="res://scenes/prefabs/inventory_ui.tscn" id="5_ptw2h"]
 [ext_resource type="Script" path="res://scripts/hotbar_ui.gd" id="7_2c4ib"]
 [ext_resource type="PackedScene" uid="uid://crpdl0hc4lmvd" path="res://scenes/prefabs/crafting_ui.tscn" id="9_7wg6j"]
+[ext_resource type="PackedScene" uid="uid://bfaoydglmopsw" path="res://scenes/prefabs/skill_tree.tscn" id="9_ioeng"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tf4f7"]
 atlas = ExtResource("3_kp3y3")
@@ -468,6 +469,15 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("3_q4e8c")
 theme_override_font_sizes/font_size = 30
 text = "PLAY AGAIN?"
+
+[node name="skillTree" type="CanvasLayer" parent="."]
+
+[node name="skillTree2" parent="skillTree" instance=ExtResource("9_ioeng")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 
 [connection signal="health_depleted" from="." to="." method="_on_health_depleted"]
 [connection signal="pressed" from="GameOver/ColorRect/reset" to="." method="_on_reset_pressed"]

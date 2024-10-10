@@ -1,0 +1,136 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfaoydglmopsw"]
+
+[ext_resource type="Texture2D" uid="uid://dfik1mh1xlhj1" path="res://assets/ui Elements/label.png" id="1_hl8fj"]
+[ext_resource type="PackedScene" uid="uid://7egw8q2qsd65" path="res://scenes/prefabs/skill_button.tscn" id="1_mfty2"]
+
+[node name="skillTree" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -234.5
+offset_top = -156.5
+offset_right = 234.5
+offset_bottom = 156.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+texture = ExtResource("1_hl8fj")
+patch_margin_left = 7
+patch_margin_top = 7
+patch_margin_right = 7
+patch_margin_bottom = 7
+
+[node name="Root" parent="NinePatchRect" instance=ExtResource("1_mfty2")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Mutli Jump" parent="NinePatchRect/Root" instance=ExtResource("1_mfty2")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 44.0
+offset_top = -64.0
+offset_right = 84.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+disabled = true
+
+[node name="Mutli Jump" parent="NinePatchRect/Root/Mutli Jump" instance=ExtResource("1_mfty2")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 44.0
+offset_top = -64.0
+offset_right = 84.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+disabled = true
+
+[node name="Dash" parent="NinePatchRect/Root" instance=ExtResource("1_mfty2")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -64.0
+offset_right = -44.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+disabled = true
+
+[node name="Dash" parent="NinePatchRect/Root/Dash" instance=ExtResource("1_mfty2")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -64.0
+offset_right = -44.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+disabled = true
+
+[node name="Hover" parent="NinePatchRect/Root" instance=ExtResource("1_mfty2")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 40.0
+offset_right = 20.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+disabled = true
+
+[node name="Hover" parent="NinePatchRect/Root/Hover" instance=ExtResource("1_mfty2")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 40.0
+offset_right = 20.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+disabled = true
