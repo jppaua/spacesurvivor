@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://7egw8q2qsd65"]
+
+[ext_resource type="Texture2D" uid="uid://c13pt4ejms0ds" path="res://icon.svg" id="1_tmi25"]
+[ext_resource type="Script" path="res://scripts/skill_button.gd" id="2_6ooti"]
+
+[node name="SkillButton" type="TextureButton"]
+offset_right = 40.0
+offset_bottom = 40.0
+toggle_mode = true
+texture_normal = ExtResource("1_tmi25")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("2_6ooti")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Line2D" type="Line2D" parent="."]
+top_level = true
+z_index = -1
+width = 6.0
+default_color = Color(0.201527, 0.201527, 0.201527, 1)
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

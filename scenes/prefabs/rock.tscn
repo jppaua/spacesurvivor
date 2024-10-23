@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://utfnovxprrg6"]
+
+[ext_resource type="Texture2D" uid="uid://c088p358y3loy" path="res://assets/weapons/Illustration.png" id="1_b2qs2"]
+[ext_resource type="Script" path="res://scripts/rock.gd" id="1_xju4t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cvuvi"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sep0i"]
+radius = 12.0
+
+[node name="rock" type="CharacterBody2D"]
+collision_layer = 8
+script = ExtResource("1_xju4t")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_b2qs2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_cvuvi")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_sep0i")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+autostart = true
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
