@@ -163,7 +163,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"attack",
-"speed": 6.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -195,7 +195,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"death",
-"speed": 8.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -267,7 +267,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk",
-"speed": 5.0
+"speed": 15.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xr4qp"]
@@ -278,7 +278,7 @@ radius = 8.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5cvqf"]
 radius = 8.0
-height = 28.0
+height = 16.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xneu4"]
 bg_color = Color(0.117647, 0.117647, 0.117647, 1)
@@ -298,13 +298,15 @@ anti_aliasing_size = 0.1
 
 [node name="FrogEnemy" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 4
-collision_mask = 5
 script = ExtResource("1_gldgw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+light_mask = 2
+visibility_layer = 2
 sprite_frames = SubResource("SpriteFrames_pmvwn")
-animation = &"attack"
-frame_progress = 0.777574
+animation = &"walk"
+frame = 1
+frame_progress = 0.321291
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)

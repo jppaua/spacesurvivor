@@ -1,7 +1,7 @@
 extends Node
 
 var level = 1
-var speed = 350.0
+var speed = 300.0
 var fall_speed = 1500.0
 var jump_velocity = -1000.0
 var gravity_damping = 0.5

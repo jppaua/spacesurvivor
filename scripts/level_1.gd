@@ -53,7 +53,7 @@ func position_to_next_wave():
 		await get_tree().create_timer(0.5).timeout
 		prepare_spawn("rockElemental", 2, 2)
 		if current_wave >= 3:
-			prepare_spawn("frog", 2, 2)
+			prepare_spawn("frog", 1, 2)
 		print(current_wave)
 		update_wave_info()
 

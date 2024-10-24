@@ -3,7 +3,8 @@ extends CharacterBody2D
 
 class_name FrogEnemy
 
-const SPEED = 150
+
+const SPEED = 300
 const GRAVITY = 900
 const MAX_DISTANCE = 100
 
@@ -13,6 +14,7 @@ const MAX_DISTANCE = 100
 var is_frog_chase: bool = true
 var knockback_force = -20
 var dir: Vector2
+
 
 var health = 20
 var MAX_HEALTH = 20
@@ -27,6 +29,7 @@ var is_roaming: bool = true
 var player: CharacterBody2D
 var player_in_area: bool = false
 #var damage = 15
+signal died
 
 
 func ready():
@@ -53,6 +56,7 @@ func _process(delta):
 
 func move(delta):
 	if !is_dead:
+		
 		if !is_frog_chase:
 			velocity += dir * SPEED * delta
 			is_roaming = true
@@ -85,6 +89,7 @@ func handle_animation():
 		handle_death()
 	elif !is_dead and is_dealing_damage:
 		animated_sprite.play("attack")
+		velocity.x = 0
 
 func handle_death():
 	self.queue_free()
@@ -125,4 +130,9 @@ func take_damage(damage):
 func _on_frog_damage_zone_body_entered(body):
 	if body.is_in_group("solid_tile") or body.is_in_group("Player"):
 		if body.has_method("take_damage"):
+			is_dealing_damage = true
 			body.take_damage(damage_to_deal)
+			await get_tree().create_timer(1.0).timeout
+			is_dealing_damage = false
+
+
