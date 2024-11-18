@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0cdmgmga12t5"]
+
+[ext_resource type="Script" path="res://scripts/fireball.gd" id="1_4s5ks"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_loqho"]
+radius = 6.0
+height = 36.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ppmst"]
+radius = 23.0868
+
+[sub_resource type="Curve" id="Curve_itv4p"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, 360), 0.0, 0.0, 0, 0, Vector2(0.992754, -360), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_pufdr"]
+offsets = PackedFloat32Array(0, 0.108808, 0.310881, 0.313471, 0.437824, 0.510363, 1)
+colors = PackedColorArray(0.972549, 0.972549, 0, 1, 0.972549, 0.501961, 0, 1, 0.972549, 0, 0, 1, 0.972549, 0.501961, 0, 1, 0.972549, 0, 0, 1, 0.309651, 0.00910121, 0.0110115, 0.880184, 0.972549, 0.972549, 0.972549, 0)
+
+[sub_resource type="Gradient" id="Gradient_v0f8x"]
+colors = PackedColorArray(1, 1, 1, 1, 0.988235, 0.988235, 0.639216, 1)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+collision_layer = 32
+collision_mask = 5
+script = ExtResource("1_4s5ks")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_loqho")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ppmst")
+
+[node name="trail" type="CPUParticles2D" parent="."]
+position = Vector2(0, 1)
+amount = 500
+lifetime = 0.5
+lifetime_randomness = 0.04
+emission_shape = 1
+emission_sphere_radius = 0.01
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 50.0
+damping_min = 10.0
+damping_max = 10.0
+angle_min = -720.0
+angle_max = 720.0
+angle_curve = SubResource("Curve_itv4p")
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_pufdr")
+color_initial_ramp = SubResource("Gradient_v0f8x")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
