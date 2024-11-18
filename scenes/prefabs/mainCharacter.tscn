@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dinb37355x3ql"]
+[gd_scene load_steps=32 format=3 uid="uid://dinb37355x3ql"]
 
 [ext_resource type="Script" path="res://scripts/mainCharacter.gd" id="1_ce8oy"]
 [ext_resource type="Texture2D" uid="uid://fae4g2ifakxt" path="res://assets/character/astrospritesheet-Sheet (1).png" id="3_kp3y3"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bulxt058rvmt7" path="res://assets/resources/defaultItem.png" id="4_8x0fq"]
 [ext_resource type="PackedScene" uid="uid://bb60ci44x5ewr" path="res://scenes/prefabs/inventory_ui.tscn" id="5_ptw2h"]
 [ext_resource type="Script" path="res://scripts/hotbar_ui.gd" id="7_2c4ib"]
+[ext_resource type="Script" path="res://scripts/artifact_ui.gd" id="7_rhrkk"]
 [ext_resource type="PackedScene" uid="uid://crpdl0hc4lmvd" path="res://scenes/prefabs/crafting_ui.tscn" id="9_7wg6j"]
 [ext_resource type="PackedScene" uid="uid://bfaoydglmopsw" path="res://scenes/prefabs/skill_tree.tscn" id="9_ioeng"]
 
@@ -263,6 +264,32 @@ text = "INVENTORY"
 [node name="Inventory_UI" parent="InventoryUI/InventoryRect" instance=ExtResource("5_ptw2h")]
 layout_mode = 1
 
+[node name="artifactRect" type="NinePatchRect" parent="InventoryUI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -317.0
+offset_top = -200.0
+offset_right = -253.0
+offset_bottom = 81.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_qpkep")
+patch_margin_left = 7
+patch_margin_top = 7
+patch_margin_right = 7
+patch_margin_bottom = 7
+
+[node name="GridContainer" type="GridContainer" parent="InventoryUI/artifactRect"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 60.0
+offset_bottom = 300.0
+script = ExtResource("7_rhrkk")
+
 [node name="FpsUI" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="FpsUI"]
@@ -481,6 +508,10 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 
+[node name="regenTimer" type="Timer" parent="."]
+autostart = true
+
 [connection signal="health_depleted" from="." to="." method="_on_health_depleted"]
 [connection signal="pressed" from="GameOver/ColorRect/reset" to="." method="_on_reset_pressed"]
 [connection signal="pressed" from="GameWon/ColorRect/replay" to="." method="_on_replay_pressed"]
+[connection signal="timeout" from="regenTimer" to="." method="_on_regen_timer_timeout"]

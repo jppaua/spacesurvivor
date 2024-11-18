@@ -25,7 +25,6 @@ func _on_pressed():
 	panel.show_behind_parent = true
 	line_2d.default_color = Color(0.7217630147934, 0.99999982118607, 0.7375340461731)
 	SignalBus.skill_unlocked.emit(skill_name, values[level-1])
-	PlayerStats
 	var skills = get_children()
 	for skill in skills:
 		if skill is SkillNode and level > 0:

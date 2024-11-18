@@ -14,6 +14,10 @@ var is_over_item = false
 var interactable = true
 
 func _process(_delta):
+	if Input.is_action_just_pressed("equip") and is_over_item and interactable:
+		if item != null:
+			Global.equip_item(item)
+	
 	if Input.is_action_just_pressed("drop_item") and is_over_item and interactable:
 		if item != null:
 			Global.drop_item(item)

@@ -35,7 +35,6 @@ colors = PackedColorArray(0.666887, 0.528274, 0.303317, 1, 1, 1, 1, 1)
 z_index = 1
 scale = Vector2(0.5, 0.5)
 collision_layer = 4
-collision_mask = 5
 script = ExtResource("1_v7ts5")
 
 [node name="rock_elemental_parent" type="Node2D" parent="."]

@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+const damage = 10
 const SPEED = 400
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var player_position = Global.player_node.global_position
@@ -29,5 +30,5 @@ func _on_timer_timeout():
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("solid_tile") or body.is_in_group("Player"):
 		if body.has_method("take_damage"):
-			body.take_damage()
+			body.take_damage(damage)
 		queue_free()

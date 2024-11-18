@@ -42,7 +42,7 @@ func position_to_next_wave():
 		#Global.current_wave = current_wave
 		await get_tree().create_timer(0.5).timeout
 		prepare_spawn("rockElemental", 2, 2)
-		print(current_wave)
+		print("current wave: ", current_wave)
 
 func prepare_spawn(type, modifier, mob_spawns):
 	var mob_amount = int(2 + (current_wave * modifier * 1.2))

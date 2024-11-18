@@ -74,9 +74,28 @@ var master_inventory = {
 			"y_barrel": 0,
 			"scene_path": "res://scenes/prefabs/item_gun.tscn"
 		},
+		"mynewweapon":{
+			"type": "firearm",
+			"name": "mynewweapon",
+			"texture": preload("res://assets/weapons/saber.png"),
+			"projectile": "res://scenes/prefabs/tracking_rpg.tscn",
+			"description": "Dual Pistols fire shots",
+			"is_dual_wield": false,
+			"is_full_auto": true,
+			"damage": 100,
+			"rate_of_fire": 0.1,
+			"accuracy": 0.5,
+			"quantity": 1,
+			"x_offset": 5,
+			"y_offset": -1,
+			"x_barrel": 25,
+			"y_barrel": -8,
+			"scene_path": "res://scenes/prefabs/item_gun.tscn"
+		},
+		
 		"default":{
 			"type": "firearm",
-			"name": "Default Firearm",
+			"name": "default",
 			"texture": preload("res://assets/resources/defaultItem.png"),
 			"projectile": "res://scenes/prefabs/bullet.tscn",
 			"description": "no TYPE FIREARM with that NAME found",
@@ -91,6 +110,83 @@ var master_inventory = {
 			"x_barrel": 0,
 			"y_barrel": 0,
 			"scene_path": "res://scenes/prefabs/item_gun.tscn"
+		}
+	},
+	"artifact":{
+		"defensebuff":{
+			"type": "artifact",
+			"name": "defensebuff",
+			"texture": preload("res://assets/SSAssets/Artifacts/DefenseBuff.png"),
+			"description": "reduces damage taken",
+			"stat": "DEFENSE",
+			"buff_type": "PERCENT",
+			"buff": 0.9,
+			"quantity": 1,
+			"x_offset": 0,
+			"y_offset": 0,
+			"x_barrel": 0,
+			"y_barrel": 0,
+			"scene_path": "res://scenes/prefabs/item_artifact.tscn"
+		},
+		"featherfallingbuff":{
+			"type": "artifact",
+			"name": "featherfallingbuff",
+			"texture": preload("res://assets/SSAssets/Artifacts/featherFalling.png"),
+			"description": "reduces fall speed",
+			"stat": "GRAVITY",
+			"buff_type": "PERCENT",
+			"buff": 0.5,
+			"quantity": 1,
+			"x_offset": 0,
+			"y_offset": 0,
+			"x_barrel": 0,
+			"y_barrel": 0,
+			"scene_path": "res://scenes/prefabs/item_artifact.tscn"
+		},
+		"healthbuff":{
+			"type": "artifact",
+			"name": "healthbuff",
+			"texture": preload("res://assets/SSAssets/Artifacts/HealthBuff.png"),
+			"description": "Increases max HP",
+			"stat": "HEALTH",
+			"buff_type": "FLAT",
+			"buff": 100,
+			"quantity": 1,
+			"x_offset": 0,
+			"y_offset": 0,
+			"x_barrel": 0,
+			"y_barrel": 0,
+			"scene_path": "res://scenes/prefabs/item_artifact.tscn"
+		},
+		"regenbuff":{
+			"type": "artifact",
+			"name": "regenbuff",
+			"texture": preload("res://assets/SSAssets/Artifacts/regenBuff.png"),
+			"description": "HP regenerates over time",
+			"stat": "REGEN",
+			"buff_type": "FLAT",
+			"buff": 8,
+			"quantity": 1,
+			"x_offset": 0,
+			"y_offset": 0,
+			"x_barrel": 0,
+			"y_barrel": 0,
+			"scene_path": "res://scenes/prefabs/item_artifact.tscn"
+		},
+		"default":{
+			"type": "artifact",
+			"name": "deault",
+			"texture": preload("res://assets/SSAssets/Artifacts/featherFalling.png"),
+			"description": "no TYPE ARTIFACT with that NAME found",
+			"stat": "default",
+			"buff_type": "FLAT",
+			"buff": 0,
+			"quantity": 1,
+			"x_offset": 0,
+			"y_offset": 0,
+			"x_barrel": 0,
+			"y_barrel": 0,
+			"scene_path": "res://scenes/prefabs/item_artifact.tscn"
 		}
 	},
 	"melee":{
@@ -159,7 +255,7 @@ var master_inventory = {
 		},
 		"default":{
 			"type": "material",
-			"name": "Default Material",
+			"name": "Default",
 			"texture": preload("res://assets/resources/defaultItem.png"),
 			"description": "no TYPE MATERIAL with that NAME found",
 			"is_dual_wield": false,

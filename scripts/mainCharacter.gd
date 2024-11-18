@@ -15,6 +15,8 @@ var dash_delay = PlayerStats.dash_delay
 var dash_speed = PlayerStats.dash_speed
 var jumps = max_jumps
 var flight_time = max_flight
+var damage_reduction = PlayerStats.damage_reduction
+var regeneration = PlayerStats.regeneration
 var gravity = PlayerStats.gravity
 var current_item = null
 var current_hotbar_index = -1
@@ -26,7 +28,7 @@ var dash_cooldown = 0
 var dash_timer = 0
 var dash_window = 0.3
 var previous_movement = 0
-#Simple editor switch for warp or dash. Dash = true Warp = False
+
 var dash_mode = false
 
 @onready var player_pos = self
@@ -55,6 +57,9 @@ var dash_mode = false
 @onready var hurt_box = $HurtBox
 
 @onready var crafting_ui = $CraftingUI
+
+@onready var regen_timer = $regenTimer
+
 
 func _ready():
 	#hooks up player to inventory
@@ -248,8 +253,8 @@ func orient_player_arms(mouse_position):
 	left_arm_parent.rotation = angle_left
 	right_arm_parent.rotation = angle_right
 
-func take_damage(damage=1):
-	health -= damage
+func take_damage(damage=5):
+	health -= damage * damage_reduction
 	progress_bar.value = health
 	if health <= 0:
 		health_depleted.emit()
@@ -274,8 +279,16 @@ func _on_reread_stats():
 	gravity_damping = PlayerStats.gravity_damping
 	air_speed_increment = PlayerStats.air_speed_increment
 	max_health = PlayerStats.max_health
-	health = PlayerStats.health
 	max_jumps = PlayerStats.max_jumps
 	max_flight = PlayerStats.max_flight
 	dash_delay = PlayerStats.dash_delay
 	gravity = PlayerStats.gravity
+	damage_reduction = PlayerStats.damage_reduction
+	regeneration = PlayerStats.regeneration
+	progress_bar.max_value = max_health
+
+
+func _on_regen_timer_timeout():
+	if health < max_health:
+		health = min(max_health, health + regeneration)
+	progress_bar.value = health

@@ -48,7 +48,7 @@ func _physics_process(delta):
 	if can_move:
 		velocity.x = round(direction.x) * SPEED
 	
-	if status == "ATTACKING" and attack_timer.time_left == 0 or status == "RETREATING" and attack_timer.time_left == 0:
+	if ((status == "ATTACKING" and attack_timer.time_left <= 0) or (status == "RETREATING" and attack_timer.time_left <= 0)):
 		attack()
 		attack_timer.wait_time = 2
 		attack_timer.start()

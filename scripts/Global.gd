@@ -2,6 +2,7 @@ extends Node
 
 var hotbar = []
 var inventory = []
+var artifacts = []
 var player_node: Node = null
 
 #WaveBasedStuff-AK
@@ -16,6 +17,35 @@ signal inventory_updated
 func _ready():
 	inventory.resize(45)
 	hotbar.resize(9)
+	artifacts.resize(5)
+
+func equip_item(item):
+	if !MasterInventory.master_inventory["artifact"].has(item["name"].to_lower()):
+		return false
+	
+	if item in artifacts:
+		unequip_item(item)
+		return true
+	
+	if item not in artifacts:
+		for i in range(artifacts.size()):
+			if artifacts[i] == null:
+				artifacts[i] = item
+				remove_item(item["name"])
+				item["quantity"] = 1
+				inventory_updated.emit()
+				SignalBus.calc_stats.emit()
+				return true
+		return false
+	
+	return false
+
+func unequip_item(item):
+	var index = artifacts.find(item)
+	artifacts[index] = null
+	add_item(item)
+	SignalBus.calc_stats.emit()
+	return true
 
 func add_item(item):
 	for i in range(inventory.size()):
