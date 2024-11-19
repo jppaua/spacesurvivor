@@ -112,7 +112,7 @@ func update_speed(delta):
 			speed_change_direction = 1
 
 func attack():
-	var projectile = load("res://scenes/prefabs/rock.tscn")
+	var projectile = load("res://scenes/prefabs/void.tscn")
 	var projectile_instance = projectile.instantiate()
 	var scale = Global.player_node.get_node("PlayerParent").scale
 	projectile_instance.global_position = global_position
