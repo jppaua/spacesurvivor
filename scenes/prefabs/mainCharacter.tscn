@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dinb37355x3ql"]
+[gd_scene load_steps=34 format=3 uid="uid://dinb37355x3ql"]
 
 [ext_resource type="Script" path="res://scripts/mainCharacter.gd" id="1_ce8oy"]
 [ext_resource type="Texture2D" uid="uid://fae4g2ifakxt" path="res://assets/character/astrospritesheet-Sheet (1).png" id="3_kp3y3"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://crpdl0hc4lmvd" path="res://scenes/prefabs/crafting_ui.tscn" id="9_7wg6j"]
 [ext_resource type="PackedScene" uid="uid://bfaoydglmopsw" path="res://scenes/prefabs/skill_tree.tscn" id="9_ioeng"]
 [ext_resource type="AudioStream" uid="uid://hkgk5my5jvug" path="res://audio/sfx/testSound.wav" id="11_8nhs6"]
+[ext_resource type="AudioStream" uid="uid://6nvxovdjxoar" path="res://audio/sfx/jump.wav" id="12_y61il"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tf4f7"]
 atlas = ExtResource("3_kp3y3")
@@ -516,9 +517,10 @@ autostart = true
 [node name="SFX" type="Node2D" parent="."]
 
 [node name="SFXTestSound" type="AudioStreamPlayer2D" parent="SFX"]
-scale = Vector2(2, 2)
 stream = ExtResource("11_8nhs6")
-bus = &"SFX"
+
+[node name="SFXJump" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("12_y61il")
 
 [connection signal="health_depleted" from="." to="." method="_on_health_depleted"]
 [connection signal="pressed" from="GameOver/ColorRect/reset" to="." method="_on_reset_pressed"]

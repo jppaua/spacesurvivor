@@ -3,6 +3,10 @@ extends CharacterBody2D
 const SPEED = 2000.0
 var damage = 0
 var knockback = Vector2(300, -200)
+var sfx = "res://audio/sfx/click.wav"
+
+func _ready():
+	SoundManager.play(sfx)
 
 func _physics_process(_delta):
 	var direction = Vector2(cos(rotation), sin(rotation))
@@ -11,8 +15,7 @@ func _physics_process(_delta):
 
 func _on_timer_timeout():
 	queue_free()
-	
-	
+
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("solid_tile") or body.is_in_group("enemy"):
 		if body.has_method("take_damage"):

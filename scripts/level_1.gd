@@ -5,8 +5,8 @@ extends Node2D
 @onready var enemiesremaining = $ScoreTracking/VBoxContainer/EnemiesRemaining
 var paused = false
 
-@onready var restMusic = $Player/BGMRest
-@onready var battleMusic = $Player/BGMBattle
+@onready var restMusic = "res://audio/music/Ben Prunty - FTL - 02 MilkyWay (Explore).mp3"
+@onready var battleMusic = "res://audio/music/Ben Prunty - FTL - 15 MilkyWay (Battle).mp3"
 
 #var restMusic = "res://audio/music/Ben Prunty - FTL - 02 MilkyWay (Explore).mp3"
 #var battleMusic = "res://audio/music/Ben Prunty - FTL - 15 MilkyWay (Battle).mp3"
@@ -14,9 +14,6 @@ var paused = false
 #####-WAVE BASED SYSTEM STUFF-#######
 #Handling the wave based system in the level script
 
-#set in inspector
-@export var rock_elemental_scene: PackedScene
-@export var frog_scene: PackedScene
 #set in inspector
 @export var rock_elemental_scene: PackedScene
 @export var frog_scene: PackedScene
@@ -34,7 +31,9 @@ func _ready():
 	enemies.clear() #clear the enemies before next wave
 	position_to_next_wave()
 	update_wave_info()
-
+	if !SoundManager.isSameTrack(restMusic,battleMusic):
+		SoundManager.changeMusic(restMusic,battleMusic)
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -51,8 +50,6 @@ func transition_to_next_wave():
 		wave_spawn_ended = false 
 	await get_tree().create_timer(2.0).timeout
 	position_to_next_wave()
-
-
 
 func position_to_next_wave():
 	if enemies.size() == 0:  # Check if there are no enemies left
@@ -132,9 +129,11 @@ func _on_enemy_died(enemy):
 
 func PauseMenu():
 	if paused:
+		SoundManager.changeRestBattle(false)
 		pause_menu.hide()
 		Engine.time_scale = 1
 	else:
+		SoundManager.changeRestBattle(true)
 		pause_menu.show()
 		Engine.time_scale = 0
 	paused = !paused
@@ -147,14 +146,3 @@ func reset_pause_state():
 func update_wave_info():
 	wave_info.text = "Wave: %d" % current_wave
 	enemiesremaining.text = "Enemies Remaining: %d" % enemies.size()
-
-#Swaps the BGM between the two tracks
-func BGMRestBattle(restBattle: bool):
-	if restMusic.playing == true and restBattle == true:
-		var musicPos = restMusic.get_playback_position()
-		battleMusic.stop()
-		battleMusic.play(musicPos)
-	elif battleMusic.playing == true and restBattle == false:
-		var musicPos = battleMusic.get_playback_position()
-		battleMusic.stop()
-		restMusic.play(musicPos)

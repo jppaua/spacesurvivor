@@ -61,6 +61,9 @@ var dash_mode = false
 @onready var regen_timer = $regenTimer
 
 @onready var SFX = $SFX/SFXTestSound
+@onready var SFXJump = $SFX/SFXJump
+
+var SFXA = "res://audio/sfx/testSound.wav"
 
 func _ready():
 	#hooks up player to inventory
@@ -202,7 +205,7 @@ func handle_movement(direction, delta):
 	if Input.is_action_just_pressed("jump") and jumps>0:
 		velocity.y = jump_velocity
 		jumps-=1
-		SFX.play()
+		SFXJump.play()
 	
 	#Allows player to Hover for a set amount of time
 	if Input.is_action_pressed("jump") and velocity.y > 0 and flight_time > 0:
@@ -232,6 +235,7 @@ func handle_movement(direction, delta):
 			if dash_mode:
 				#Temp Replace with final formula later
 				velocity.x = direction * dash_speed
+				SFX.play()
 			else:
 				#Warp Code, Replace const 400 with variable later
 				var warp_vector = Vector2(direction,0) * 400
@@ -241,6 +245,7 @@ func handle_movement(direction, delta):
 					#Temp fix to prevent wall clipping
 					warp_pos = collide.get_position() - Vector2(direction,0)*20
 				global_position = warp_pos
+				SFX.play()
 			previous_movement = 0
 			dash_cooldown = 0
 		else:
@@ -258,6 +263,7 @@ func orient_player_arms(mouse_position):
 	right_arm_parent.rotation = angle_right
 
 func take_damage(damage=5):
+	SFX.play()
 	health -= damage * damage_reduction
 	progress_bar.value = health
 	if health <= 0:

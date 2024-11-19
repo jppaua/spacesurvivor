@@ -3,7 +3,8 @@ extends Control
 var menuMusic = "res://audio/music/Ben Prunty - FTL - 01 Space Cruise (Title).mp3"
 
 func _ready():
-	SoundManager.changeMusic(menuMusic,menuMusic)
+	if !SoundManager.isSameTrack(menuMusic,menuMusic):
+		SoundManager.changeMusic(menuMusic,menuMusic)
 
 
 func _on_start_button_pressed():

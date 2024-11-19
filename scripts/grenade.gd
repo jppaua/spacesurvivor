@@ -6,6 +6,7 @@ var enemiesInRange = []
 var knockback = Vector2(600, -600)
 var has_exploded = false
 var grenade_explosion = preload("res://scenes/prefabs/grenade_explosion.tscn")
+var explosionSFX = "res://audio/sfx/explosion.wav"
 
 func _physics_process(_delta):
 	var direction = Vector2(cos(rotation), sin(rotation))
@@ -37,6 +38,7 @@ func _on_area_2d_body_entered(body):
 		await get_tree().create_timer(particles.lifetime+0.1).timeout
 		new_explosion_particles.queue_free()
 		queue_free()
+	SoundManager.play(explosionSFX)
 
 
 func _on_explosion_hit_box_body_entered(body):
