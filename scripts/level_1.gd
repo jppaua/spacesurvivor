@@ -10,6 +10,7 @@ var paused = false
 
 #set in inspector
 @export var rock_elemental_scene: PackedScene
+@export var frog_scene: PackedScene
 
 var current_wave: int
 var wave_spawn_ended: bool
@@ -51,11 +52,13 @@ func position_to_next_wave():
 		#Global.current_wave = current_wave
 		await get_tree().create_timer(0.5).timeout
 		prepare_spawn("rockElemental", 2, 2)
-		print("current wave: ", current_wave)
+		if current_wave >= 3:
+			prepare_spawn("frog", 1, 2)
+		print(current_wave)
 		update_wave_info()
 
 func prepare_spawn(type, modifier, mob_spawns):
-	var mob_amount = int(2 + (current_wave * modifier * 1.2))
+	var mob_amount = int(current_wave * modifier * 1.2)
 	var mob_wait_time: int = 2 #2 second spawn rate
 	print("mob amount: ", mob_amount)
 	if mob_amount >0:
@@ -81,6 +84,17 @@ func spawn_type(type, mob_spawn_rounds, mob_wait_time):
 				rockElemental2.connect("died", Callable(self, "_on_enemy_died"))
 				enemies.append(rockElemental1)
 				enemies.append(rockElemental2)
+				update_wave_info()
+				await get_tree().create_timer(mob_wait_time).timeout
+	if type == "frog":
+		var frog_spawn1 = $Node2enemiesD/frog_spawn1
+		if mob_spawn_rounds >=1:
+			for i in range(int(mob_spawn_rounds)):
+				var frog1 = frog_scene.instantiate()
+				frog1.global_position = frog_spawn1.global_position
+				add_child(frog1)
+				frog1.connect("died", Callable(self, "_on_enemy_died"))
+				enemies.append(frog1)
 				update_wave_info()
 				await get_tree().create_timer(mob_wait_time).timeout
 	wave_spawn_ended = true
