@@ -5,11 +5,17 @@ var damage = 0
 var enemiesInRange = []
 var knockback = Vector2(1200, -1200)
 var has_exploded = false
-var grenade_explosion = preload("res://scenes/prefabs/grenade_explosion.tscn")
+var grenade_explosion = preload("res://scenes/prefabs/meteor_explosion.tscn")
 var rng = RandomNumberGenerator.new()
 var direction = 0
 
+@onready var sprite_2d = $Sprite2D
+
 func _ready():
+	sprite_2d.rotation = rng.randf_range(0, 360)
+	var scale = rng.randf_range(-0.5, 1)
+	sprite_2d.scale += Vector2(scale, scale)
+	
 	var target = get_global_mouse_position()
 	var x_offset = rng.randf_range(-1000.0, 1000.0)
 	self.global_position = Vector2(target.x + x_offset, target.y - 1000)
@@ -41,7 +47,13 @@ func _on_area_2d_body_entered(body):
 		var new_explosion_particles = grenade_explosion.instantiate()
 		add_child(new_explosion_particles)
 		var particles = new_explosion_particles.get_node("explosion")
+		var particles1 = new_explosion_particles.get_node("explosion1")
+		var particles2 = new_explosion_particles.get_node("explosion2")
+		var particles3 = new_explosion_particles.get_node("explosion3")
 		particles.emitting = true
+		particles1.emitting = true
+		particles2.emitting = true
+		particles3.emitting = true
 		await get_tree().create_timer(particles.lifetime+0.1).timeout
 		new_explosion_particles.queue_free()
 		queue_free()
