@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://byjjlfkh278ig"]
+[gd_scene load_steps=26 format=3 uid="uid://byjjlfkh278ig"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_5qxni"]
 [ext_resource type="Texture2D" uid="uid://bhjhvm4l38nfd" path="res://assets/SSAssets/Backgrounds/Merchant Tileset Sidescroller/Sci-fi Tileset re-imagined.png" id="1_phg2p"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://td8r0lh6vrh" path="res://assets/SSAssets/Backgrounds/Dungeon Ruins Tileset/Dungeon Ruins Tileset Day.png" id="2_j6wfr"]
 [ext_resource type="Texture2D" uid="uid://gvyeoggt6tsm" path="res://assets/SSAssets/Backgrounds/Dungeon Ruins Tileset/Dungeon Ruins Tileset Night.png" id="3_b3nqm"]
 [ext_resource type="Texture2D" uid="uid://bxvnjemfqpf6i" path="res://assets/SSAssets/Backgrounds/industrial.v2.png" id="4_8cpyc"]
+[ext_resource type="PackedScene" uid="uid://dunyeuocviw0h" path="res://scenes/prefabs/flying_geode.tscn" id="4_au3iw"]
 [ext_resource type="PackedScene" uid="uid://dinb37355x3ql" path="res://scenes/prefabs/mainCharacter.tscn" id="5_7c5no"]
 [ext_resource type="Texture2D" uid="uid://d0d0q1xqptd7g" path="res://assets/SSAssets/Backgrounds/THE/Tileset/tileset 1.png" id="5_7lp4a"]
 [ext_resource type="PackedScene" uid="uid://damgtv70ceswa" path="res://scenes/prefabs/item_gun.tscn" id="7_pa1nh"]
@@ -5106,6 +5107,7 @@ source_geometry_group_name = &"navigation_polygon_source_group"
 script = ExtResource("1_5qxni")
 rock_elemental_scene = ExtResource("2_a7pen")
 frog_scene = ExtResource("11_dcbq6")
+flying_geode_scene = ExtResource("4_au3iw")
 
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 
@@ -5175,6 +5177,9 @@ position = Vector2(7196, 128)
 
 [node name="rock_elemental_spawn2" type="Marker2D" parent="Node2enemiesD"]
 position = Vector2(3424, 369)
+
+[node name="flying_geode_spawn1" type="Marker2D" parent="Node2enemiesD"]
+position = Vector2(5515, -240)
 
 [node name="frog_spawn1" type="Marker2D" parent="Node2enemiesD"]
 position = Vector2(5506, 412)

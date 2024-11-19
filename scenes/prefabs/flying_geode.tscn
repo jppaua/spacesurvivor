@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dunyeuocviw0h"]
 
 [ext_resource type="Script" path="res://scripts/flying_geode.gd" id="1_g3anc"]
-[ext_resource type="Texture2D" uid="uid://b8y8ugqjaw1md" path="res://assets/enemies/void_skull.png" id="2_ket8j"]
+[ext_resource type="Texture2D" uid="uid://ct8aemxw6rd2d" path="res://assets/enemies/void_skull.png" id="2_ket8j"]
 [ext_resource type="FontFile" uid="uid://bp8shuqwwyqdy" path="res://assets/fonts/Hardpixel-nn51.otf" id="3_a6qde"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ldwte"]
@@ -65,6 +65,7 @@ shape = SubResource("RectangleShape2D_ldwte")
 [node name="EnemyInfo" type="CanvasGroup" parent="."]
 
 [node name="status" type="Label" parent="EnemyInfo"]
+visible = false
 offset_left = -35.0
 offset_top = -74.0
 offset_right = 36.0
