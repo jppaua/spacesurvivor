@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dunyeuocviw0h"]
 
 [ext_resource type="Script" path="res://scripts/flying_geode.gd" id="1_g3anc"]
-[ext_resource type="Texture2D" uid="uid://vmj7bfs5d10t" path="res://assets/enemies/rock_elemental.png" id="2_ctg5b"]
+[ext_resource type="Texture2D" uid="uid://b8y8ugqjaw1md" path="res://assets/enemies/void_skull.png" id="2_ket8j"]
 [ext_resource type="FontFile" uid="uid://bp8shuqwwyqdy" path="res://assets/fonts/Hardpixel-nn51.otf" id="3_a6qde"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ldwte"]
@@ -40,8 +40,9 @@ script = ExtResource("1_g3anc")
 [node name="flying_geode_parent" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="flying_geode_parent"]
-scale = Vector2(2.428, 2.428)
-texture = ExtResource("2_ctg5b")
+position = Vector2(1.78814e-06, 0)
+scale = Vector2(2.40625, 2.40625)
+texture = ExtResource("2_ket8j")
 
 [node name="Timer" type="Timer" parent="flying_geode_parent"]
 wait_time = 2.0
