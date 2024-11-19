@@ -8,6 +8,9 @@ var paused = false
 @onready var restMusic = $Player/BGMRest
 @onready var battleMusic = $Player/BGMBattle
 
+#var restMusic = "res://audio/music/Ben Prunty - FTL - 02 MilkyWay (Explore).mp3"
+#var battleMusic = "res://audio/music/Ben Prunty - FTL - 15 MilkyWay (Battle).mp3"
+
 #####-WAVE BASED SYSTEM STUFF-#######
 #Handling the wave based system in the level script
 

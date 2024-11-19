@@ -24,6 +24,7 @@ MasterRecipeBook="*res://scripts/MasterRecipeBook.gd"
 DamageNumbers="*res://scripts/DamageNumbers.gd"
 PlayerStats="*res://scripts/player_stats.gd"
 SignalBus="*res://scripts/SignalBus.gd"
+SoundManager="*res://scripts/SoundManager.gd"
 
 [display]
 

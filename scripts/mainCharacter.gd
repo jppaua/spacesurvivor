@@ -60,6 +60,7 @@ var dash_mode = false
 
 @onready var regen_timer = $regenTimer
 
+@onready var SFX = $SFX/SFXTestSound
 
 func _ready():
 	#hooks up player to inventory
@@ -201,11 +202,14 @@ func handle_movement(direction, delta):
 	if Input.is_action_just_pressed("jump") and jumps>0:
 		velocity.y = jump_velocity
 		jumps-=1
+		SFX.play()
 	
 	#Allows player to Hover for a set amount of time
 	if Input.is_action_pressed("jump") and velocity.y > 0 and flight_time > 0:
 		velocity.y = 0
 		flight_time-=delta
+		if !SFX.playing:
+			SFX.play()
 	
 	#Applies maximum speed to user if they move while on the ground (unlike air movement)
 	if direction and is_on_floor() and abs(velocity.x)<speed:
