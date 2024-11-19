@@ -17,6 +17,10 @@ var paused = false
 #set in inspector
 @export var rock_elemental_scene: PackedScene
 @export var frog_scene: PackedScene
+#set in inspector
+@export var rock_elemental_scene: PackedScene
+@export var frog_scene: PackedScene
+@export var flying_geode_scene: PackedScene
 
 var current_wave: int
 var wave_spawn_ended: bool
@@ -30,7 +34,6 @@ func _ready():
 	enemies.clear() #clear the enemies before next wave
 	position_to_next_wave()
 	update_wave_info()
-	restMusic.play()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -58,15 +61,17 @@ func position_to_next_wave():
 		current_wave += 1
 		#Global.current_wave = current_wave
 		await get_tree().create_timer(0.5).timeout
-		prepare_spawn("rockElemental", 2, 2)
+		prepare_spawn("rockElemental", 1, 2)
 		if current_wave >= 3:
 			prepare_spawn("frog", 1, 2)
+		if current_wave >= 5:
+			prepare_spawn("flyingGeode", 1, 2)
 		print(current_wave)
 		update_wave_info()
 
 func prepare_spawn(type, modifier, mob_spawns):
 	var mob_amount = int(current_wave * modifier * 1.2)
-	var mob_wait_time: int = 2 #2 second spawn rate
+	var mob_wait_time: int = 4 #2 second spawn rate
 	print("mob amount: ", mob_amount)
 	if mob_amount >0:
 		var mob_spawn_rounds = floor(mob_amount/mob_spawns)
@@ -104,6 +109,17 @@ func spawn_type(type, mob_spawn_rounds, mob_wait_time):
 				enemies.append(frog1)
 				update_wave_info()
 				await get_tree().create_timer(mob_wait_time).timeout
+	if type == "flyingGeode":
+		var flying_geode_spawn1 = $Node2enemiesD/flying_geode_spawn1
+		if mob_spawn_rounds >= 1:
+			for i in range(int(mob_spawn_rounds)):
+				var flyingGeode1 = flying_geode_scene.instantiate()
+				flyingGeode1.global_position = flying_geode_spawn1.global_position
+				add_child(flyingGeode1)
+				flyingGeode1.connect("died", Callable(self, "_on_enemy_died"))
+				enemies.append(flyingGeode1)
+				update_wave_info()
+				await get_tree().create_timer(mob_wait_time).timeout
 	wave_spawn_ended = true
 
 func _on_enemy_died(enemy):
@@ -116,11 +132,9 @@ func _on_enemy_died(enemy):
 
 func PauseMenu():
 	if paused:
-		BGMRestBattle(true)
 		pause_menu.hide()
 		Engine.time_scale = 1
 	else:
-		BGMRestBattle(false)
 		pause_menu.show()
 		Engine.time_scale = 0
 	paused = !paused

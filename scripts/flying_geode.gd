@@ -8,7 +8,7 @@ const MIN_DISTANCE = 300
 const MAX_DISTANCE = 450
 var air_speed_increment = 25
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var max_health = 999
+var max_health = 30
 var knockbackable = false
 var health = max_health
 var previous_x_position
@@ -17,8 +17,8 @@ var status = "CHASING"
 var player
 var HitParticles = preload("res://scenes/prefabs/hit_particle.tscn")
 var flying_mob = true
-var min_flying_height = 300  # Minimum height above the platform
-var max_flying_height = 400  # Maximum height above the platform
+var min_flying_height = 200  # Minimum height above the platform
+var max_flying_height = 300  # Maximum height above the platform
 var altitude_speed = 50
 var current_speed = BASE_SPEED
 var speed_change_direction = 1
@@ -112,7 +112,7 @@ func update_speed(delta):
 			speed_change_direction = 1
 
 func attack():
-	var projectile = load("res://scenes/prefabs/rock.tscn")
+	var projectile = load("res://scenes/prefabs/void.tscn")
 	var projectile_instance = projectile.instantiate()
 	var scale = Global.player_node.get_node("PlayerParent").scale
 	projectile_instance.global_position = global_position

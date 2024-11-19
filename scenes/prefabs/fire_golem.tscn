@@ -1,8 +1,50 @@
-[gd_scene load_steps=9 format=3 uid="uid://dunyeuocviw0h"]
+[gd_scene load_steps=15 format=3 uid="uid://c77wotaj1gt01"]
 
-[ext_resource type="Script" path="res://scripts/flying_geode.gd" id="1_g3anc"]
-[ext_resource type="Texture2D" uid="uid://ct8aemxw6rd2d" path="res://assets/enemies/void_skull.png" id="2_ket8j"]
-[ext_resource type="FontFile" uid="uid://bp8shuqwwyqdy" path="res://assets/fonts/Hardpixel-nn51.otf" id="3_a6qde"]
+[ext_resource type="Script" path="res://scripts/fire_golem.gd" id="1_5pb54"]
+[ext_resource type="Texture2D" uid="uid://y25fgf3pq1j4" path="res://assets/enemies/fire_elemental_walk.png" id="2_oad31"]
+[ext_resource type="Texture2D" uid="uid://ctuwnawkdveyp" path="res://assets/enemies/fire_elemental.png" id="2_y3c3p"]
+[ext_resource type="FontFile" uid="uid://bp8shuqwwyqdy" path="res://assets/fonts/Hardpixel-nn51.otf" id="3_hn3qy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjdm7"]
+atlas = ExtResource("2_oad31")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mg478"]
+atlas = ExtResource("2_oad31")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pnk42"]
+atlas = ExtResource("2_oad31")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ex85p"]
+atlas = ExtResource("2_oad31")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7hlpg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjdm7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mg478")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pnk42")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ex85p")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ldwte"]
 size = Vector2(32, 33)
@@ -31,32 +73,38 @@ point_count = 3
 offsets = PackedFloat32Array(0.26943, 0.722798)
 colors = PackedColorArray(0.666887, 0.528274, 0.303317, 1, 1, 1, 1, 1)
 
-[node name="flying geode" type="CharacterBody2D" groups=["enemy"]]
+[node name="fire_golem" type="CharacterBody2D" groups=["enemy"]]
 z_index = 1
 collision_layer = 4
-collision_mask = 4
-script = ExtResource("1_g3anc")
+collision_mask = 5
+script = ExtResource("1_5pb54")
 
-[node name="flying_geode_parent" type="Node2D" parent="."]
+[node name="fire_golem_parent" type="Node2D" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="flying_geode_parent"]
-position = Vector2(1.78814e-06, 0)
-scale = Vector2(2.40625, 2.40625)
-texture = ExtResource("2_ket8j")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="fire_golem_parent"]
+position = Vector2(0.5, 0.5)
+scale = Vector2(2.0625, 2.0625)
+sprite_frames = SubResource("SpriteFrames_7hlpg")
+animation = &"walk"
+frame_progress = 0.502601
 
-[node name="Timer" type="Timer" parent="flying_geode_parent"]
+[node name="Sprite2D" type="Sprite2D" parent="fire_golem_parent"]
+visible = false
+position = Vector2(0.5, 0.500001)
+scale = Vector2(2.0625, 2.0625)
+texture = ExtResource("2_y3c3p")
+
+[node name="Timer" type="Timer" parent="fire_golem_parent"]
 wait_time = 2.0
 one_shot = true
 autostart = true
 
-[node name="knockbackTimer" type="Timer" parent="flying_geode_parent"]
+[node name="knockbackTimer" type="Timer" parent="fire_golem_parent"]
 wait_time = 0.3
 one_shot = true
 
-[node name="stunTimer" type="Timer" parent="flying_geode_parent"]
-
-[node name="PlatformRayCast" type="RayCast2D" parent="flying_geode_parent"]
-target_position = Vector2(0, 1000)
+[node name="stunTimer" type="Timer" parent="fire_golem_parent"]
+wait_time = 0.3
 
 [node name="collisionbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
@@ -65,7 +113,6 @@ shape = SubResource("RectangleShape2D_ldwte")
 [node name="EnemyInfo" type="CanvasGroup" parent="."]
 
 [node name="status" type="Label" parent="EnemyInfo"]
-visible = false
 offset_left = -35.0
 offset_top = -74.0
 offset_right = 36.0
@@ -74,10 +121,11 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_constants/shadow_outline_size = 1
-theme_override_fonts/font = ExtResource("3_a6qde")
+theme_override_fonts/font = ExtResource("3_hn3qy")
 theme_override_font_sizes/font_size = 20
 text = "STATUS
 "
+metadata/_edit_use_anchors_ = true
 
 [node name="position" type="Label" parent="EnemyInfo"]
 visible = false
@@ -85,7 +133,7 @@ offset_left = -42.0
 offset_top = -94.0
 offset_right = 43.0
 offset_bottom = -70.0
-theme_override_fonts/font = ExtResource("3_a6qde")
+theme_override_fonts/font = ExtResource("3_hn3qy")
 theme_override_font_sizes/font_size = 20
 text = "[ X , Y ]
 "
@@ -101,6 +149,7 @@ max_value = 15.0
 step = 1.0
 value = 15.0
 show_percentage = false
+metadata/_edit_use_anchors_ = true
 
 [node name="DamageNumbersOrigin" type="Node2D" parent="."]
 position = Vector2(-8, -27)
