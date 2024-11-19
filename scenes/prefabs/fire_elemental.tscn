@@ -1,0 +1,91 @@
+[gd_scene load_steps=8 format=3 uid="uid://skkogwjnfwi8"]
+
+[ext_resource type="Script" path="res://scripts/fire_elemental.gd" id="1_pynpl"]
+[ext_resource type="Texture2D" uid="uid://ctuwnawkdveyp" path="res://assets/enemies/fire_elemental.png" id="2_xjlxx"]
+[ext_resource type="FontFile" uid="uid://bp8shuqwwyqdy" path="res://assets/fonts/Hardpixel-nn51.otf" id="3_fokdb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ytnl7"]
+radius = 19.2354
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ldwte"]
+size = Vector2(32, 33)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rl5bx"]
+bg_color = Color(0.117647, 0.117647, 0.117647, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing_size = 0.1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_le1cg"]
+bg_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing_size = 0.1
+
+[node name="fire_elemental" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 4
+collision_mask = 5
+script = ExtResource("1_pynpl")
+
+[node name="fire_elemental_parent" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="fire_elemental_parent"]
+scale = Vector2(2.4375, 2.4375)
+texture = ExtResource("2_xjlxx")
+
+[node name="Timer" type="Timer" parent="fire_elemental_parent"]
+wait_time = 0.05
+one_shot = true
+autostart = true
+
+[node name="hitbox" type="Area2D" parent="fire_elemental_parent"]
+light_mask = 0
+visibility_layer = 0
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="fire_elemental_parent/hitbox"]
+shape = SubResource("CircleShape2D_ytnl7")
+
+[node name="collisionbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_ldwte")
+
+[node name="EnemyInfo" type="CanvasGroup" parent="."]
+
+[node name="status" type="Label" parent="EnemyInfo"]
+offset_left = -35.0
+offset_top = -74.0
+offset_right = 36.0
+offset_bottom = -50.0
+theme_override_fonts/font = ExtResource("3_fokdb")
+theme_override_font_sizes/font_size = 20
+text = "STATUS
+"
+
+[node name="position" type="Label" parent="EnemyInfo"]
+visible = false
+offset_left = -42.0
+offset_top = -94.0
+offset_right = 43.0
+offset_bottom = -70.0
+theme_override_fonts/font = ExtResource("3_fokdb")
+theme_override_font_sizes/font_size = 20
+text = "[ X , Y ]
+"
+
+[node name="HP" type="ProgressBar" parent="EnemyInfo"]
+offset_left = -27.0
+offset_top = -30.0
+offset_right = 27.0
+offset_bottom = -24.0
+theme_override_styles/background = SubResource("StyleBoxFlat_rl5bx")
+theme_override_styles/fill = SubResource("StyleBoxFlat_le1cg")
+max_value = 15.0
+step = 1.0
+value = 15.0
+show_percentage = false

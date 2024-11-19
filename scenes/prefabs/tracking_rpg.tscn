@@ -1,0 +1,93 @@
+[gd_scene load_steps=10 format=3 uid="uid://t8lplyrjrdob"]
+
+[ext_resource type="Texture2D" uid="uid://bulxt058rvmt7" path="res://assets/resources/defaultItem.png" id="1_5u3ys"]
+[ext_resource type="Script" path="res://scripts/tracking_rpg.gd" id="1_fv0xm"]
+[ext_resource type="Texture2D" uid="uid://c1wjg63h2qque" path="res://assets/weapons/TrackingRound.png" id="2_1ituw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_52lj8"]
+size = Vector2(8, 20)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b3c41"]
+radius = 8.0
+height = 34.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5gq5u"]
+radius = 74.0068
+
+[sub_resource type="Curve" id="Curve_y42cu"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, 360), 0.0, 0.0, 0, 0, Vector2(0.992754, -360), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_7qxp6"]
+offsets = PackedFloat32Array(0, 0.108808, 0.310881, 0.313471, 0.437824, 0.510363, 1)
+colors = PackedColorArray(0.972549, 0.972549, 0, 1, 0.972549, 0.501961, 0, 1, 0.972549, 0, 0, 1, 0.972549, 0.501961, 0, 1, 0.972549, 0, 0, 1, 0.309651, 0.00910121, 0.0110115, 0.880184, 0.972549, 0.972549, 0.972549, 0)
+
+[sub_resource type="Gradient" id="Gradient_paflk"]
+colors = PackedColorArray(1, 1, 1, 1, 0.988235, 0.988235, 0.639216, 1)
+
+[node name="trackingGrenade" type="CharacterBody2D"]
+collision_layer = 32
+collision_mask = 5
+script = ExtResource("1_fv0xm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_52lj8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(20, 0)
+scale = Vector2(3, 3)
+texture = ExtResource("2_1ituw")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="bulletHitBox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bulletHitBox"]
+position = Vector2(20, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_b3c41")
+
+[node name="explosionHitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="radiusSize" type="Sprite2D" parent="explosionHitBox"]
+visible = false
+scale = Vector2(10.3036, 10.3036)
+texture = ExtResource("1_5u3ys")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="explosionHitBox"]
+shape = SubResource("CircleShape2D_5gq5u")
+
+[node name="trail" type="CPUParticles2D" parent="."]
+position = Vector2(7, 0)
+amount = 500
+lifetime = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(10, 4)
+direction = Vector2(-1, 0)
+spread = 90.0
+gravity = Vector2(0, -10)
+initial_velocity_min = 10.0
+initial_velocity_max = 70.0
+damping_min = 10.0
+damping_max = 10.0
+angle_min = -720.0
+angle_max = 720.0
+angle_curve = SubResource("Curve_y42cu")
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_7qxp6")
+color_initial_ramp = SubResource("Gradient_paflk")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="bulletHitBox" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="explosionHitBox" to="." method="_on_explosion_hit_box_body_entered"]
+[connection signal="body_exited" from="explosionHitBox" to="." method="_on_explosion_hit_box_body_exited"]

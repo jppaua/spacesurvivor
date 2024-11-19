@@ -1,0 +1,93 @@
+[gd_scene load_steps=9 format=3 uid="uid://caauw4nsdxjiu"]
+
+[ext_resource type="Script" path="res://scripts/iceblade.gd" id="1_ed5gy"]
+[ext_resource type="Texture2D" uid="uid://brf2ican8j5e0" path="res://assets/weapons/iceBlade.png" id="1_ig1s8"]
+
+[sub_resource type="Curve" id="Curve_g3wpp"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, 360), 0.0, 0.0, 0, 0, Vector2(0.992754, -360), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_6s7o2"]
+offsets = PackedFloat32Array(0.18123, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_7y253"]
+colors = PackedColorArray(0.411765, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w2fuo"]
+radius = 1.33333
+height = 16.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xk4h6"]
+radius = 4.0
+height = 34.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oue1w"]
+radius = 892.157
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+collision_layer = 32
+collision_mask = 5
+script = ExtResource("1_ed5gy")
+
+[node name="trail" type="CPUParticles2D" parent="."]
+amount = 50
+lifetime = 0.5
+lifetime_randomness = 0.04
+emission_shape = 1
+emission_sphere_radius = 14.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 30.0
+damping_min = 10.0
+damping_max = 10.0
+angle_min = -720.0
+angle_max = 720.0
+angle_curve = SubResource("Curve_g3wpp")
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_6s7o2")
+color_initial_ramp = SubResource("Gradient_7y253")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+scale = Vector2(1.5, 1.5)
+shape = SubResource("CapsuleShape2D_w2fuo")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("1_ig1s8")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_xk4h6")
+
+[node name="VisionArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea"]
+shape = SubResource("CircleShape2D_oue1w")
+
+[node name="idleTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="VisionArea" to="." method="_on_vision_area_body_entered"]
+[connection signal="body_exited" from="VisionArea" to="." method="_on_vision_area_body_exited"]

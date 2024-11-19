@@ -1,0 +1,107 @@
+[gd_scene load_steps=9 format=3 uid="uid://cef70r4asdiiw"]
+
+[ext_resource type="Script" path="res://scripts/meteor.gd" id="1_imb37"]
+[ext_resource type="Texture2D" uid="uid://bcfq7gtjfevqo" path="res://assets/resources/iron.png" id="2_gmw4r"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gm4c5"]
+radius = 26.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ado7u"]
+radius = 66.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wkgr0"]
+radius = 338.652
+
+[sub_resource type="Curve" id="Curve_iml1p"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, 360), 0.0, 0.0, 0, 0, Vector2(0.992754, -360), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_bruvv"]
+offsets = PackedFloat32Array(0, 0.108808, 0.310881, 0.313471, 0.437824, 0.510363, 1)
+colors = PackedColorArray(0.972549, 0.972549, 0, 1, 0.972549, 0.501961, 0, 1, 0.972549, 0, 0, 1, 0.972549, 0.501961, 0, 1, 0.972549, 0, 0, 1, 0.309651, 0.00910121, 0.0110115, 0.880184, 0.972549, 0.972549, 0.972549, 0)
+
+[sub_resource type="Gradient" id="Gradient_hfphh"]
+colors = PackedColorArray(1, 1, 1, 1, 0.988235, 0.988235, 0.639216, 1)
+
+[node name="meteor" type="CharacterBody2D"]
+collision_layer = 32
+collision_mask = 5
+script = ExtResource("1_imb37")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gm4c5")
+disabled = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 6.0
+one_shot = true
+autostart = true
+
+[node name="area2d" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="area2d"]
+shape = SubResource("CircleShape2D_ado7u")
+
+[node name="explosionHitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="explosionHitBox"]
+shape = SubResource("CircleShape2D_wkgr0")
+
+[node name="trail2" type="CPUParticles2D" parent="."]
+position = Vector2(0, 1)
+amount = 100
+lifetime = 0.5
+lifetime_randomness = 0.04
+emission_shape = 1
+emission_sphere_radius = 60.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 50.0
+damping_min = 10.0
+damping_max = 10.0
+angle_min = -720.0
+angle_max = 720.0
+angle_curve = SubResource("Curve_iml1p")
+scale_amount_min = 5.0
+scale_amount_max = 20.0
+color_ramp = SubResource("Gradient_bruvv")
+color_initial_ramp = SubResource("Gradient_hfphh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(8, 8)
+texture = ExtResource("2_gmw4r")
+
+[node name="trail" type="CPUParticles2D" parent="."]
+position = Vector2(0, 1)
+amount = 35
+lifetime = 0.5
+lifetime_randomness = 0.04
+emission_shape = 1
+emission_sphere_radius = 60.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 50.0
+damping_min = 10.0
+damping_max = 10.0
+angle_min = -720.0
+angle_max = 720.0
+angle_curve = SubResource("Curve_iml1p")
+scale_amount_min = 5.0
+scale_amount_max = 20.0
+color_ramp = SubResource("Gradient_bruvv")
+color_initial_ramp = SubResource("Gradient_hfphh")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="area2d" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="explosionHitBox" to="." method="_on_explosion_hit_box_body_entered"]
+[connection signal="body_exited" from="explosionHitBox" to="." method="_on_explosion_hit_box_body_exited"]

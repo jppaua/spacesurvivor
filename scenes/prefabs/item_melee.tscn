@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://3iy88eiyele"]
+
+[ext_resource type="Texture2D" uid="uid://bulxt058rvmt7" path="res://assets/resources/defaultItem.png" id="1_gtjjh"]
+[ext_resource type="Script" path="res://scripts/item_melee.gd" id="1_lif3p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ype45"]
+radius = 105.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lfdnm"]
+size = Vector2(2, 2)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qdy4t"]
+radius = 24.0
+
+[node name="item_melee" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_lif3p")
+
+[node name="Vacuum_Zone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vacuum_Zone"]
+shape = SubResource("CircleShape2D_ype45")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_lfdnm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2.428, 2.428)
+texture = ExtResource("1_gtjjh")
+
+[node name="Pickup_Zone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pickup_Zone"]
+shape = SubResource("CircleShape2D_qdy4t")
+
+[connection signal="body_entered" from="Vacuum_Zone" to="." method="_on_vacuum_zone_body_entered"]
+[connection signal="body_exited" from="Vacuum_Zone" to="." method="_on_vacuum_zone_body_exited"]
+[connection signal="body_entered" from="Pickup_Zone" to="." method="_on_pickup_zone_body_entered"]

@@ -1,0 +1,116 @@
+[gd_scene load_steps=13 format=3 uid="uid://bkbwbycnmr14h"]
+
+[ext_resource type="Script" path="res://scripts/Lightning.gd" id="1_pxtc4"]
+[ext_resource type="Shader" uid="uid://oivxt1wmmm63" path="res://assets/shaders/lightning_shader.tres" id="2_grsfu"]
+[ext_resource type="Texture2D" uid="uid://wwv3nyu1jswh" path="res://assets/shaders/lightning.png" id="3_ei6ga"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8mgvi"]
+radius = 23.0217
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yugnq"]
+shader = ExtResource("2_grsfu")
+shader_parameter/Vector2Parameter = Vector2(-2, 0)
+shader_parameter/basic_texture = ExtResource("3_ei6ga")
+
+[sub_resource type="Gradient" id="Gradient_k2swe"]
+colors = PackedColorArray(0.356863, 0, 1, 1, 0, 1, 1, 1)
+
+[sub_resource type="Curve" id="Curve_bpl7t"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, 360), 0.0, 0.0, 0, 0, Vector2(0.992754, -360), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_posve"]
+offsets = PackedFloat32Array(0, 0.682243, 1)
+colors = PackedColorArray(0.611765, 0.309804, 0.972549, 1, 0, 1, 1, 1, 0, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_i7ase"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="Curve" id="Curve_dy01f"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, 360), 0.0, 0.0, 0, 0, Vector2(0.992754, -360), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_8e5v2"]
+offsets = PackedFloat32Array(0, 0.64486, 1)
+colors = PackedColorArray(0, 1, 1, 1, 0.611765, 0.309804, 0.972549, 1, 0, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_ckbf2"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[node name="Lightning" type="Node2D"]
+script = ExtResource("1_pxtc4")
+
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("CircleShape2D_8mgvi")
+
+[node name="Line2D" type="Line2D" parent="."]
+z_index = 20
+material = SubResource("ShaderMaterial_yugnq")
+points = PackedVector2Array(596, 20, 598, 627)
+width = 25.0
+gradient = SubResource("Gradient_k2swe")
+texture_mode = 2
+
+[node name="rootParticles" type="CPUParticles2D" parent="."]
+z_index = 21
+position = Vector2(594, 20)
+amount = 50
+lifetime = 0.3
+lifetime_randomness = 0.04
+emission_shape = 1
+emission_sphere_radius = 5.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 37.0
+initial_velocity_max = 175.0
+damping_min = 10.0
+damping_max = 10.0
+angle_min = -720.0
+angle_max = 720.0
+angle_curve = SubResource("Curve_bpl7t")
+scale_amount_min = 0.25
+scale_amount_max = 5.0
+color_ramp = SubResource("Gradient_posve")
+color_initial_ramp = SubResource("Gradient_i7ase")
+
+[node name="impactParticles" type="CPUParticles2D" parent="."]
+z_index = 21
+position = Vector2(597, 626)
+amount = 100
+lifetime = 0.3
+lifetime_randomness = 0.04
+emission_shape = 1
+emission_sphere_radius = 5.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 75.0
+initial_velocity_max = 250.0
+damping_min = 10.0
+damping_max = 10.0
+angle_min = -720.0
+angle_max = 720.0
+angle_curve = SubResource("Curve_dy01f")
+scale_amount_min = 0.5
+scale_amount_max = 7.0
+color_ramp = SubResource("Gradient_8e5v2")
+color_initial_ramp = SubResource("Gradient_ckbf2")
+
+[node name="damageTimer" type="Timer" parent="."]
+wait_time = 0.05
+autostart = true
+
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_exited" from="hitbox" to="." method="_on_hitbox_body_exited"]
+[connection signal="timeout" from="damageTimer" to="." method="_on_damage_timer_timeout"]
