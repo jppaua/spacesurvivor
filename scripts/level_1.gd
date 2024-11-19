@@ -5,6 +5,9 @@ extends Node2D
 @onready var enemiesremaining = $ScoreTracking/VBoxContainer/EnemiesRemaining
 var paused = false
 
+@onready var restMusic = $Player/BGMRest
+@onready var battleMusic = $Player/BGMBattle
+
 #####-WAVE BASED SYSTEM STUFF-#######
 #Handling the wave based system in the level script
 
@@ -23,6 +26,7 @@ func _ready():
 	enemies.clear() #clear the enemies before next wave
 	position_to_next_wave()
 	update_wave_info()
+	restMusic.play()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -95,9 +99,11 @@ func _on_enemy_died(enemy):
 
 func PauseMenu():
 	if paused:
+		BGMRestBattle(true)
 		pause_menu.hide()
 		Engine.time_scale = 1
 	else:
+		BGMRestBattle(false)
 		pause_menu.show()
 		Engine.time_scale = 0
 	paused = !paused
@@ -110,3 +116,14 @@ func reset_pause_state():
 func update_wave_info():
 	wave_info.text = "Wave: %d" % current_wave
 	enemiesremaining.text = "Enemies Remaining: %d" % enemies.size()
+
+#Swaps the BGM between the two tracks
+func BGMRestBattle(restBattle: bool):
+	if restMusic.playing == true and restBattle == true:
+		var musicPos = restMusic.get_playback_position()
+		battleMusic.stop()
+		battleMusic.play(musicPos)
+	elif battleMusic.playing == true and restBattle == false:
+		var musicPos = battleMusic.get_playback_position()
+		battleMusic.stop()
+		restMusic.play(musicPos)

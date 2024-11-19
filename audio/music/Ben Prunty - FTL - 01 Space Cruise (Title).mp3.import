@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b2kscarh8dlwp"
+path="res://.godot/imported/Ben Prunty - FTL - 01 Space Cruise (Title).mp3-159b137e5706c2b1889005f82d929ba1.mp3str"
+
+[deps]
+
+source_file="res://audio/music/Ben Prunty - FTL - 01 Space Cruise (Title).mp3"
+dest_files=["res://.godot/imported/Ben Prunty - FTL - 01 Space Cruise (Title).mp3-159b137e5706c2b1889005f82d929ba1.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4
