@@ -1,0 +1,173 @@
+[gd_scene load_steps=15 format=3 uid="uid://c77wotaj1gt01"]
+
+[ext_resource type="Script" path="res://scripts/fire_golem.gd" id="1_5pb54"]
+[ext_resource type="Texture2D" uid="uid://y25fgf3pq1j4" path="res://assets/enemies/fire_elemental_walk.png" id="2_oad31"]
+[ext_resource type="Texture2D" uid="uid://ctuwnawkdveyp" path="res://assets/enemies/fire_elemental.png" id="2_y3c3p"]
+[ext_resource type="FontFile" uid="uid://bp8shuqwwyqdy" path="res://assets/fonts/Hardpixel-nn51.otf" id="3_hn3qy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjdm7"]
+atlas = ExtResource("2_oad31")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mg478"]
+atlas = ExtResource("2_oad31")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pnk42"]
+atlas = ExtResource("2_oad31")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ex85p"]
+atlas = ExtResource("2_oad31")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7hlpg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjdm7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mg478")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pnk42")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ex85p")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ldwte"]
+size = Vector2(32, 33)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rl5bx"]
+bg_color = Color(0.117647, 0.117647, 0.117647, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing_size = 0.1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_le1cg"]
+bg_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing_size = 0.1
+
+[sub_resource type="Curve" id="Curve_k1pqn"]
+_data = [Vector2(0.0241546, 1), 0.0, -0.439705, 0, 0, Vector2(0.688406, 0.814798), -0.989338, -0.989338, 0, 0, Vector2(0.954106, 0.00229788), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_na45h"]
+offsets = PackedFloat32Array(0.26943, 0.722798)
+colors = PackedColorArray(0.666887, 0.528274, 0.303317, 1, 1, 1, 1, 1)
+
+[node name="fire_golem" type="CharacterBody2D" groups=["enemy"]]
+z_index = 1
+collision_layer = 4
+collision_mask = 5
+script = ExtResource("1_5pb54")
+
+[node name="fire_golem_parent" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="fire_golem_parent"]
+position = Vector2(0.5, 0.5)
+scale = Vector2(2.0625, 2.0625)
+sprite_frames = SubResource("SpriteFrames_7hlpg")
+animation = &"walk"
+frame_progress = 0.502601
+
+[node name="Sprite2D" type="Sprite2D" parent="fire_golem_parent"]
+visible = false
+position = Vector2(0.5, 0.500001)
+scale = Vector2(2.0625, 2.0625)
+texture = ExtResource("2_y3c3p")
+
+[node name="Timer" type="Timer" parent="fire_golem_parent"]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="knockbackTimer" type="Timer" parent="fire_golem_parent"]
+wait_time = 0.3
+one_shot = true
+
+[node name="stunTimer" type="Timer" parent="fire_golem_parent"]
+wait_time = 0.3
+
+[node name="collisionbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_ldwte")
+
+[node name="EnemyInfo" type="CanvasGroup" parent="."]
+
+[node name="status" type="Label" parent="EnemyInfo"]
+offset_left = -35.0
+offset_top = -74.0
+offset_right = 36.0
+offset_bottom = -50.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 1
+theme_override_fonts/font = ExtResource("3_hn3qy")
+theme_override_font_sizes/font_size = 20
+text = "STATUS
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="position" type="Label" parent="EnemyInfo"]
+visible = false
+offset_left = -42.0
+offset_top = -94.0
+offset_right = 43.0
+offset_bottom = -70.0
+theme_override_fonts/font = ExtResource("3_hn3qy")
+theme_override_font_sizes/font_size = 20
+text = "[ X , Y ]
+"
+
+[node name="HP" type="ProgressBar" parent="EnemyInfo"]
+offset_left = -27.0
+offset_top = -28.0
+offset_right = 27.0
+offset_bottom = -24.0
+theme_override_styles/background = SubResource("StyleBoxFlat_rl5bx")
+theme_override_styles/fill = SubResource("StyleBoxFlat_le1cg")
+max_value = 15.0
+step = 1.0
+value = 15.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="DamageNumbersOrigin" type="Node2D" parent="."]
+position = Vector2(-8, -27)
+
+[node name="deathParticle" type="CPUParticles2D" parent="."]
+z_as_relative = false
+emitting = false
+amount = 60
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 250)
+initial_velocity_min = 50.0
+initial_velocity_max = 150.0
+scale_amount_min = 2.0
+scale_amount_max = 8.0
+scale_amount_curve = SubResource("Curve_k1pqn")
+color = Color(0.536499, 0.39643, 0.316404, 1)
+color_initial_ramp = SubResource("Gradient_na45h")
