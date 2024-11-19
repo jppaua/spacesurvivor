@@ -8,6 +8,11 @@ var player_node: Node = null
 #WaveBasedStuff-AK
 var current_wave: int
 var moving_to_next_wave: bool
+#just some experiments
+var frogDamageZone: Area2D
+var frogDamageAmount: int
+var playerBody: CharacterBody2D
+var playerDetectionbox: Area2D
 
 
 signal inventory_updated

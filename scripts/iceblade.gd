@@ -7,7 +7,7 @@ var knockback = Vector2(300, -200)
 var enemy_found = false
 var enemy_pos = null
 var distance = INF
-var rotation_speed = 17
+var rotation_speed = 12
 var direction_found = false
 
 @onready var idle_timer = $idleTimer

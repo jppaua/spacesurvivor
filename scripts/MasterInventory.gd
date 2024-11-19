@@ -147,6 +147,24 @@ var master_inventory = {
 			"y_barrel": -40,
 			"scene_path": "res://scenes/prefabs/item_gun.tscn"
 		},
+		"portal wand":{
+			"type": "firearm",
+			"name": "Portal wand",
+			"texture": preload("res://assets/weapons/portalWand.png"),
+			"projectile": "res://scenes/prefabs/astral_portal.tscn",
+			"description": "Bid astral comets welcome from another dimension",
+			"is_dual_wield": false,
+			"is_full_auto": false,
+			"damage": 3,
+			"rate_of_fire": 0.1,
+			"accuracy": 0.0,
+			"quantity": 1,
+			"x_offset": 5,
+			"y_offset": -1,
+			"x_barrel": 25,
+			"y_barrel": -40,
+			"scene_path": "res://scenes/prefabs/item_gun.tscn"
+		},
 		
 		"default":{
 			"type": "firearm",

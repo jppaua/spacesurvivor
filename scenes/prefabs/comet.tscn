@@ -1,0 +1,95 @@
+[gd_scene load_steps=12 format=3 uid="uid://dbs2nxl570vxq"]
+
+[ext_resource type="Script" path="res://scripts/comet.gd" id="1_qgaai"]
+[ext_resource type="Texture2D" uid="uid://dx4vdjxe4tl3t" path="res://assets/weapons/orangeComet.png" id="2_pytva"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rqd0m"]
+radius = 6.08276
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hppl3"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_txik2"]
+radius = 66.0
+
+[sub_resource type="Curve" id="Curve_84l1v"]
+_data = [Vector2(0, 0.0134554), 0.0, 1.27263, 0, 0, Vector2(0.896848, 1), 1.20243e-07, 1.20243e-07, 0, 0, Vector2(1, 0.024636), -31.3303, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_wvies"]
+offsets = PackedFloat32Array(0, 0.517134, 1)
+colors = PackedColorArray(0.596078, 0.227451, 1, 1, 0.980392, 0.227451, 1, 1, 1, 0.227451, 0.47451, 1)
+
+[sub_resource type="Curve" id="Curve_5v1wb"]
+_data = [Vector2(0, 0.0134554), 0.0, 1.27263, 0, 0, Vector2(0.896848, 1), 1.20243e-07, 1.20243e-07, 0, 0, Vector2(1, 0.024636), -31.3303, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_hecae"]
+colors = PackedColorArray(1, 0.227451, 0.47451, 1, 1, 0.639216, 0.227451, 1)
+
+[sub_resource type="Curve" id="Curve_rhdcb"]
+_data = [Vector2(0, 0.0134554), 0.0, 1.27263, 0, 0, Vector2(0.896848, 1), 1.20243e-07, 1.20243e-07, 0, 0, Vector2(1, 0.024636), -31.3303, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_72mra"]
+colors = PackedColorArray(1, 0.988235, 0.227451, 1, 1, 0.996078, 0.733333, 1)
+
+[node name="Comet" type="CharacterBody2D"]
+collision_layer = 32
+collision_mask = 5
+script = ExtResource("1_qgaai")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rqd0m")
+disabled = true
+
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("CircleShape2D_hppl3")
+
+[node name="explosionHitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="explosionHitBox"]
+shape = SubResource("CircleShape2D_txik2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+rotation = -0.785398
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_pytva")
+
+[node name="trail2" type="Line2D" parent="."]
+top_level = true
+width = 9.0
+width_curve = SubResource("Curve_84l1v")
+gradient = SubResource("Gradient_wvies")
+joint_mode = 2
+
+[node name="trail" type="Line2D" parent="."]
+top_level = true
+width = 9.0
+width_curve = SubResource("Curve_5v1wb")
+gradient = SubResource("Gradient_hecae")
+joint_mode = 2
+
+[node name="trail3" type="Line2D" parent="."]
+top_level = true
+width = 9.0
+width_curve = SubResource("Curve_rhdcb")
+gradient = SubResource("Gradient_72mra")
+joint_mode = 2
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="hitbox" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="explosionHitBox" to="." method="_on_explosion_hit_box_body_entered"]
+[connection signal="body_exited" from="explosionHitBox" to="." method="_on_explosion_hit_box_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
